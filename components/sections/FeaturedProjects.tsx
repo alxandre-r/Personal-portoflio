@@ -138,14 +138,14 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           viewport={{ once: true, margin: '-80px' }}
           className="flex flex-col gap-6"
         >
-          {/* Sandy — personal project hero */}
+          {/* Sandy - personal project hero */}
           {sandy && <SandyHeroCard project={sandy} />}
 
           {/* Enterprise projects grid */}
           {others.length > 0 && (
             <>
               <motion.p variants={fadeInUp} className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted-foreground)] mt-2">
-                Projets en entreprise — Weinmann Technologies
+                Projets en entreprise - Weinmann Technologies
               </motion.p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {others.map((project) => (

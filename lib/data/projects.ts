@@ -7,7 +7,7 @@ export const projects: Project[] = [
     colorKey: 'indigo',
     image: '/sandy.png',
     shortDescription:
-      'Application web de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l\'entretien, en un seul endroit.',
+      'Application web de gestion automobile personnelle et familiale  suivi des dépenses, de la consommation, des documents et de l\'entretien, en un seul endroit.',
     context:
       'Projet 100% personnel, conçu et développé seul de A à Z. L\'idée est née du manque d\'un outil simple pour centraliser tout ce qui concerne ses véhicules : consommation, dépenses, assurance, documents administratifs... les informations sont habituellement éparpillées entre des fichiers Excel, des boîtes mail et des tiroirs.',
     problem:
@@ -32,7 +32,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Coffre-fort de documents',
-        description: 'Stockez carte grise, attestation d\'assurance et contrôle technique — accessibles partout.',
+        description: 'Stockez carte grise, attestation d\'assurance et contrôle technique  accessibles partout.',
       },
       {
         title: 'Partage familial',
@@ -57,15 +57,15 @@ export const projects: Project[] = [
     title: 'Tempo',
     colorKey: 'amber',
     shortDescription:
-      'Outil interne de gestion du temps de travail pour Weinmann Technologies — déclarations d\'activités, validation managériale et synchronisation RH.',
+      'Outil interne de gestion du temps de travail pour Weinmann Technologies  déclarations d\'activités, validation managériale et synchronisation RH.',
     context:
       'Partie de la suite d\'outils internes développée chez Weinmann Technologies. Avant Tempo, les déclarations de temps se faisaient sur des tableurs Excel peu fiables, sans validation formelle et sans vue globale pour les managers. Le projet fait partie de l\'Espace Client Weinmann, un ensemble d\'applications internes pensées pour moderniser les processus métier de l\'entreprise.',
     problem:
       'Les tableurs Excel ne permettaient pas de gérer les droits (collaborateur vs manager), de valider les déclarations de manière traçable, ni de synchroniser automatiquement les absences depuis l\'outil RH Silae. Les cadres au forfait n\'avaient pas de système dédié pour leurs forfaits jours mensuels.',
     solution:
-      'Application web fullstack développée seul (frontend + backend). Les utilisateurs déclarent leurs activités quotidiennes, consultent leur historique et leurs absences — synchronisées automatiquement avec Silae via un script Python. Les managers disposent d\'un accès dédié pour valider ou corriger les déclarations. Gestion des rôles (collaborateur, manager, admin), protection des routes, et interface TailwindCSS modulaire.',
+      'Application web fullstack développée seul (frontend + backend). Les utilisateurs déclarent leurs activités quotidiennes, consultent leur historique et leurs absences  synchronisées automatiquement avec Silae via un script Python. Les managers disposent d\'un accès dédié pour valider ou corriger les déclarations. Gestion des rôles (collaborateur, manager, admin), protection des routes, et interface TailwindCSS modulaire.',
     result:
-      'Outil utilisé quotidiennement en production par l\'ensemble de l\'entreprise. Suppression complète des tableurs Excel. Gain de temps significatif pour les managers sur la validation. L\'outil continue d\'évoluer au fil des retours utilisateurs — preuve qu\'il a trouvé sa place dans leur quotidien.',
+      'Outil utilisé quotidiennement en production par l\'ensemble de l\'entreprise. Suppression complète des tableurs Excel. Gain de temps significatif pour les managers sur la validation. L\'outil continue d\'évoluer au fil des retours utilisateurs  preuve qu\'il a trouvé sa place dans leur quotidien.',
     techStack: ['HTML', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
     category: 'fullstack',
     featured: true,
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     title: 'Boléro',
     colorKey: 'green',
     shortDescription:
-      'Planning interactif des interventions SAV pour Weinmann Technologies — visualisation en temps réel des techniciens, clients et tournées.',
+      'Planning interactif des interventions SAV pour Weinmann Technologies  visualisation en temps réel des techniciens, clients et tournées.',
     context:
       'Outil interne de la suite Weinmann Technologies. Le service SAV gérait les plannings d\'interventions sur des fichiers Excel, sans vue claire de qui intervient où et quand. Ce projet fait partie de l\'Espace Client Weinmann, l\'ensemble des applications internes de l\'entreprise.',
     problem:
@@ -93,7 +93,7 @@ export const projects: Project[] = [
     title: 'Swing',
     colorKey: 'emerald',
     shortDescription:
-      'Interface mobile de préparation des commandes pour les magasiniers de Weinmann Technologies — remplacement des feuilles papier par une app connectée à l\'ERP.',
+      'Interface mobile de préparation des commandes pour les magasiniers de Weinmann Technologies  remplacement des feuilles papier par une app connectée à l\'ERP.',
     context:
       'Outil interne de la suite Weinmann Technologies. Les magasiniers préparaient les commandes avec des feuilles papier et des tableurs Excel, sujets aux erreurs de transcription et impossibles à synchroniser en temps réel avec l\'ERP. Ce projet s\'inscrit dans l\'Espace Client Weinmann, la suite d\'outils internes de l\'entreprise.',
     problem:
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     title: 'Espace Client Weinmann',
     colorKey: 'amber',
     shortDescription:
-      'Portail web client pour visualiser en temps réel les consommations et l\'état des cabines de peinture connectées — projet de fin d\'études.',
+      'Portail web client pour visualiser en temps réel les consommations et l\'état des cabines de peinture connectées  projet de fin d\'études.',
     context:
       'Projet de fin d\'études réalisé en alternance chez Weinmann Technologies. L\'entreprise fabrique des cabines de peinture industrielles connectées. Les clients n\'avaient pas de moyen simple de consulter l\'état de leurs équipements et leur consommation à distance. Ce projet est le projet principal de la suite interne Weinmann, dont Tempo, Boléro et Swing sont des composantes.',
     problem:

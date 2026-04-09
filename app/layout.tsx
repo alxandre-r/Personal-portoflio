@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Alexandre — Ingénieur Logiciel & Développeur Fullstack',
+    default: 'Alexandre - Ingénieur Logiciel & Développeur Fullstack',
     template: '%s | Alexandre',
   },
   description:
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    title: 'Alexandre — Ingénieur Logiciel & Développeur Fullstack',
+    title: 'Alexandre - Ingénieur Logiciel & Développeur Fullstack',
     description:
       'Portfolio d\'Alexandre, ingénieur logiciel et développeur fullstack.',
     siteName: 'Alexandre Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Alexandre — Ingénieur Logiciel & Développeur Fullstack',
+    title: 'Alexandre - Ingénieur Logiciel & Développeur Fullstack',
     description:
       'Portfolio d\'Alexandre, ingénieur logiciel et développeur fullstack.',
   },

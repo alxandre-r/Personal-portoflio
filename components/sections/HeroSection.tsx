@@ -32,7 +32,7 @@ export function HeroSection() {
         <motion.div variants={fadeInUp} className="mb-6">
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Ouvert aux opportunités — emploi à temps plein
+            Ouvert aux opportunités - emploi à temps plein
           </span>
         </motion.div>
 

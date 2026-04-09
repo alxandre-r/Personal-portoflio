@@ -64,7 +64,7 @@ export default function ContactPage() {
           </h1>
           <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto text-lg">
             Vous recrutez ? Vous avez un projet ou une collaboration en tête ? N&apos;hésitez pas à
-            m&apos;écrire — je réponds généralement sous 24h.
+            m&apos;écrire - je réponds généralement sous 24h.
           </p>
         </AnimatedSection>
 

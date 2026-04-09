@@ -5,7 +5,7 @@ import { SkillsSection } from '@/components/sections/SkillsSection'
 import { featuredProjects } from '@/lib/data/projects'
 
 export const metadata: Metadata = {
-  title: 'Alexandre — Ingénieur Logiciel & Développeur Fullstack',
+  title: 'Alexandre - Ingénieur Logiciel & Développeur Fullstack',
   description:
     "Portfolio d'Alexandre, ingénieur logiciel et développeur fullstack. Spécialisé en Next.js, TypeScript, React et Node.js.",
 }

@@ -149,7 +149,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
         </AnimatedSection>
       )}
 
-      {/* Screenshots gallery — only when more than 1 screenshot */}
+      {/* Screenshots gallery - only when more than 1 screenshot */}
       {hasGallery && (
         <AnimatedSection className="mb-12">
           <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">
