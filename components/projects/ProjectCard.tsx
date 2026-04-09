@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/Badge'
 import { fadeInUp } from '@/lib/animations'
@@ -48,63 +47,27 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {/* Color top bar */}
           <div className="h-1 w-full" style={{ background: color.topBar }} />
 
-          {/* Image / visual area */}
-          <div
-            className="relative h-44 overflow-hidden"
-            style={{
-              background: `linear-gradient(135deg, ${color.gradientFrom}22, ${color.gradientTo}44)`,
-            }}
-          >
-            {project.image ? (
-              <Image
-                src={project.image}
-                alt={`Capture d'écran de ${project.title}`}
-                fill
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            ) : (
-              /* Decorative placeholder for projects without screenshot */
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold opacity-40"
-                  style={{ background: color.topBar, color: '#fff' }}
-                >
-                  {project.title[0]}
-                </div>
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: `repeating-linear-gradient(45deg, ${color.topBar} 0, ${color.topBar} 1px, transparent 0, transparent 50%)`,
-                    backgroundSize: '10px 10px',
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Badges overlay */}
-            <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
+          {/* Content */}
+          <div className="flex flex-col flex-grow p-5 gap-3">
+            {/* Badges */}
+            <div className="flex flex-wrap items-center gap-1.5">
               {isPersonal && (
                 <span
-                  className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold backdrop-blur-sm"
+                  className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold"
                   style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
                   Projet personnel
                 </span>
               )}
-              {!isPersonal && <span />}
               <span
-                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm"
-                style={{ background: 'rgba(0,0,0,0.4)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}
+                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+                style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
               >
                 {categoryLabels[project.category]}
               </span>
             </div>
-          </div>
 
-          {/* Content */}
-          <div className="flex flex-col flex-grow p-5 gap-3">
             <h3
               className="text-base font-semibold leading-snug transition-colors"
               style={{ color: 'var(--color-foreground)' }}

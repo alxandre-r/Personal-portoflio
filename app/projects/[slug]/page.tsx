@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { getProjectBySlug, projects } from '@/lib/data/projects'
 import { projectColors } from '@/lib/projectColors'
+import { MarketingProjectDetail } from '@/components/projects/MarketingProjectDetail'
 import { icons } from '@/components/ui/SvgIcons'
 
 type Props = {
@@ -37,6 +38,15 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   const color = projectColors[project.colorKey]
+
+  if (project.features?.length) {
+    return (
+      <PageTransition>
+        <MarketingProjectDetail project={project} color={color} />
+      </PageTransition>
+    )
+  }
+
   const isPersonal = project.slug === 'sandy'
 
   const sections = [

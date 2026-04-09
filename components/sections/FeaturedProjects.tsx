@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
@@ -71,20 +72,6 @@ function SandyHeroCard({ project }: { project: Project }) {
                 </div>
               </div>
 
-              {/* CTA */}
-              <div className="flex flex-wrap items-center gap-4">
-                <span
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all group-hover:gap-3"
-                  style={{ background: color.topBar, color: '#fff' }}
-                >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" x2="21" y1="14" y2="3" />
-                  </svg>
-                  Utiliser l&apos;application
-                </span>
-              </div>
             </div>
 
             {/* Visual side */}
@@ -99,13 +86,17 @@ function SandyHeroCard({ project }: { project: Project }) {
                   backgroundImage: `repeating-linear-gradient(0deg, ${color.topBar} 0, ${color.topBar} 1px, transparent 0, transparent 40px), repeating-linear-gradient(90deg, ${color.topBar} 0, ${color.topBar} 1px, transparent 0, transparent 40px)`,
                 }}
               />
-              {/* Center icon */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-60">
-                <div className="text-6xl">🚗</div>
-                <p className="text-xs font-medium" style={{ color: color.text }}>
-                  ma-voiture-sandy.vercel.app
-                </p>
-              </div>
+              {/* Center image */}
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 384px"
+                  quality={90}
+                  className="object-cover"
+                />
+              )}
             </div>
           </div>
         </div>

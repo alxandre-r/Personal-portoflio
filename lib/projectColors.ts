@@ -1,6 +1,6 @@
 import type { ProjectColor } from './data/types'
 
-interface ColorPalette {
+export interface ColorPalette {
   gradientFrom: string
   gradientTo: string
   text: string

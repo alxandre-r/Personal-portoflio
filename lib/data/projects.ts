@@ -5,6 +5,7 @@ export const projects: Project[] = [
     slug: 'sandy',
     title: 'Sandy',
     colorKey: 'indigo',
+    image: '/sandy.png',
     shortDescription:
       'Application web de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l\'entretien, en un seul endroit.',
     context:
@@ -19,12 +20,42 @@ export const projects: Project[] = [
     category: 'fullstack',
     featured: true,
     demoUrl: 'https://ma-voiture-sandy.vercel.app/',
+    tagline: 'Toute la vie de votre voiture, en un seul endroit.',
+    features: [
+      {
+        title: 'Suivi des dépenses',
+        description: 'Catégorisez carburant, entretien, assurance et visualisez vos tendances sur des graphiques interactifs.',
+      },
+      {
+        title: 'Gestion multi-véhicules',
+        description: 'Ajoutez autant de véhicules que vous souhaitez et basculez entre eux en un clic.',
+      },
+      {
+        title: 'Coffre-fort de documents',
+        description: 'Stockez carte grise, attestation d\'assurance et contrôle technique — accessibles partout.',
+      },
+      {
+        title: 'Partage familial',
+        description: 'Invitez les membres de votre foyer et contrôlez précisément ce que chacun peut voir ou modifier.',
+      },
+      {
+        title: 'Dashboard analytics',
+        description: 'Tendances de consommation, coût au kilomètre, comparaisons inter-périodes.',
+      },
+      {
+        title: 'Dark / Light mode',
+        description: 'Thème soigné sans flash au chargement grâce à une détection côté serveur.',
+      },
+    ],
+    screenshots: [
+      '/sandy.png',
+      // Add more paths here when screenshots are ready, e.g. '/sandy-dashboard.png'
+    ],
   },
   {
     slug: 'tempo',
     title: 'Tempo',
     colorKey: 'amber',
-    image: '/tempo.png',
     shortDescription:
       'Outil interne de gestion du temps de travail pour Weinmann Technologies — déclarations d\'activités, validation managériale et synchronisation RH.',
     context:
@@ -43,7 +74,6 @@ export const projects: Project[] = [
     slug: 'bolero',
     title: 'Boléro',
     colorKey: 'green',
-    image: '/bolero.png',
     shortDescription:
       'Planning interactif des interventions SAV pour Weinmann Technologies — visualisation en temps réel des techniciens, clients et tournées.',
     context:
@@ -62,7 +92,6 @@ export const projects: Project[] = [
     slug: 'swing',
     title: 'Swing',
     colorKey: 'emerald',
-    image: '/swing.png',
     shortDescription:
       'Interface mobile de préparation des commandes pour les magasiniers de Weinmann Technologies — remplacement des feuilles papier par une app connectée à l\'ERP.',
     context:
@@ -81,7 +110,6 @@ export const projects: Project[] = [
     slug: 'espace-client-weinmann',
     title: 'Espace Client Weinmann',
     colorKey: 'amber',
-    image: '/espace-client.png',
     shortDescription:
       'Portail web client pour visualiser en temps réel les consommations et l\'état des cabines de peinture connectées — projet de fin d\'études.',
     context:
@@ -95,24 +123,6 @@ export const projects: Project[] = [
     techStack: ['React', 'Node.js', 'Express', 'MySQL', 'TailwindCSS', 'Python'],
     category: 'fullstack',
     featured: true,
-  },
-  {
-    slug: 'portfolio',
-    title: 'Portfolio v2',
-    colorKey: 'blue',
-    shortDescription:
-      'Ce portfolio — conçu comme un projet à part entière avec animations, dark mode et architecture Next.js 16 moderne.',
-    context:
-      'Refonte complète de mon portfolio personnel pour refléter mon niveau actuel et explorer Next.js 16 avec les dernières APIs de React 19.',
-    problem:
-      'L\'ancienne version était statique et ne mettait pas suffisamment en valeur les projets. Elle ne démontrait pas mes compétences frontend actuelles en matière d\'animations et de design system.',
-    solution:
-      'Portfolio construit avec Next.js 16 App Router, Tailwind CSS v4, Framer Motion pour les animations au scroll et les transitions, Zustand pour le state global (thème dark/light, filtres projets), et une architecture de composants réutilisables.',
-    result:
-      'Design system cohérent en dark/light mode avec persistance. Animations fluides à 60fps. Déployé sur Vercel en CI/CD. Toutes les routes pré-générées statiquement.',
-    techStack: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'Zustand', 'Vercel'],
-    category: 'web',
-    featured: false,
   },
 ]
 
