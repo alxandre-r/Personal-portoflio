@@ -16,7 +16,7 @@ export const projects: Project[] = [
       'Développement d\'une application fullstack Next.js avec un back-end Node.js, une base PostgreSQL, et un déploiement sur Vercel. L\'interface propose un dashboard analytics avec graphiques de tendances, une gestion multi-véhicules, le stockage de documents (carte grise, assurance...), et un système de préférences familiales pour contrôler ce qui est visible par chaque membre. Le mode dark/light est géré avec soin pour éviter le flash au chargement. Framer Motion apporte des animations fluides et des skeletons de chargement.',
     result:
       'Site entièrement fonctionnel, déployé en production sur Vercel.',
-    techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Framer Motion', 'Node.js', 'PostgreSQL', 'PM2', 'Nginx'],
+    techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Framer Motion', 'Node.js', 'PostgreSQL', 'Vercel'],
     category: 'fullstack',
     featured: true,
     demoUrl: 'https://ma-voiture-sandy.vercel.app/',
@@ -66,7 +66,7 @@ export const projects: Project[] = [
       'Application web fullstack développée seul (frontend + backend). Les utilisateurs déclarent leurs activités quotidiennes, consultent leur historique et leurs absences — synchronisées automatiquement avec Silae via un script Python. Les managers disposent d\'un accès dédié pour valider ou corriger les déclarations. Gestion des rôles (collaborateur, manager, admin), protection des routes, et interface TailwindCSS modulaire.',
     result:
       'Outil utilisé quotidiennement en production par l\'ensemble de l\'entreprise. Suppression complète des tableurs Excel. Gain de temps significatif pour les managers sur la validation. L\'outil continue d\'évoluer au fil des retours utilisateurs — preuve qu\'il a trouvé sa place dans leur quotidien.',
-    techStack: ['React', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'Python'],
+    techStack: ['HTML', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
     category: 'fullstack',
     featured: true,
   },
@@ -84,7 +84,7 @@ export const projects: Project[] = [
       'Application React avec DayPilot Scheduler pour une vue "ressource" en colonnes (techniciens) et échelle horaire en lignes, avec glisser-déposer. Back-end Express avec API REST optimisée pour des requêtes rapides sur plusieurs jours. Schéma MySQL structuré, scripts de migration depuis les exports Excel. Déploiement en production avec PM2 et reverse-proxy Nginx pour SSL et gestion des sous-domaines.',
     result:
       'V1 mise en ligne et adoptée par l\'équipe SAV complète, accessible sur desktop et tablette. Disparition des risques d\'erreurs liés aux formules Excel. Base de code documentée et solide pour la Phase 2 : édition des interventions directement dans l\'interface, nouvelles vues hebdomadaires et mensuelles.',
-    techStack: ['React', 'DayPilot Scheduler', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
+    techStack: ['React Native', 'DayPilot Scheduler', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
     category: 'fullstack',
     featured: false,
   },
@@ -102,7 +102,7 @@ export const projects: Project[] = [
       'Application web mobile-first développée avec HTML, TailwindCSS et Express. Interface ergonomique pensée pour les écrans tactiles après observation terrain des magasiniers. Intégration ERP via micro-services Python pour formater et transmettre les mises à jour de stock en temps réel. Gestion des connexions instables (retry, cache local léger), schéma MySQL avec index optimisés, et accès bureau pour le contrôle qualité et le suivi des expéditions.',
     result:
       'Adoption complète : les feuilles papier et tableurs sont définitivement remplacés. Quasi-disparition des erreurs de lecture et de transcription. Outil disponible en mobilité pour les magasiniers et sur postes fixes pour l\'équipe bureau. Évolutif : ajout ultérieur prévu de la capture de codes-barres et de l\'export PDF.',
-    techStack: ['HTML', 'TailwindCSS', 'Node.js', 'Express', 'Python', 'MySQL'],
+    techStack: ['HTML', 'TailwindCSS', 'Node.js', 'Express', 'Python', 'MySQL', 'PM2', 'Nginx', 'Mobile-first'],
     category: 'fullstack',
     featured: false,
   },
@@ -120,7 +120,7 @@ export const projects: Project[] = [
       'Développement d\'un portail web permettant aux clients de Weinmann de consulter en temps réel l\'état de leurs cabines : consommation, indicateurs de performance, historiques et alertes. Collecte automatisée des données des équipements, visualisation sous forme de dashboards, et architecture pensée pour accueillir plusieurs clients avec des droits d\'accès distincts.',
     result:
       'Portail livré et présenté comme projet de fin d\'études. Permet à Weinmann d\'offrir une expérience client moderne autour de ses équipements connectés et d\'ouvrir la voie à de nouveaux services digitaux.',
-    techStack: ['React', 'Node.js', 'Express', 'MySQL', 'TailwindCSS', 'Python'],
+    techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Node.js', 'MySQL', 'VPS Linux'],
     category: 'fullstack',
     featured: true,
   },

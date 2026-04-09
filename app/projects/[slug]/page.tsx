@@ -174,6 +174,24 @@ export default async function ProjectPage({ params }: Props) {
           </AnimatedSection>
         )}
 
+        {/* Tech stack */}
+        <AnimatedSection className="mb-12">
+          <h2 className="text-base font-semibold text-[var(--color-foreground)] mb-3">
+            Stack technique
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 rounded-full text-xs font-medium"
+                style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </AnimatedSection>
+
         {/* Storytelling sections */}
         <div className="space-y-4 mb-12">
           {sections.map((section, i) => (
@@ -198,24 +216,6 @@ export default async function ProjectPage({ params }: Props) {
             </AnimatedSection>
           ))}
         </div>
-
-        {/* Tech stack */}
-        <AnimatedSection className="mb-12">
-          <h2 className="text-base font-semibold text-[var(--color-foreground)] mb-3">
-            Stack technique
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 rounded-full text-xs font-medium"
-                style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </AnimatedSection>
 
         {/* Navigation */}
         <div className="pt-8 border-t border-[var(--color-border)]">
