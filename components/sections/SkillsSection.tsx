@@ -6,12 +6,10 @@ import { Badge } from '@/components/ui/Badge'
 import { skillsByCategory } from '@/lib/data/skills'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 import type { Skill } from '@/lib/data/types'
+import type { Dictionary } from '@/lib/i18n'
 
-const categoryLabels = {
-  frontend: 'Frontend',
-  backend: 'Backend',
-  devops: 'DevOps & Cloud',
-  tools: 'Outils',
+interface SkillsSectionProps {
+  t: Dictionary['home']['skills']
 }
 
 const categoryIcons = {
@@ -40,7 +38,7 @@ const categoryIcons = {
   ),
 }
 
-function SkillItem({ skill }: { skill: Skill }) {
+function SkillItem({ skill, levelLabels }: { skill: Skill; levelLabels: Dictionary['home']['skills']['levels'] }) {
   return (
     <motion.div
       variants={fadeInUp}
@@ -50,22 +48,22 @@ function SkillItem({ skill }: { skill: Skill }) {
         {skill.name}
       </span>
       <Badge variant="level" level={skill.level}>
-        {skill.level === 'expert' ? 'Expert' : skill.level === 'advanced' ? 'Avancé' : 'Intermédiaire'}
+        {levelLabels[skill.level]}
       </Badge>
     </motion.div>
   )
 }
 
-export function SkillsSection() {
+export function SkillsSection({ t }: SkillsSectionProps) {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Stack <span className="gradient-text">technique</span>
+            {t.title} <span className="gradient-text">{t.title_highlight}</span>
           </h2>
           <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto">
-            Technologies que j&apos;utilise quotidiennement pour concevoir et déployer des applications.
+            {t.subtitle}
           </p>
         </AnimatedSection>
 
@@ -85,12 +83,12 @@ export function SkillsSection() {
               <div className="flex items-center gap-2 mb-4 text-[var(--color-accent)]">
                 {categoryIcons[cat]}
                 <h3 className="text-sm font-semibold text-[var(--color-foreground)]">
-                  {categoryLabels[cat]}
+                  {t.categories[cat]}
                 </h3>
               </div>
               <div className="space-y-1">
                 {skillsByCategory[cat].map((skill) => (
-                  <SkillItem key={skill.name} skill={skill} />
+                  <SkillItem key={skill.name} skill={skill} levelLabels={t.levels} />
                 ))}
               </div>
             </motion.div>
