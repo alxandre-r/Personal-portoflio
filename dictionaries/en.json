@@ -1,0 +1,192 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "meta": {
+      "title": "Alexandre - Software Engineer & Fullstack Developer",
+      "description": "Alexandre's portfolio, software engineer and fullstack developer. Specialized in Next.js, TypeScript, React and Node.js."
+    },
+    "hero": {
+      "status": "Open to opportunities - full-time position",
+      "title": "Software Engineer",
+      "subtitle": "& Fullstack Developer",
+      "tagline": "I design and develop high-performance web applications, focusing on user experience, code quality and product value.",
+      "cta_projects": "View my projects",
+      "cta_contact": "Contact me",
+      "scroll": "Scroll"
+    },
+    "featured": {
+      "eyebrow": "Selected projects",
+      "title": "What I've",
+      "title_highlight": "built",
+      "cta": "View all projects",
+      "personal_badge": "Personal project · In production",
+      "enterprise_label": "Enterprise projects - Weinmann Technologies"
+    },
+    "skills": {
+      "title": "Tech",
+      "title_highlight": "stack",
+      "subtitle": "Technologies I use daily to design and deploy applications.",
+      "levels": {
+        "expert": "Expert",
+        "advanced": "Advanced",
+        "intermediate": "Intermediate"
+      },
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "devops": "DevOps & Cloud",
+        "tools": "Tools"
+      }
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "CNAM-graduated software engineer, curious and organized fullstack developer, looking for a full-time position."
+    },
+    "eyebrow": "About",
+    "title": "Software engineer,",
+    "title_highlight": "curious by nature",
+    "description_1": "I'm Alexandre, a recently graduated software engineer from CNAM. Throughout my journey, both in education and at work, I've acquired technical and interpersonal skills across various domains: web development, system infrastructure, project management and even embedded systems.",
+    "description_2": "I'm able to adapt quickly to new environments and grow independently, thanks to my curiosity and organizational skills.",
+    "description_3_prefix": "I'm currently looking for a ",
+    "description_3_bold": "full-time position",
+    "description_3_suffix": " at a company where I can keep learning, tackle technical challenges and contribute to concrete projects.",
+    "cta_contact": "Contact me",
+    "cta_cv": "Download my CV",
+    "sections": {
+      "softSkills": "Soft skills",
+      "timeline": "Background",
+      "technicalSkills": "Technical skills",
+      "certifications": "Certifications: GDPR (privacy best practices) · ANSSI (cybersecurity awareness)",
+      "languages": "Languages"
+    },
+    "softSkills": [
+      { "title": "Organized", "desc": "Effective task and priority management, even in multi-project environments." },
+      { "title": "Meticulous", "desc": "Attention to detail, clean and maintainable code, rigorous delivery." },
+      { "title": "Good listener", "desc": "Ability to understand the needs of users and colleagues alike, and respond accordingly." },
+      { "title": "Curious", "desc": "Constant drive to learn, understand how things work and discover new technologies." }
+    ],
+    "timeline": [
+      {
+        "year": "2022 - 2025",
+        "title": "Computer Engineering Degree (work-study)",
+        "institution": "CNAM Grand Est, Strasbourg",
+        "description": "Work-study at Weinmann Technologies, an industrial SME. Roles in the IT department: user support (50 staff), network and backup improvements, Active Directory rights restructuring, and development of internal tools including Tempo (time management), Swing (inventory) and the Weinmann Client Portal (data visualization).",
+        "highlight": "2-month internship · Žilina, Slovakia — Research on electricity generation from trees. ESP32 embedded systems work and IEEE-format articles written in LaTeX.",
+        "tags": ["Algorithms & OOP", "Networks & Systems", "Project Management", "ERP", "Methodology"]
+      },
+      {
+        "year": "2020 - 2022",
+        "title": "BTS SIO - SLAM Track",
+        "institution": "Lycée René Cassin, Strasbourg · Distinction (14.16/20)",
+        "description": "Curriculum focused on web development and network infrastructure, with a SLAM specialization (Software Solutions & Business Applications).",
+        "highlight": "Internship at Impact Web: e-commerce site with WordPress and WooCommerce — architecture, theme customization, product catalog and payment integration.",
+        "tags": ["Web development", "Databases", "Networks"]
+      },
+      {
+        "year": "2017 - 2020",
+        "title": "Bac STMG - Marketing Track",
+        "institution": "Lycée Henri Meck, Molsheim · Distinction (14.02/20)",
+        "description": "First steps in the business world and introduction to the fundamentals of marketing, management and communication.",
+        "highlight": "",
+        "tags": ["Management", "Economics & Law", "Communication", "Organizational Management"]
+      }
+    ],
+    "categoryLabels": {
+      "frontend": "Frontend Development",
+      "backend": "Backend & Databases",
+      "devops": "Infrastructure & Systems",
+      "tools": "Tools & Specialties"
+    },
+    "languages": [
+      { "lang": "French", "level": "Native", "detail": "Projet Voltaire (2024)", "flag": "🇫🇷" },
+      { "lang": "English", "level": "TOEIC 965/990", "detail": "Professional level - 2025", "flag": "🇬🇧" },
+      { "lang": "Spanish", "level": "A2", "detail": "Basic conversational level", "flag": "🇪🇸" },
+      { "lang": "Korean", "level": "A1", "detail": "Strasbourg Korean School", "flag": "🇰🇷" }
+    ]
+  },
+  "projects": {
+    "meta": {
+      "title": "Projects",
+      "description": "Discover my fullstack and web projects: from idea to production, with technical storytelling."
+    },
+    "eyebrow": "Portfolio",
+    "title": "My",
+    "title_highlight": "projects",
+    "subtitle": "Personal and professional projects, each telling a story: a problem to solve, a solution imagined, a concrete impact.",
+    "filters": {
+      "all": "All",
+      "fullstack": "Fullstack",
+      "web": "Web",
+      "tool": "Tools",
+      "mobile": "Mobile"
+    },
+    "empty": "No projects in this category.",
+    "detail": {
+      "back": "Back to projects",
+      "all_projects": "All projects",
+      "personal_badge": "Personal project · In production",
+      "use_app": "Use the application",
+      "see_demo": "View demo",
+      "tech_stack": "Tech stack",
+      "screenshot_alt": "Screenshot of",
+      "not_found": "Project not found",
+      "sections": {
+        "context": "Context",
+        "problem": "Problem",
+        "solution": "Solution",
+        "result": "Results"
+      }
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact",
+      "description": "Send me a message to discuss your projects or job opportunities. I reply within 24h."
+    },
+    "eyebrow": "Contact",
+    "title": "Let's work",
+    "title_highlight": "together",
+    "subtitle": "Are you hiring? Do you have a project or collaboration in mind? Feel free to write — I usually reply within 24h.",
+    "find_me": "Find me",
+    "availability": "Available",
+    "availability_desc": "Recently graduated engineer, I'm looking for a full-time position at an ambitious company.",
+    "send_message": "Send a message",
+    "fields": {
+      "name": "Name",
+      "name_placeholder": "John Doe",
+      "email": "Email",
+      "email_placeholder": "john@example.com",
+      "message": "Message",
+      "message_placeholder": "Hello, I'd like to contact you about...",
+      "submit": "Send message",
+      "submitting": "Sending..."
+    },
+    "validation": {
+      "name_required": "Name is required.",
+      "email_required": "Email is required.",
+      "email_invalid": "Email address is not valid.",
+      "message_required": "Message is required.",
+      "message_min": "Message must be at least 20 characters."
+    },
+    "success": {
+      "title": "Message sent!",
+      "message": "Thank you {name}. I'll get back to you as soon as possible.",
+      "send_another": "Send another message"
+    }
+  },
+  "footer": {
+    "tagline": "Software Engineer · Fullstack Developer",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred."
+  }
+}
