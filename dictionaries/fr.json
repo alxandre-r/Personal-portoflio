@@ -168,6 +168,7 @@
     "title_highlight": "ensemble",
     "subtitle": "Vous recrutez ? Vous avez un projet ou une collaboration en tête ? N'hésitez pas à m'écrire - je réponds généralement sous 24h.",
     "find_me": "Me retrouver",
+    "phone_label": "Téléphone",
     "availability": "Disponible",
     "availability_desc": "Fraîchement diplômé ingénieur, je suis à la recherche d'un emploi à temps plein dans une entreprise ambitieuse.",
     "send_message": "Envoyer un message",
@@ -192,7 +193,8 @@
       "title": "Message envoyé !",
       "message": "Merci {name}. Je vous répondrai dans les plus brefs délais.",
       "send_another": "Envoyer un autre message"
-    }
+    },
+    "submit_error": "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer dans quelques instants."
   },
   "footer": {
     "tagline": "Ingénieur Logiciel · Développeur Fullstack",

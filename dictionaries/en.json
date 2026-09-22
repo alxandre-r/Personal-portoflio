@@ -168,6 +168,7 @@
     "title_highlight": "together",
     "subtitle": "Are you hiring? Do you have a project or collaboration in mind? Feel free to write — I usually reply within 24h.",
     "find_me": "Find me",
+    "phone_label": "Phone",
     "availability": "Available",
     "availability_desc": "Recently graduated engineer, I'm looking for a full-time position at an ambitious company.",
     "send_message": "Send a message",
@@ -192,7 +193,8 @@
       "title": "Message sent!",
       "message": "Thank you {name}. I'll get back to you as soon as possible.",
       "send_another": "Send another message"
-    }
+    },
+    "submit_error": "An error occurred while sending your message. Please try again in a few moments."
   },
   "footer": {
     "tagline": "Software Engineer · Fullstack Developer",

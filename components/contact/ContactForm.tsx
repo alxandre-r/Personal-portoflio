@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils/cn'
 import { scaleIn } from '@/lib/animations'
 import { trackContactSubmit } from '@/lib/analytics'
+import type { Dictionary } from '@/lib/i18n'
 
 interface FormData {
   name: string
@@ -19,29 +20,16 @@ interface FieldError {
   message?: string
 }
 
-function validate(data: FormData): FieldError {
-  const errors: FieldError = {}
-
-  if (!data.name.trim()) {
-    errors.name = 'Le nom est requis.'
+interface ContactFormProps {
+  t: {
+    fields: Dictionary['contact']['fields']
+    validation: Dictionary['contact']['validation']
+    success: Dictionary['contact']['success']
+    submit_error: Dictionary['contact']['submit_error']
   }
-
-  if (!data.email.trim()) {
-    errors.email = "L'email est requis."
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "L'adresse email n'est pas valide."
-  }
-
-  if (!data.message.trim()) {
-    errors.message = 'Le message est requis.'
-  } else if (data.message.trim().length < 20) {
-    errors.message = 'Le message doit contenir au moins 20 caractères.'
-  }
-
-  return errors
 }
 
-export function ContactForm() {
+export function ContactForm({ t }: ContactFormProps) {
   const [form, setForm] = useState<FormData>({
     name: '',
     email: '',
@@ -52,6 +40,28 @@ export function ContactForm() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState('')
+
+  function validate(data: FormData): FieldError {
+    const errs: FieldError = {}
+
+    if (!data.name.trim()) {
+      errs.name = t.validation.name_required
+    }
+
+    if (!data.email.trim()) {
+      errs.email = t.validation.email_required
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errs.email = t.validation.email_invalid
+    }
+
+    if (!data.message.trim()) {
+      errs.message = t.validation.message_required
+    } else if (data.message.trim().length < 20) {
+      errs.message = t.validation.message_min
+    }
+
+    return errs
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -118,7 +128,7 @@ export function ContactForm() {
       const data = await response.json()
 
       if (!data.success) {
-        throw new Error(data.message || 'Erreur lors de l’envoi.')
+        throw new Error(data.message || 'Web3Forms submission failed')
       }
 
       setSubmitted(true)
@@ -126,10 +136,7 @@ export function ContactForm() {
     } catch (error) {
       console.error('Erreur Web3Forms:', error)
 
-      setSubmitError(
-        "Une erreur est survenue lors de l'envoi du message. " +
-        'Veuillez réessayer dans quelques instants.'
-      )
+      setSubmitError(t.submit_error)
     } finally {
       setLoading(false)
     }
@@ -159,11 +166,11 @@ export function ContactForm() {
           </div>
 
           <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
-            Message envoyé !
+            {t.success.title}
           </h3>
 
           <p className="text-[var(--color-muted-foreground)]">
-            Merci {form.name}. Je vous répondrai dans les plus brefs délais.
+            {t.success.message.replace('{name}', form.name)}
           </p>
 
           <button
@@ -178,7 +185,7 @@ export function ContactForm() {
             }}
             className="mt-6 text-sm text-[var(--color-accent)] hover:underline"
           >
-            Envoyer un autre message
+            {t.success.send_another}
           </button>
         </motion.div>
       ) : (
@@ -204,14 +211,14 @@ export function ContactForm() {
               htmlFor="name"
               className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
             >
-              Nom <span className="text-red-400">*</span>
+              {t.fields.name} <span className="text-red-400">*</span>
             </label>
 
             <input
               id="name"
               name="name"
               type="text"
-              placeholder="Jean Dupont"
+              placeholder={t.fields.name_placeholder}
               value={form.name}
               onChange={handleChange}
               className={inputClass('name')}
@@ -231,14 +238,14 @@ export function ContactForm() {
               htmlFor="email"
               className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
             >
-              Email <span className="text-red-400">*</span>
+              {t.fields.email} <span className="text-red-400">*</span>
             </label>
 
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="jean@example.com"
+              placeholder={t.fields.email_placeholder}
               value={form.email}
               onChange={handleChange}
               className={inputClass('email')}
@@ -258,14 +265,14 @@ export function ContactForm() {
               htmlFor="message"
               className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
             >
-              Message <span className="text-red-400">*</span>
+              {t.fields.message} <span className="text-red-400">*</span>
             </label>
 
             <textarea
               id="message"
               name="message"
               rows={5}
-              placeholder="Bonjour, je souhaite vous contacter pour..."
+              placeholder={t.fields.message_placeholder}
               value={form.message}
               onChange={handleChange}
               className={cn(
@@ -314,7 +321,7 @@ export function ContactForm() {
                   <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                 </svg>
 
-                Envoi en cours...
+                {t.fields.submitting}
               </>
             ) : (
               <>
@@ -332,7 +339,7 @@ export function ContactForm() {
                   <path d="M22 2 11 13" />
                 </svg>
 
-                Envoyer le message
+                {t.fields.submit}
               </>
             )}
           </Button>

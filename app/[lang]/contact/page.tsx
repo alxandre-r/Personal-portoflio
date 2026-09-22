@@ -1,15 +1,11 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { ContactForm } from '@/components/contact/ContactForm'
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Envoyez-moi un message pour discuter de vos projets ou opportunités d\'emploi. Je réponds sous 24h.',
-}
-
-const contactInfo = [
+const getContactInfo = (phoneLabel: string) => [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -27,7 +23,7 @@ const contactInfo = [
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.99-1.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z" />
       </svg>
     ),
-    label: 'Téléphone',
+    label: phoneLabel,
     value: '+33 (0)6 87 44 29 08',
     href: 'tel:+33687442908',
   },
@@ -53,72 +49,66 @@ const contactInfo = [
   },
 ]
 
-export default function ContactPage() {
+type Props = { params: Promise<{ lang: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang } = await params
+  if (!isLocale(lang)) return {}
+  const t = await getDictionary(lang as Locale)
+  return {
+    title: t.contact.meta.title,
+    description: t.contact.meta.description,
+    openGraph: { locale: lang === 'fr' ? 'fr_FR' : 'en_US' },
+  }
+}
+
+export default async function ContactPage({ params }: Props) {
+  const { lang } = await params
+  if (!isLocale(lang)) notFound()
+  const t = await getDictionary(lang as Locale)
+  const { contact } = t
+  const contactInfo = getContactInfo(contact.phone_label)
+
   return (
     <PageTransition>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <AnimatedSection className="mb-12 text-center">
-          <p className="text-sm font-medium text-[var(--color-accent)] mb-2">Contact</p>
+          <p className="text-sm font-medium text-[var(--color-accent)] mb-2">{contact.eyebrow}</p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            Travaillons <span className="gradient-text">ensemble</span>
+            {contact.title} <span className="gradient-text">{contact.title_highlight}</span>
           </h1>
-          <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto text-lg">
-            Vous recrutez ? Vous avez un projet ou une collaboration en tête ? N&apos;hésitez pas à
-            m&apos;écrire - je réponds généralement sous 24h.
-          </p>
+          <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto text-lg">{contact.subtitle}</p>
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Contact info */}
           <AnimatedSection className="lg:col-span-2 space-y-6">
             <div className="bg-[var(--color-card)] rounded-xl border border-[var(--color-border)] p-6">
-              <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">
-                Me retrouver
-              </h2>
+              <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">{contact.find_me}</h2>
               <div className="space-y-4">
                 {contactInfo.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target={item.href.startsWith('mailto') ? undefined : '_blank'}
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 group"
-                  >
-                    <div className="mt-0.5 text-[var(--color-muted-foreground)] group-hover:text-[var(--color-accent)] transition-colors">
-                      {item.icon}
-                    </div>
+                  <a key={item.label} href={item.href} target={item.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener noreferrer" className="flex items-start gap-3 group">
+                    <div className="mt-0.5 text-[var(--color-muted-foreground)] group-hover:text-[var(--color-accent)] transition-colors">{item.icon}</div>
                     <div>
                       <p className="text-xs text-[var(--color-muted-foreground)]">{item.label}</p>
-                      <p className="text-sm font-medium text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors">
-                        {item.value}
-                      </p>
+                      <p className="text-sm font-medium text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors">{item.value}</p>
                     </div>
                   </a>
                 ))}
               </div>
             </div>
-
             <div className="bg-[var(--color-accent)]/5 rounded-xl border border-[var(--color-accent)]/20 p-6">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-sm font-medium text-[var(--color-foreground)]">
-                  Disponible
-                </span>
+                <span className="text-sm font-medium text-[var(--color-foreground)]">{contact.availability}</span>
               </div>
-              <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">
-                Fraîchement diplômé ingénieur, je suis à la recherche d&apos;un emploi à temps plein
-                dans une entreprise ambitieuse.
-              </p>
+              <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{contact.availability_desc}</p>
             </div>
           </AnimatedSection>
 
-          {/* Form */}
           <AnimatedSection className="lg:col-span-3">
             <div className="bg-[var(--color-card)] rounded-xl border border-[var(--color-border)] p-8">
-              <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-6">
-                Envoyer un message
-              </h2>
-              <ContactForm />
+              <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-6">{contact.send_message}</h2>
+              <ContactForm t={{ fields: contact.fields, validation: contact.validation, success: contact.success, submit_error: contact.submit_error }} />
             </div>
           </AnimatedSection>
         </div>
