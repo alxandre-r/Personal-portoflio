@@ -142,6 +142,9 @@
       "tech_stack": "Tech stack",
       "screenshot_alt": "Screenshot of",
       "not_found": "Project not found",
+      "features_title": "Features",
+      "gallery_title": "Screenshots",
+      "story_title": "Project story",
       "sections": {
         "context": "Context",
         "problem": "Problem",

@@ -142,6 +142,9 @@
       "tech_stack": "Stack technique",
       "screenshot_alt": "Capture d'écran de",
       "not_found": "Projet introuvable",
+      "features_title": "Fonctionnalités",
+      "gallery_title": "Aperçus",
+      "story_title": "L'histoire du projet",
       "sections": {
         "context": "Contexte",
         "problem": "Problème",

@@ -4,17 +4,22 @@ import { motion } from 'framer-motion'
 import { useProjectStore } from '@/lib/store/useProjectStore'
 import { cn } from '@/lib/utils/cn'
 import type { ProjectFilter as FilterType } from '@/lib/store/useProjectStore'
+import type { Dictionary } from '@/lib/i18n'
 
-const filters: { value: FilterType; label: string }[] = [
-  { value: 'all', label: 'Tous' },
-  { value: 'fullstack', label: 'Fullstack' },
-  { value: 'web', label: 'Web' },
-  { value: 'tool', label: 'Outils' },
-  { value: 'mobile', label: 'Mobile' },
-]
+interface ProjectFilterProps {
+  labels: Dictionary['projects']['filters']
+}
 
-export function ProjectFilter() {
+export function ProjectFilter({ labels }: ProjectFilterProps) {
   const { activeFilter, setFilter } = useProjectStore()
+
+  const filters: { value: FilterType; label: string }[] = [
+    { value: 'all', label: labels.all },
+    { value: 'fullstack', label: labels.fullstack },
+    { value: 'web', label: labels.web },
+    { value: 'tool', label: labels.tool },
+    { value: 'mobile', label: labels.mobile },
+  ]
 
   return (
     <div className="flex flex-wrap gap-2">
