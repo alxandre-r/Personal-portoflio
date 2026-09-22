@@ -27,7 +27,13 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <HeroSection t={t.home.hero} lang={lang} />
-      <FeaturedProjects projects={featuredProjects} t={t.home.featured} lang={lang} />
+      <FeaturedProjects
+        projects={featuredProjects}
+        t={t.home.featured}
+        lang={lang}
+        categoryLabels={t.projects.filters}
+        cardT={t.projects.card}
+      />
       <SkillsSection t={t.home.skills} />
     </>
   )

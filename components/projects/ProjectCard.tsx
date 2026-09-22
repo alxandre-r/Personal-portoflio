@@ -6,19 +6,16 @@ import { Badge } from '@/components/ui/Badge'
 import { fadeInUp } from '@/lib/animations'
 import { projectColors } from '@/lib/projectColors'
 import type { Project } from '@/lib/data/types'
+import type { Dictionary, Locale } from '@/lib/i18n'
 
 interface ProjectCardProps {
   project: Project
+  lang: Locale
+  categoryLabels: Dictionary['projects']['filters']
+  t: Dictionary['projects']['card']
 }
 
-const categoryLabels: Record<string, string> = {
-  web: 'Web',
-  fullstack: 'Fullstack',
-  tool: 'Outil',
-  mobile: 'Mobile',
-}
-
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, lang, categoryLabels, t }: ProjectCardProps) {
   const color = projectColors[project.colorKey]
   const isPersonal = project.slug === 'sandy'
 
@@ -29,7 +26,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       transition={{ duration: 0.2 }}
       className="group h-full"
     >
-      <Link href={`/projects/${project.slug}`} className="block h-full">
+      <Link href={`/${lang}/projects/${project.slug}`} className="block h-full">
         <div
           className="h-full flex flex-col rounded-xl overflow-hidden border transition-all duration-300 hover:shadow-xl"
           style={{
@@ -57,7 +54,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
-                  Projet personnel
+                  {t.personal_badge}
                 </span>
               )}
               <span
@@ -95,7 +92,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="flex items-center gap-1.5 text-sm font-medium group-hover:gap-2.5 transition-all"
               style={{ color: color.text }}
             >
-              {isPersonal ? 'Ouvrir l\'application' : 'Voir le projet'}
+              {isPersonal ? t.cta_personal : t.cta_default}
               <svg
                 width="14"
                 height="14"

@@ -9,15 +9,17 @@ import { Badge } from '@/components/ui/Badge'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { projectColors } from '@/lib/projectColors'
 import type { Project } from '@/lib/data/types'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/i18n'
 
 interface FeaturedProjectsProps {
   projects: Project[]
   t: Dictionary['home']['featured']
-  lang: string
+  lang: Locale
+  categoryLabels: Dictionary['projects']['filters']
+  cardT: Dictionary['projects']['card']
 }
 
-function SandyHeroCard({ project, t, lang }: { project: Project; t: Dictionary['home']['featured']; lang: string }) {
+function SandyHeroCard({ project, t, lang }: { project: Project; t: Dictionary['home']['featured']; lang: Locale }) {
   const color = projectColors[project.colorKey]
 
   return (
@@ -94,7 +96,7 @@ function SandyHeroCard({ project, t, lang }: { project: Project; t: Dictionary['
   )
 }
 
-export function FeaturedProjects({ projects, t, lang }: FeaturedProjectsProps) {
+export function FeaturedProjects({ projects, t, lang, categoryLabels, cardT }: FeaturedProjectsProps) {
   const sandy = projects.find((p) => p.slug === 'sandy')
   const others = projects.filter((p) => p.slug !== 'sandy')
 
@@ -134,7 +136,13 @@ export function FeaturedProjects({ projects, t, lang }: FeaturedProjectsProps) {
               </motion.p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {others.map((project) => (
-                  <ProjectCard key={project.slug} project={project} />
+                  <ProjectCard
+                    key={project.slug}
+                    project={project}
+                    lang={lang}
+                    categoryLabels={categoryLabels}
+                    t={cardT}
+                  />
                 ))}
               </div>
             </>

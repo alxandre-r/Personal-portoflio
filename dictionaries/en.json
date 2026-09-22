@@ -133,6 +133,11 @@
       "mobile": "Mobile"
     },
     "empty": "No projects in this category.",
+    "card": {
+      "personal_badge": "Personal project",
+      "cta_personal": "Open the app",
+      "cta_default": "View project"
+    },
     "detail": {
       "back": "Back to projects",
       "all_projects": "All projects",

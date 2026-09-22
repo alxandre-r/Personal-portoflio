@@ -133,6 +133,11 @@
       "mobile": "Mobile"
     },
     "empty": "Aucun projet dans cette catégorie.",
+    "card": {
+      "personal_badge": "Projet personnel",
+      "cta_personal": "Ouvrir l'application",
+      "cta_default": "Voir le projet"
+    },
     "detail": {
       "back": "Retour aux projets",
       "all_projects": "Tous les projets",

@@ -34,7 +34,13 @@ export default async function ProjectsPage({ params }: Props) {
           </h1>
           <p className="text-[var(--color-muted-foreground)] max-w-xl text-lg">{p.subtitle}</p>
         </div>
-        <ProjectsGrid projects={projects} filterLabels={p.filters} empty={p.empty} />
+        <ProjectsGrid
+          projects={projects}
+          filterLabels={p.filters}
+          empty={p.empty}
+          lang={lang as Locale}
+          cardT={p.card}
+        />
       </div>
     </PageTransition>
   )
