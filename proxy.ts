@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { locales, defaultLocale } from '@/lib/i18n'
+import { locales, defaultLocale } from '@/lib/locales'
 
 function getLocale(request: NextRequest): string {
   const acceptLang = request.headers.get('accept-language') ?? ''
@@ -14,10 +14,18 @@ function getLocale(request: NextRequest): string {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const pathnameHasLocale = locales.some(
+  const matchedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
-  if (pathnameHasLocale) return
+  if (matchedLocale) {
+    // Forward the resolved locale as a request header so server code that
+    // has no access to route params — e.g. app/global-not-found.tsx, which
+    // Next.js requires for a locale-prefixed root layout (see I4/I6 in the
+    // final i18n fix-wave report) — can still render locale-aware output.
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-locale', matchedLocale)
+    return NextResponse.next({ request: { headers: requestHeaders } })
+  }
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)
@@ -25,6 +33,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|logo-AR.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|logo-AR.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|pdf|ico|txt|xml|json|webmanifest)$).*)',
   ],
 }
