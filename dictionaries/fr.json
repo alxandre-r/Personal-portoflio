@@ -59,6 +59,11 @@
     "description_3_suffix": " dans une entreprise où je pourrai continuer à apprendre, relever des défis techniques et contribuer à des projets concrets.",
     "cta_contact": "Me contacter",
     "cta_cv": "Télécharger mon CV",
+    "cv_modal": {
+      "title": "Choisir la langue du CV",
+      "subtitle": "Sélectionnez la version que vous souhaitez télécharger.",
+      "cancel": "Annuler"
+    },
     "sections": {
       "softSkills": "Savoir-être",
       "timeline": "Parcours",

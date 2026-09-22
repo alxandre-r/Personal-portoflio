@@ -5,6 +5,7 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { CvDownloadButton } from '@/components/ui/CvDownloadButton'
 import { skillsByCategory } from '@/lib/data/skills'
 import { icons } from '@/components/ui/SvgIcons'
 
@@ -51,14 +52,7 @@ export default async function AboutPage({ params }: Props) {
           </div>
           <div className="flex flex-wrap gap-3 mt-8">
             <Button href={`/${lang}/contact`} size="lg">{about.cta_contact}</Button>
-            <Button href="#" variant="outline" size="lg" external>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
-              {about.cta_cv}
-            </Button>
+            <CvDownloadButton label={about.cta_cv} t={about.cv_modal} />
           </div>
         </AnimatedSection>
 

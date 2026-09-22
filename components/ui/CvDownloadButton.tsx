@@ -5,7 +5,16 @@ import { trackCvDownload } from '@/lib/analytics'
 
 import { Button } from '@/components/ui/Button'
 
-export function CvDownloadButton() {
+interface CvDownloadButtonProps {
+  label: string
+  t: {
+    title: string
+    subtitle: string
+    cancel: string
+  }
+}
+
+export function CvDownloadButton({ label, t }: CvDownloadButtonProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -30,7 +39,7 @@ export function CvDownloadButton() {
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" x2="12" y1="15" y2="3" />
         </svg>
-        Télécharger mon CV
+        {label}
       </Button>
 
       {open && (
@@ -43,11 +52,11 @@ export function CvDownloadButton() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-[var(--color-foreground)]">
-              Choisir la langue du CV
+              {t.title}
             </h2>
 
             <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">
-              Sélectionnez la version que vous souhaitez télécharger.
+              {t.subtitle}
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
@@ -75,7 +84,7 @@ export function CvDownloadButton() {
               onClick={() => setOpen(false)}
               className="mt-4 w-full text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
             >
-              Annuler
+              {t.cancel}
             </button>
           </div>
         </div>

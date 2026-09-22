@@ -59,6 +59,11 @@
     "description_3_suffix": " at a company where I can keep learning, tackle technical challenges and contribute to concrete projects.",
     "cta_contact": "Contact me",
     "cta_cv": "Download my CV",
+    "cv_modal": {
+      "title": "Choose CV language",
+      "subtitle": "Select the version you'd like to download.",
+      "cancel": "Cancel"
+    },
     "sections": {
       "softSkills": "Soft skills",
       "timeline": "Background",
