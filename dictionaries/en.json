@@ -157,6 +157,70 @@
         "solution": "Solution",
         "result": "Results"
       }
+    },
+    "content": {
+      "sandy": {
+        "tagline": "Your whole car's life, in one place.",
+        "shortDescription": "A personal and family car-management web app — track expenses, fuel consumption, documents and maintenance, all in one place.",
+        "context": "A fully personal project, designed and built solo from the ground up. The idea came from the lack of a simple tool to centralize everything related to your vehicles: fuel consumption, expenses, insurance, paperwork... this information is usually scattered across spreadsheets, inboxes and drawers.",
+        "problem": "No existing app covered the full set of needs in a smooth, customizable way: fuel-consumption tracking, expense history by category (fuel, maintenance, insurance), document storage, and sharing information within a household. Available solutions were either too simplistic or built for professional use only.",
+        "solution": "Built a fullstack Next.js application with a Node.js backend, a PostgreSQL database, and deployment on Vercel. The interface offers an analytics dashboard with trend charts, multi-vehicle management, document storage (registration, insurance...), and a household preferences system to control what each member can see. Dark/light mode is carefully handled to avoid a flash on load. Framer Motion powers smooth animations and loading skeletons.",
+        "result": "A fully functional site, deployed to production on Vercel.",
+        "features": [
+          {
+            "title": "Expense tracking",
+            "description": "Categorize fuel, maintenance and insurance, and visualize trends with interactive charts."
+          },
+          {
+            "title": "Multi-vehicle management",
+            "description": "Add as many vehicles as you like and switch between them in one click."
+          },
+          {
+            "title": "Document vault",
+            "description": "Store your registration, insurance certificate and inspection report — accessible anywhere."
+          },
+          {
+            "title": "Family sharing",
+            "description": "Invite household members and control precisely what each one can see or edit."
+          },
+          {
+            "title": "Analytics dashboard",
+            "description": "Consumption trends, cost per kilometer, period-over-period comparisons."
+          },
+          {
+            "title": "Dark / Light mode",
+            "description": "A polished theme with no flash on load, thanks to server-side detection."
+          }
+        ]
+      },
+      "tempo": {
+        "shortDescription": "An internal time-management tool for Weinmann Technologies — activity logging, manager approval, and HR synchronization.",
+        "context": "Part of the suite of internal tools built at Weinmann Technologies. Before Tempo, time was logged on unreliable spreadsheets, with no formal approval process and no overview for managers. The project is part of the Weinmann Client Portal, a set of internal applications designed to modernize the company's business processes.",
+        "problem": "Spreadsheets couldn't manage permissions (employee vs. manager), provide a traceable approval process, or automatically sync absences from the Silae HR tool. Salaried staff on fixed-day contracts had no dedicated system for their monthly day allowances.",
+        "solution": "Built a fullstack web application solo (frontend + backend). Users log their daily activities and view their history and absences — automatically synced with Silae via a Python script. Managers get dedicated access to approve or correct entries. Includes role management (employee, manager, admin), protected routes, and a modular TailwindCSS interface.",
+        "result": "The tool is used daily in production across the entire company. Spreadsheets have been fully retired. Managers save significant time on approvals. The tool keeps evolving based on user feedback — proof it has earned its place in their daily routine."
+      },
+      "bolero": {
+        "shortDescription": "An interactive scheduling board for Weinmann Technologies' after-sales service — real-time view of technicians, customers and routes.",
+        "context": "An internal tool from the Weinmann Technologies suite. The after-sales service team managed intervention schedules with spreadsheets, with no clear view of who was working where and when. This project is part of the Weinmann Client Portal, the company's suite of internal applications.",
+        "problem": "Spreadsheets were a source of errors, outdated versions and wasted time. The after-sales team lacked a readable scheduling view to organize technician routes, allocate resources and see at a glance where each team member was.",
+        "solution": "Built a React application with DayPilot Scheduler for a resource view — technicians as columns, time as rows — with drag-and-drop. Express backend with a REST API optimized for fast multi-day queries. Structured MySQL schema, with migration scripts from Excel exports. Deployed to production with PM2 and an Nginx reverse proxy for SSL and subdomain management.",
+        "result": "V1 shipped and adopted by the entire after-sales team, accessible on desktop and tablet. Eliminated the risk of spreadsheet-formula errors. A well-documented, solid codebase ready for Phase 2: editing interventions directly in the interface, and new weekly and monthly views."
+      },
+      "swing": {
+        "shortDescription": "A mobile order-picking interface for Weinmann Technologies' warehouse staff — replacing paper sheets with an app connected to the ERP.",
+        "context": "An internal tool from the Weinmann Technologies suite. Warehouse staff prepared orders using paper sheets and spreadsheets, which were prone to transcription errors and impossible to sync with the ERP in real time. This project is part of the Weinmann Client Portal, the company's suite of internal tools.",
+        "problem": "Paper order sheets and spreadsheets caused reading errors, lost information, and delays in reporting status back to the ERP. Warehouse staff had no tool suited to their on-the-floor use: standing, moving around, on a smartphone.",
+        "solution": "Built a mobile-first web app with HTML, TailwindCSS and Express. An ergonomic interface designed for touchscreens after observing warehouse staff on the floor. ERP integration via Python microservices to format and transmit real-time stock updates. Handles unstable connections (retry logic, lightweight local cache), an optimized-index MySQL schema, and a desktop view for quality control and shipment tracking.",
+        "result": "Fully adopted: paper sheets and spreadsheets have been permanently replaced. Reading and transcription errors are nearly eliminated. Available on mobile for warehouse staff and on desktop for the office team. Built to evolve: barcode scanning and PDF export are planned next."
+      },
+      "espace-client-weinmann": {
+        "shortDescription": "A client web portal to view connected paint booths' consumption and status in real time — final-year engineering project.",
+        "context": "A final-year engineering project completed as part of a work-study program at Weinmann Technologies. The company manufactures connected industrial paint booths. Customers had no simple way to remotely check their equipment's status and consumption. This project is the flagship of the Weinmann internal suite, with Tempo, Boléro and Swing as its components.",
+        "problem": "Data reported by the connected paint booths (consumption, status, alerts) wasn't directly or readably accessible to customers. Tracking relied on manual exchanges with after-sales support, with no dashboards or browsable history.",
+        "solution": "Built a web portal letting Weinmann's customers view their booths' status in real time: consumption, performance indicators, history and alerts. Includes automated data collection from the equipment, dashboard-based visualization, and an architecture designed to support multiple customers with distinct access rights.",
+        "result": "The portal was delivered and presented as the final-year engineering project. It lets Weinmann offer a modern customer experience around its connected equipment and opens the door to new digital services."
+      }
     }
   },
   "contact": {

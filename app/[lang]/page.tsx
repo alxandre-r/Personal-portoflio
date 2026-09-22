@@ -6,6 +6,7 @@ import { HeroSection } from '@/components/sections/HeroSection'
 import { FeaturedProjects } from '@/components/sections/FeaturedProjects'
 import { SkillsSection } from '@/components/sections/SkillsSection'
 import { featuredProjects } from '@/lib/data/projects'
+import { localizeProject } from '@/lib/data/localizeProject'
 
 type Props = { params: Promise<{ lang: string }> }
 
@@ -25,12 +26,15 @@ export default async function HomePage({ params }: Props) {
   const { lang } = await params
   if (!isLocale(lang)) notFound()
   const t = await getDictionary(lang as Locale)
+  const localizedFeaturedProjects = featuredProjects.map((project) =>
+    localizeProject(project, t.projects.content)
+  )
 
   return (
     <>
       <HeroSection t={t.home.hero} lang={lang} />
       <FeaturedProjects
-        projects={featuredProjects}
+        projects={localizedFeaturedProjects}
         t={t.home.featured}
         lang={lang}
         categoryLabels={t.projects.filters}

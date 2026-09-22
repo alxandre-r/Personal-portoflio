@@ -5,6 +5,7 @@ import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { ProjectsGrid } from '@/components/projects/ProjectsGrid'
 import { projects } from '@/lib/data/projects'
+import { localizeProject } from '@/lib/data/localizeProject'
 
 type Props = { params: Promise<{ lang: string }> }
 
@@ -25,6 +26,7 @@ export default async function ProjectsPage({ params }: Props) {
   if (!isLocale(lang)) notFound()
   const t = await getDictionary(lang as Locale)
   const { projects: p } = t
+  const localizedProjects = projects.map((project) => localizeProject(project, p.content))
 
   return (
     <PageTransition>
@@ -37,7 +39,7 @@ export default async function ProjectsPage({ params }: Props) {
           <p className="text-[var(--color-muted-foreground)] max-w-xl text-lg">{p.subtitle}</p>
         </div>
         <ProjectsGrid
-          projects={projects}
+          projects={localizedProjects}
           filterLabels={p.filters}
           empty={p.empty}
           lang={lang as Locale}

@@ -9,6 +9,7 @@ import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { getDictionary, isLocale, locales, type Locale } from '@/lib/i18n'
 import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { getProjectBySlug, projects } from '@/lib/data/projects'
+import { localizeProject } from '@/lib/data/localizeProject'
 import { projectColors } from '@/lib/projectColors'
 import { MarketingProjectDetail } from '@/components/projects/MarketingProjectDetail'
 import { icons } from '@/components/ui/SvgIcons'
@@ -21,9 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getDictionary(lang as Locale)
   const project = getProjectBySlug(slug)
   if (!project) return { title: t.projects.detail.not_found }
+  const localizedProject = localizeProject(project, t.projects.content)
   return {
-    title: project.title,
-    description: project.shortDescription,
+    title: localizedProject.title,
+    description: localizedProject.shortDescription,
     openGraph: buildOpenGraph(lang as Locale),
     alternates: buildAlternates(lang as Locale, `/projects/${slug}`),
   }
@@ -42,10 +44,11 @@ export const dynamicParams = false
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params
   if (!isLocale(lang)) notFound()
-  const project = getProjectBySlug(slug)
-  if (!project) notFound()
+  const rawProject = getProjectBySlug(slug)
+  if (!rawProject) notFound()
 
   const t = await getDictionary(lang as Locale)
+  const project = localizeProject(rawProject, t.projects.content)
   const { detail } = t.projects
 
   const color = projectColors[project.colorKey]
