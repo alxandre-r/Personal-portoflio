@@ -1,9 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
+import frDict from '@/dictionaries/fr.json'
+import enDict from '@/dictionaries/en.json'
 
+// error.tsx does not receive `params`, so the locale is detected
+// client-side from the URL instead (see final i18n fix-wave, finding I6).
 export default function Error({
   error,
   reset,
@@ -11,6 +16,10 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const pathname = usePathname()
+  const lang = pathname?.startsWith('/en') ? 'en' : 'fr'
+  const t = (lang === 'en' ? enDict : frDict).common
+
   useEffect(() => {
     console.error(error)
   }, [error])
@@ -25,17 +34,17 @@ export default function Error({
       >
         <p className="text-6xl font-bold gradient-text mb-4">Oops</p>
         <h1 className="text-2xl font-bold text-[var(--color-foreground)] mb-3">
-          Une erreur est survenue
+          {t.error_title}
         </h1>
         <p className="text-[var(--color-muted-foreground)] mb-8 max-w-md mx-auto">
-          Quelque chose s&apos;est mal passé. Veuillez réessayer.
+          {t.error_description}
         </p>
         <div className="flex gap-3 justify-center">
           <Button onClick={reset} size="lg">
-            Réessayer
+            {t.retry}
           </Button>
-          <Button href="/" variant="outline" size="lg">
-            Retour à l&apos;accueil
+          <Button href={`/${lang}`} variant="outline" size="lg">
+            {t.back_home}
           </Button>
         </div>
       </motion.div>

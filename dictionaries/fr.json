@@ -146,6 +146,7 @@
       "see_demo": "Voir la démo",
       "tech_stack": "Stack technique",
       "screenshot_alt": "Capture d'écran de",
+      "gallery_alt": "Aperçu {n} de",
       "not_found": "Projet introuvable",
       "features_title": "Fonctionnalités",
       "gallery_title": "Aperçus",
@@ -202,6 +203,13 @@
   },
   "common": {
     "loading": "Chargement...",
-    "error": "Une erreur s'est produite."
+    "error": "Une erreur s'est produite.",
+    "not_found_title": "Page introuvable",
+    "not_found_description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "back_home": "Retour à l'accueil",
+    "error_title": "Une erreur est survenue",
+    "error_description": "Quelque chose s'est mal passé. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "devops_hosting_label": "VPS & hébergement cloud"
   }
 }

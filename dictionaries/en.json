@@ -146,6 +146,7 @@
       "see_demo": "View demo",
       "tech_stack": "Tech stack",
       "screenshot_alt": "Screenshot of",
+      "gallery_alt": "Screenshot {n} of",
       "not_found": "Project not found",
       "features_title": "Features",
       "gallery_title": "Screenshots",
@@ -202,6 +203,13 @@
   },
   "common": {
     "loading": "Loading...",
-    "error": "An error occurred."
+    "error": "An error occurred.",
+    "not_found_title": "Page not found",
+    "not_found_description": "The page you're looking for doesn't exist or has been moved.",
+    "back_home": "Back to home",
+    "error_title": "Something went wrong",
+    "error_description": "Something went wrong. Please try again.",
+    "retry": "Try again",
+    "devops_hosting_label": "VPS & cloud hosting"
   }
 }
