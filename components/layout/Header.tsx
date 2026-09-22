@@ -6,17 +6,23 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher'
 // import Logo from '@/components/ui/Logo'
 import { cn } from '@/lib/utils/cn'
+import type { Dictionary, Locale } from '@/lib/locales'
 
-const navLinks = [
-  { href: '/', label: 'Accueil' },
-  { href: '/projects', label: 'Projets' },
-  { href: '/about', label: 'À propos' },
-  { href: '/contact', label: 'Contact' },
-]
+interface HeaderProps {
+  navT: Dictionary['nav']
+  lang: Locale
+}
 
-export function Header() {
+export function Header({ navT, lang }: HeaderProps) {
+  const navLinks = [
+    { href: `/${lang}`, label: navT.home },
+    { href: `/${lang}/projects`, label: navT.projects },
+    { href: `/${lang}/about`, label: navT.about },
+    { href: `/${lang}/contact`, label: navT.contact },
+  ]
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -43,7 +49,7 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-4">
+          <Link href={`/${lang}`} className="group flex items-center gap-4">
             <Image src="/logo-AR.svg" alt="Logo" className='dark:invert' width={48} height={48} />
             <span className="text-lg font-bold text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors">
               Alexandre Robert
@@ -81,6 +87,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageSwitcher lang={lang} />
             <ThemeToggle />
             {/* Mobile hamburger */}
             <button
@@ -133,6 +140,9 @@ export function Header() {
                   </Link>
                 )
               })}
+              <div className="px-3 pt-2 pb-1">
+                <LanguageSwitcher lang={lang} />
+              </div>
             </nav>
           </motion.div>
         )}

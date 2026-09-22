@@ -9,13 +9,17 @@ import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { fadeInUp } from '@/lib/animations'
 import type { Project } from '@/lib/data/types'
 import type { ColorPalette } from '@/lib/projectColors'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface MarketingProjectDetailProps {
   project: Project
   color: ColorPalette
+  t: Dictionary['projects']['detail']
+  lang: Locale
+  categoryLabels: Dictionary['projects']['filters']
 }
 
-export function MarketingProjectDetail({ project, color }: MarketingProjectDetailProps) {
+export function MarketingProjectDetail({ project, color, t, lang, categoryLabels }: MarketingProjectDetailProps) {
   const features = project.features ?? []
   const screenshots = project.screenshots ?? []
   const hasGallery = screenshots.length > 1
@@ -25,13 +29,13 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
       {/* Back */}
       <AnimatedSection className="mb-8">
         <Link
-          href="/projects"
+          href={`/${lang}/projects`}
           className="inline-flex items-center gap-2 text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
-          Retour aux projets
+          {t.back}
         </Link>
       </AnimatedSection>
 
@@ -46,9 +50,9 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
             style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
           >
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
-            Projet personnel · En production
+            {t.personal_badge}
           </span>
-          <Badge variant="accent">{project.category}</Badge>
+          <Badge variant="accent">{categoryLabels[project.category]}</Badge>
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[var(--color-foreground)]">
@@ -81,7 +85,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
                   <polyline points="15 3 21 3 21 9" />
                   <line x1="10" x2="21" y1="14" y2="3" />
                 </svg>
-                Utiliser l&apos;application
+                {t.use_app}
               </a>
             )}
             {project.githubUrl && (
@@ -107,7 +111,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
             <div className="relative aspect-[16/9]">
               <Image
                 src={project.image}
-                alt={`Aperçu de ${project.title}`}
+                alt={`${t.screenshot_alt} ${project.title}`}
                 fill
                 quality={90}
                 className="object-cover object-top"
@@ -123,7 +127,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
       {features.length > 0 && (
         <AnimatedSection className="mb-12">
           <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">
-            Fonctionnalités
+            {t.features_title}
           </h2>
           <AnimatedSection stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((feature) => (
@@ -153,7 +157,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
       {hasGallery && (
         <AnimatedSection className="mb-12">
           <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">
-            Aperçus
+            {t.gallery_title}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {screenshots.map((src, i) => (
@@ -164,7 +168,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
               >
                 <Image
                   src={src}
-                  alt={`Aperçu ${i + 1} de ${project.title}`}
+                  alt={`${t.gallery_alt.replace('{n}', String(i + 1))} ${project.title}`}
                   fill
                   quality={85}
                   className="object-cover object-top"
@@ -179,17 +183,17 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
       {/* Condensed story card */}
       <AnimatedSection className="mb-12">
         <h2 className="text-lg font-semibold text-[var(--color-foreground)] mb-5">
-          L&apos;histoire du projet
+          {t.story_title}
         </h2>
         <div
           className="rounded-xl border p-6"
           style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}
         >
           {[
-            { label: 'Contexte', content: project.context },
-            { label: 'Problème', content: project.problem },
-            { label: 'Solution', content: project.solution },
-            { label: 'Résultats', content: project.result },
+            { label: t.sections.context, content: project.context },
+            { label: t.sections.problem, content: project.problem },
+            { label: t.sections.solution, content: project.solution },
+            { label: t.sections.result, content: project.result },
           ].map((item, i) => (
             <div key={item.label}>
               {i > 0 && <div className="border-t border-[var(--color-border)] my-4" />}
@@ -210,7 +214,7 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
       {/* Tech stack */}
       <AnimatedSection className="mb-12">
         <h2 className="text-base font-semibold text-[var(--color-foreground)] mb-3">
-          Stack technique
+          {t.tech_stack}
         </h2>
         <div className="flex flex-wrap gap-2">
           {project.techStack.map((tech) => (
@@ -227,11 +231,11 @@ export function MarketingProjectDetail({ project, color }: MarketingProjectDetai
 
       {/* Navigation */}
       <div className="pt-8 border-t border-[var(--color-border)]">
-        <Button href="/projects" variant="ghost">
+        <Button href={`/${lang}/projects`} variant="ghost">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
-          Tous les projets
+          {t.all_projects}
         </Button>
       </div>
     </div>

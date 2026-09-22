@@ -6,76 +6,92 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
+import { getDictionary, isLocale, locales, type Locale } from '@/lib/i18n'
+import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { getProjectBySlug, projects } from '@/lib/data/projects'
+import { localizeProject } from '@/lib/data/localizeProject'
 import { projectColors } from '@/lib/projectColors'
 import { MarketingProjectDetail } from '@/components/projects/MarketingProjectDetail'
 import { icons } from '@/components/ui/SvgIcons'
 
-type Props = {
-  params: Promise<{ slug: string }>
-}
+type Props = { params: Promise<{ lang: string; slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
+  const { lang, slug } = await params
+  if (!isLocale(lang)) return {}
+  const t = await getDictionary(lang as Locale)
   const project = getProjectBySlug(slug)
-  if (!project) return { title: 'Projet introuvable' }
+  if (!project) return { title: t.projects.detail.not_found }
+  const localizedProject = localizeProject(project, t.projects.content)
   return {
-    title: project.title,
-    description: project.shortDescription,
+    title: localizedProject.title,
+    description: localizedProject.shortDescription,
+    openGraph: buildOpenGraph(lang as Locale),
+    alternates: buildAlternates(lang as Locale, `/projects/${slug}`),
   }
 }
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return locales.flatMap((lang) =>
+    projects.map((p) => ({ lang, slug: p.slug }))
+  )
 }
 
-export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params
-  const project = getProjectBySlug(slug)
+// Unknown slugs render the standard prerendered 404 treatment (Header,
+// Footer, fonts, styles) instead of a bare request-time error shell.
+export const dynamicParams = false
 
-  if (!project) {
-    notFound()
-  }
+export default async function ProjectPage({ params }: Props) {
+  const { lang, slug } = await params
+  if (!isLocale(lang)) notFound()
+  const rawProject = getProjectBySlug(slug)
+  if (!rawProject) notFound()
+
+  const t = await getDictionary(lang as Locale)
+  const project = localizeProject(rawProject, t.projects.content)
+  const { detail } = t.projects
 
   const color = projectColors[project.colorKey]
+  const isPersonal = project.slug === 'sandy'
 
   if (project.features?.length) {
     return (
       <PageTransition>
-        <MarketingProjectDetail project={project} color={color} />
+        <MarketingProjectDetail
+          project={project}
+          color={color}
+          t={detail}
+          lang={lang as Locale}
+          categoryLabels={t.projects.filters}
+        />
       </PageTransition>
     )
   }
 
-  const isPersonal = project.slug === 'sandy'
-
   const sections = [
-    { label: 'Contexte', content: project.context, icon: icons.document },
-    { label: 'Problème', content: project.problem, icon: icons.search },
-    { label: 'Solution', content: project.solution, icon: icons.light },
-    { label: 'Résultats', content: project.result, icon: icons.check },
+    { label: detail.sections.context, content: project.context, icon: icons.document },
+    { label: detail.sections.problem, content: project.problem, icon: icons.search },
+    { label: detail.sections.solution, content: project.solution, icon: icons.light },
+    { label: detail.sections.result, content: project.result, icon: icons.check },
   ]
 
   return (
     <PageTransition>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Back */}
         <AnimatedSection className="mb-8">
           <Link
-            href="/projects"
+            href={`/${lang}/projects`}
             className="inline-flex items-center gap-2 text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
-            Retour aux projets
+            {detail.back}
           </Link>
         </AnimatedSection>
 
-        {/* Colored top bar */}
         <div className="h-1 w-16 rounded-full mb-6" style={{ background: color.topBar }} />
 
-        {/* Header */}
         <AnimatedSection className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-4">
             {isPersonal && (
@@ -84,20 +100,14 @@ export default async function ProjectPage({ params }: Props) {
                 style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
               >
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
-                Projet personnel · En production
+                {detail.personal_badge}
               </span>
             )}
-            <Badge variant="accent">{project.category}</Badge>
+            <Badge variant="accent">{t.projects.filters[project.category]}</Badge>
           </div>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-[var(--color-foreground)]">{project.title}</h1>
+          <p className="text-xl text-[var(--color-muted-foreground)] leading-relaxed">{project.shortDescription}</p>
 
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-[var(--color-foreground)]">
-            {project.title}
-          </h1>
-          <p className="text-xl text-[var(--color-muted-foreground)] leading-relaxed">
-            {project.shortDescription}
-          </p>
-
-          {/* Links */}
           {(project.demoUrl || project.githubUrl) && (
             <div className="flex flex-wrap gap-3 mt-6">
               {project.demoUrl && (
@@ -113,7 +123,7 @@ export default async function ProjectPage({ params }: Props) {
                     <polyline points="15 3 21 3 21 9" />
                     <line x1="10" x2="21" y1="14" y2="3" />
                   </svg>
-                  {isPersonal ? 'Utiliser l\'application' : 'Voir la démo'}
+                  {isPersonal ? detail.use_app : detail.see_demo}
                 </a>
               )}
               {project.githubUrl && (
@@ -128,19 +138,14 @@ export default async function ProjectPage({ params }: Props) {
           )}
         </AnimatedSection>
 
-        {/* Hero screenshot */}
         {project.image && (
           <AnimatedSection className="mb-10">
-            <div
-              className="relative rounded-xl overflow-hidden border"
-              style={{ borderColor: color.border }}
-            >
-              {/* Colored top accent */}
+            <div className="relative rounded-xl overflow-hidden border" style={{ borderColor: color.border }}>
               <div className="h-0.5 w-full" style={{ background: color.topBar }} />
               <div className="relative aspect-[16/9]">
                 <Image
                   src={project.image}
-                  alt={`Capture d'écran de ${project.title}`}
+                  alt={`${detail.screenshot_alt} ${project.title}`}
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 896px) 100vw, 896px"
@@ -151,7 +156,6 @@ export default async function ProjectPage({ params }: Props) {
           </AnimatedSection>
         )}
 
-        {/* Sandy placeholder visual */}
         {!project.image && isPersonal && (
           <AnimatedSection className="mb-10">
             <div
@@ -160,13 +164,7 @@ export default async function ProjectPage({ params }: Props) {
             >
               <div className="text-center">
                 <div className="text-5xl mb-3">🚗</div>
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium underline"
-                  style={{ color: color.text }}
-                >
+                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium underline" style={{ color: color.text }}>
                   ma-voiture-sandy.vercel.app
                 </a>
               </div>
@@ -174,56 +172,37 @@ export default async function ProjectPage({ params }: Props) {
           </AnimatedSection>
         )}
 
-        {/* Tech stack */}
         <AnimatedSection className="mb-12">
-          <h2 className="text-base font-semibold text-[var(--color-foreground)] mb-3">
-            Stack technique
-          </h2>
+          <h2 className="text-base font-semibold text-[var(--color-foreground)] mb-3">{detail.tech_stack}</h2>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 rounded-full text-xs font-medium"
-                style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}
-              >
+              <span key={tech} className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}>
                 {tech}
               </span>
             ))}
           </div>
         </AnimatedSection>
 
-        {/* Storytelling sections */}
         <div className="space-y-4 mb-12">
           {sections.map((section, i) => (
             <AnimatedSection key={section.label} delay={i * 0.08}>
-              <div
-                className="rounded-xl border p-6"
-                style={{
-                  borderColor: 'var(--color-border)',
-                  backgroundColor: 'var(--color-card)',
-                }}
-              >
+              <div className="rounded-xl border p-6" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
                 <div className="flex items-center gap-2.5 mb-3">
                   <span style={{ color: color.text }}>{section.icon}</span>
-                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">
-                    {section.label}
-                  </h2>
+                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">{section.label}</h2>
                 </div>
-                <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">
-                  {section.content}
-                </p>
+                <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{section.content}</p>
               </div>
             </AnimatedSection>
           ))}
         </div>
 
-        {/* Navigation */}
         <div className="pt-8 border-t border-[var(--color-border)]">
-          <Button href="/projects" variant="ghost">
+          <Button href={`/${lang}/projects`} variant="ghost">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
-            Tous les projets
+            {detail.all_projects}
           </Button>
         </div>
       </div>

@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils/cn'
 import { scaleIn } from '@/lib/animations'
+import { trackContactSubmit } from '@/lib/analytics'
+import type { Dictionary } from '@/lib/locales'
 
 interface FormData {
   name: string
@@ -18,47 +20,126 @@ interface FieldError {
   message?: string
 }
 
-function validate(data: FormData): FieldError {
-  const errors: FieldError = {}
-  if (!data.name.trim()) errors.name = 'Le nom est requis.'
-  if (!data.email.trim()) {
-    errors.email = "L'email est requis."
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "L'adresse email n'est pas valide."
+interface ContactFormProps {
+  t: {
+    fields: Dictionary['contact']['fields']
+    validation: Dictionary['contact']['validation']
+    success: Dictionary['contact']['success']
+    submit_error: Dictionary['contact']['submit_error']
   }
-  if (!data.message.trim()) errors.message = 'Le message est requis.'
-  else if (data.message.trim().length < 20) {
-    errors.message = 'Le message doit contenir au moins 20 caractères.'
-  }
-  return errors
 }
 
-export function ContactForm() {
-  const [form, setForm] = useState<FormData>({ name: '', email: '', message: '' })
+export function ContactForm({ t }: ContactFormProps) {
+  const [form, setForm] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
+  })
+
   const [errors, setErrors] = useState<FieldError>({})
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  function validate(data: FormData): FieldError {
+    const errs: FieldError = {}
+
+    if (!data.name.trim()) {
+      errs.name = t.validation.name_required
+    }
+
+    if (!data.email.trim()) {
+      errs.email = t.validation.email_required
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errs.email = t.validation.email_invalid
+    }
+
+    if (!data.message.trim()) {
+      errs.message = t.validation.message_required
+    } else if (data.message.trim().length < 20) {
+      errs.message = t.validation.message_min
+    }
+
+    return errs
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+
     if (errors[name as keyof FieldError]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }))
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }))
+    }
+
+    if (submitError) {
+      setSubmitError('')
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     const errs = validate(form)
+
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       return
     }
+
     setLoading(true)
-    // Simulate async submission
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
+    setSubmitError('')
+
+    try {
+      const formData = new FormData()
+
+      formData.append(
+        'access_key',
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? ''
+      )
+
+      formData.append('name', form.name)
+      formData.append('email', form.email)
+      formData.append('message', form.message)
+
+      formData.append(
+        'subject',
+        `Nouveau message depuis le portfolio de ${form.name}`
+      )
+
+      formData.append('from_name', 'Portfolio Alexandre Robert')
+
+      const response = await fetch(
+        'https://api.web3forms.com/submit',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      )
+
+      const data = await response.json()
+
+      if (!data.success) {
+        throw new Error(data.message || 'Web3Forms submission failed')
+      }
+
+      setSubmitted(true)
+      trackContactSubmit()
+    } catch (error) {
+      console.error('Erreur Web3Forms:', error)
+
+      setSubmitError(t.submit_error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputClass = (field: keyof FieldError) =>
@@ -83,20 +164,28 @@ export function ContactForm() {
           <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 text-3xl">
             ✉️
           </div>
+
           <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
-            Message envoyé !
+            {t.success.title}
           </h3>
+
           <p className="text-[var(--color-muted-foreground)]">
-            Merci {form.name}. Je vous répondrai dans les plus brefs délais.
+            {t.success.message.replace('{name}', form.name)}
           </p>
+
           <button
             onClick={() => {
-              setForm({ name: '', email: '', message: '' })
+              setForm({
+                name: '',
+                email: '',
+                message: '',
+              })
+
               setSubmitted(false)
             }}
             className="mt-6 text-sm text-[var(--color-accent)] hover:underline"
           >
-            Envoyer un autre message
+            {t.success.send_another}
           </button>
         </motion.div>
       ) : (
@@ -107,55 +196,117 @@ export function ContactForm() {
           animate={{ opacity: 1 }}
           className="space-y-5"
         >
+          {/* Honeypot anti-spam Web3Forms */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          {/* Nom */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5">
-              Nom <span className="text-red-400">*</span>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
+            >
+              {t.fields.name} <span className="text-red-400">*</span>
             </label>
+
             <input
               id="name"
               name="name"
               type="text"
-              placeholder="Jean Dupont"
+              placeholder={t.fields.name_placeholder}
               value={form.name}
               onChange={handleChange}
               className={inputClass('name')}
+              autoComplete="name"
             />
-            {errors.name && <p className="mt-1.5 text-xs text-red-400">{errors.name}</p>}
+
+            {errors.name && (
+              <p className="mt-1.5 text-xs text-red-400">
+                {errors.name}
+              </p>
+            )}
           </div>
 
+          {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5">
-              Email <span className="text-red-400">*</span>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
+            >
+              {t.fields.email} <span className="text-red-400">*</span>
             </label>
+
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="jean@example.com"
+              placeholder={t.fields.email_placeholder}
               value={form.email}
               onChange={handleChange}
               className={inputClass('email')}
+              autoComplete="email"
             />
-            {errors.email && <p className="mt-1.5 text-xs text-red-400">{errors.email}</p>}
+
+            {errors.email && (
+              <p className="mt-1.5 text-xs text-red-400">
+                {errors.email}
+              </p>
+            )}
           </div>
 
+          {/* Message */}
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5">
-              Message <span className="text-red-400">*</span>
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-[var(--color-foreground)] mb-1.5"
+            >
+              {t.fields.message} <span className="text-red-400">*</span>
             </label>
+
             <textarea
               id="message"
               name="message"
               rows={5}
-              placeholder="Bonjour, je souhaite vous contacter pour..."
+              placeholder={t.fields.message_placeholder}
               value={form.message}
               onChange={handleChange}
-              className={cn(inputClass('message'), 'resize-none')}
+              className={cn(
+                inputClass('message'),
+                'resize-none'
+              )}
             />
-            {errors.message && <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>}
+
+            {errors.message && (
+              <p className="mt-1.5 text-xs text-red-400">
+                {errors.message}
+              </p>
+            )}
           </div>
 
-          <Button type="submit" size="lg" disabled={loading} className="w-full">
+          {/* Erreur d'envoi */}
+          {submitError && (
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-red-400"
+              role="alert"
+            >
+              {submitError}
+            </motion.p>
+          )}
+
+          {/* Bouton */}
+          <Button
+            type="submit"
+            size="lg"
+            disabled={loading}
+            className="w-full"
+          >
             {loading ? (
               <>
                 <svg
@@ -169,7 +320,8 @@ export function ContactForm() {
                 >
                   <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                 </svg>
-                Envoi en cours...
+
+                {t.fields.submitting}
               </>
             ) : (
               <>
@@ -186,7 +338,8 @@ export function ContactForm() {
                   <path d="m22 2-7 20-4-9-9-4Z" />
                   <path d="M22 2 11 13" />
                 </svg>
-                Envoyer le message
+
+                {t.fields.submit}
               </>
             )}
           </Button>
