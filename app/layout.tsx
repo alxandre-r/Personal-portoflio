@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import './globals.css'
 
 const inter = Inter({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html suppressHydrationWarning className={`${inter.variable} ${geistMono.variable} dark`}>
       <body className="min-h-screen flex flex-col bg-[var(--color-background)] text-[var(--color-foreground)]">
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
