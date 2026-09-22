@@ -19,14 +19,12 @@ export default async function LangLayout({ children, params }: Props) {
   if (!isLocale(lang)) notFound()
   const t = await getDictionary(lang as Locale)
 
-  const FooterAny = Footer as any
-
   return (
     <ThemeProvider>
       <HtmlLang lang={lang} />
       <Header navT={t.nav} lang={lang} />
       <main className="flex-1 pt-16">{children}</main>
-      <FooterAny t={t.footer} />
+      <Footer t={t.footer} />
     </ThemeProvider>
   )
 }

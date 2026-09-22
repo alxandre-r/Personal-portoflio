@@ -1,4 +1,9 @@
 import Link from 'next/link'
+import type { Dictionary } from '@/lib/i18n'
+
+interface FooterProps {
+  t: Dictionary['footer']
+}
 
 const socialLinks = [
   {
@@ -40,7 +45,7 @@ const socialLinks = [
   },
 ]
 
-export function Footer() {
+export function Footer({ t }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (
@@ -50,7 +55,7 @@ export function Footer() {
           <div className="text-center sm:text-left">
             <p className="text-sm font-medium text-[var(--color-foreground)]">Alexandre</p>
             <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">
-              Ingénieur Logiciel · Développeur Fullstack
+              {t.tagline}
             </p>
           </div>
 
@@ -70,7 +75,7 @@ export function Footer() {
           </div>
 
           <p className="text-xs text-[var(--color-muted-foreground)]">
-            © {year} Alexandre. Tous droits réservés.
+            © {year} Alexandre. {t.rights}
           </p>
         </div>
       </div>
