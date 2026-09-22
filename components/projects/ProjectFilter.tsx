@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useProjectStore } from '@/lib/store/useProjectStore'
 import { cn } from '@/lib/utils/cn'
 import type { ProjectFilter as FilterType } from '@/lib/store/useProjectStore'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary } from '@/lib/locales'
 
 interface ProjectFilterProps {
   labels: Dictionary['projects']['filters']

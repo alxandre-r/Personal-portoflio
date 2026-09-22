@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils/cn'
 import { scaleIn } from '@/lib/animations'
 import { trackContactSubmit } from '@/lib/analytics'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary } from '@/lib/locales'
 
 interface FormData {
   name: string

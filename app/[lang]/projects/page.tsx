@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
+import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { ProjectsGrid } from '@/components/projects/ProjectsGrid'
 import { projects } from '@/lib/data/projects'
@@ -14,7 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t.projects.meta.title,
     description: t.projects.meta.description,
-    openGraph: { locale: lang === 'fr' ? 'fr_FR' : 'en_US' },
+    openGraph: buildOpenGraph(lang as Locale),
+    alternates: buildAlternates(lang as Locale, '/projects'),
   }
 }
 

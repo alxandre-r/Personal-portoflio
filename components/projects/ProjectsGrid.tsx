@@ -6,7 +6,7 @@ import { ProjectFilter } from './ProjectFilter'
 import { useProjectStore } from '@/lib/store/useProjectStore'
 import { staggerContainer } from '@/lib/animations'
 import type { Project } from '@/lib/data/types'
-import type { Dictionary, Locale } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface ProjectsGridProps {
   projects: Project[]

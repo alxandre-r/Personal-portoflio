@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { fadeInUp } from '@/lib/animations'
 import { projectColors } from '@/lib/projectColors'
 import type { Project } from '@/lib/data/types'
-import type { Dictionary, Locale } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface ProjectCardProps {
   project: Project

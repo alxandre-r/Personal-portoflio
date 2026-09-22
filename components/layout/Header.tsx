@@ -9,7 +9,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher'
 // import Logo from '@/components/ui/Logo'
 import { cn } from '@/lib/utils/cn'
-import type { Dictionary, Locale } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface HeaderProps {
   navT: Dictionary['nav']

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary } from '@/lib/locales'
 
 interface HeroSectionProps {
   t: Dictionary['home']['hero']

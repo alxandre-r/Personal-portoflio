@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { getDictionary, isLocale, locales, type Locale } from '@/lib/i18n'
+import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { getProjectBySlug, projects } from '@/lib/data/projects'
 import { projectColors } from '@/lib/projectColors'
 import { MarketingProjectDetail } from '@/components/projects/MarketingProjectDetail'
@@ -16,14 +17,15 @@ type Props = { params: Promise<{ lang: string; slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params
-  const project = getProjectBySlug(slug)
-  if (!project) return { title: 'Not found' }
   if (!isLocale(lang)) return {}
   const t = await getDictionary(lang as Locale)
+  const project = getProjectBySlug(slug)
+  if (!project) return { title: t.projects.detail.not_found }
   return {
     title: project.title,
     description: project.shortDescription,
-    openGraph: { locale: lang === 'fr' ? 'fr_FR' : 'en_US' },
+    openGraph: buildOpenGraph(lang as Locale),
+    alternates: buildAlternates(lang as Locale, `/projects/${slug}`),
   }
 }
 
@@ -32,6 +34,10 @@ export function generateStaticParams() {
     projects.map((p) => ({ lang, slug: p.slug }))
   )
 }
+
+// Unknown slugs render the standard prerendered 404 treatment (Header,
+// Footer, fonts, styles) instead of a bare request-time error shell.
+export const dynamicParams = false
 
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params
@@ -48,7 +54,13 @@ export default async function ProjectPage({ params }: Props) {
   if (project.features?.length) {
     return (
       <PageTransition>
-        <MarketingProjectDetail project={project} color={color} t={detail} lang={lang as Locale} />
+        <MarketingProjectDetail
+          project={project}
+          color={color}
+          t={detail}
+          lang={lang as Locale}
+          categoryLabels={t.projects.filters}
+        />
       </PageTransition>
     )
   }
@@ -88,7 +100,7 @@ export default async function ProjectPage({ params }: Props) {
                 {detail.personal_badge}
               </span>
             )}
-            <Badge variant="accent">{project.category}</Badge>
+            <Badge variant="accent">{t.projects.filters[project.category]}</Badge>
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-[var(--color-foreground)]">{project.title}</h1>
           <p className="text-xl text-[var(--color-muted-foreground)] leading-relaxed">{project.shortDescription}</p>

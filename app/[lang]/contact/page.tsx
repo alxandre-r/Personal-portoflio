@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
+import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { ContactForm } from '@/components/contact/ContactForm'
@@ -58,7 +59,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t.contact.meta.title,
     description: t.contact.meta.description,
-    openGraph: { locale: lang === 'fr' ? 'fr_FR' : 'en_US' },
+    openGraph: buildOpenGraph(lang as Locale),
+    alternates: buildAlternates(lang as Locale, '/contact'),
   }
 }
 

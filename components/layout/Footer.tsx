@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary } from '@/lib/locales'
 
 interface FooterProps {
   t: Dictionary['footer']

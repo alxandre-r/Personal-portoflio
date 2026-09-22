@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
+import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { CvDownloadButton } from '@/components/ui/CvDownloadButton'
-import { skillsByCategory } from '@/lib/data/skills'
+import { skillsByCategory, DEVOPS_HOSTING_SKILL_NAME } from '@/lib/data/skills'
 import { icons } from '@/components/ui/SvgIcons'
 
 type Props = { params: Promise<{ lang: string }> }
@@ -20,7 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t.about.meta.title,
     description: t.about.meta.description,
-    openGraph: { locale: lang === 'fr' ? 'fr_FR' : 'en_US' },
+    openGraph: buildOpenGraph(lang as Locale),
+    alternates: buildAlternates(lang as Locale, '/about'),
   }
 }
 
@@ -112,7 +114,9 @@ export default async function AboutPage({ params }: Props) {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {skillsByCategory[cat].map((skill) => (
-                    <Badge key={skill.name} variant="level" level={skill.level}>{skill.name}</Badge>
+                    <Badge key={skill.name} variant="level" level={skill.level}>
+                      {skill.name === DEVOPS_HOSTING_SKILL_NAME ? t.common.devops_hosting_label : skill.name}
+                    </Badge>
                   ))}
                 </div>
               </div>
