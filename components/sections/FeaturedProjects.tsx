@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { projectColors } from '@/lib/projectColors'
 import type { Project } from '@/lib/data/types'
-import type { Dictionary, Locale } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface FeaturedProjectsProps {
   projects: Project[]
@@ -19,7 +19,17 @@ interface FeaturedProjectsProps {
   cardT: Dictionary['projects']['card']
 }
 
-function SandyHeroCard({ project, t, lang }: { project: Project; t: Dictionary['home']['featured']; lang: Locale }) {
+function SandyHeroCard({
+  project,
+  t,
+  lang,
+  categoryLabels,
+}: {
+  project: Project
+  t: Dictionary['home']['featured']
+  lang: Locale
+  categoryLabels: Dictionary['projects']['filters']
+}) {
   const color = projectColors[project.colorKey]
 
   return (
@@ -53,7 +63,7 @@ function SandyHeroCard({ project, t, lang }: { project: Project; t: Dictionary['
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
                     {t.personal_badge}
                   </span>
-                  <Badge variant="default">Fullstack</Badge>
+                  <Badge variant="default">{categoryLabels[project.category]}</Badge>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-bold mb-3 text-[var(--color-foreground)]">
                   {project.title}
@@ -128,7 +138,9 @@ export function FeaturedProjects({ projects, t, lang, categoryLabels, cardT }: F
           viewport={{ once: true, margin: '-80px' }}
           className="flex flex-col gap-6"
         >
-          {sandy && <SandyHeroCard project={sandy} t={t} lang={lang} />}
+          {sandy && (
+            <SandyHeroCard project={sandy} t={t} lang={lang} categoryLabels={categoryLabels} />
+          )}
           {others.length > 0 && (
             <>
               <motion.p variants={fadeInUp} className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted-foreground)] mt-2">

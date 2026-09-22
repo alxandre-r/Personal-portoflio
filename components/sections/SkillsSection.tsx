@@ -3,13 +3,14 @@
 import { motion } from 'framer-motion'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Badge } from '@/components/ui/Badge'
-import { skillsByCategory } from '@/lib/data/skills'
+import { skillsByCategory, DEVOPS_HOSTING_SKILL_NAME } from '@/lib/data/skills'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 import type { Skill } from '@/lib/data/types'
-import type { Dictionary } from '@/lib/i18n'
+import type { Dictionary } from '@/lib/locales'
 
 interface SkillsSectionProps {
   t: Dictionary['home']['skills']
+  devopsHostingLabel: string
 }
 
 const categoryIcons = {
@@ -38,14 +39,23 @@ const categoryIcons = {
   ),
 }
 
-function SkillItem({ skill, levelLabels }: { skill: Skill; levelLabels: Dictionary['home']['skills']['levels'] }) {
+function SkillItem({
+  skill,
+  levelLabels,
+  devopsHostingLabel,
+}: {
+  skill: Skill
+  levelLabels: Dictionary['home']['skills']['levels']
+  devopsHostingLabel: string
+}) {
+  const label = skill.name === DEVOPS_HOSTING_SKILL_NAME ? devopsHostingLabel : skill.name
   return (
     <motion.div
       variants={fadeInUp}
       className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-[var(--color-muted)] transition-colors group"
     >
       <span className="text-sm text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors">
-        {skill.name}
+        {label}
       </span>
       <Badge variant="level" level={skill.level}>
         {levelLabels[skill.level]}
@@ -54,7 +64,7 @@ function SkillItem({ skill, levelLabels }: { skill: Skill; levelLabels: Dictiona
   )
 }
 
-export function SkillsSection({ t }: SkillsSectionProps) {
+export function SkillsSection({ t, devopsHostingLabel }: SkillsSectionProps) {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -88,7 +98,12 @@ export function SkillsSection({ t }: SkillsSectionProps) {
               </div>
               <div className="space-y-1">
                 {skillsByCategory[cat].map((skill) => (
-                  <SkillItem key={skill.name} skill={skill} levelLabels={t.levels} />
+                  <SkillItem
+                    key={skill.name}
+                    skill={skill}
+                    levelLabels={t.levels}
+                    devopsHostingLabel={devopsHostingLabel}
+                  />
                 ))}
               </div>
             </motion.div>

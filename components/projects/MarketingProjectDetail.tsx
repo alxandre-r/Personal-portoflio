@@ -9,20 +9,17 @@ import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { fadeInUp } from '@/lib/animations'
 import type { Project } from '@/lib/data/types'
 import type { ColorPalette } from '@/lib/projectColors'
-import type { Dictionary, Locale } from '@/lib/i18n'
+import type { Dictionary, Locale } from '@/lib/locales'
 
 interface MarketingProjectDetailProps {
   project: Project
   color: ColorPalette
-  t: Dictionary['projects']['detail'] & {
-    features_title: string
-    gallery_title: string
-    story_title: string
-  }
+  t: Dictionary['projects']['detail']
   lang: Locale
+  categoryLabels: Dictionary['projects']['filters']
 }
 
-export function MarketingProjectDetail({ project, color, t, lang }: MarketingProjectDetailProps) {
+export function MarketingProjectDetail({ project, color, t, lang, categoryLabels }: MarketingProjectDetailProps) {
   const features = project.features ?? []
   const screenshots = project.screenshots ?? []
   const hasGallery = screenshots.length > 1
@@ -55,7 +52,7 @@ export function MarketingProjectDetail({ project, color, t, lang }: MarketingPro
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color.topBar }} />
             {t.personal_badge}
           </span>
-          <Badge variant="accent">{project.category}</Badge>
+          <Badge variant="accent">{categoryLabels[project.category]}</Badge>
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[var(--color-foreground)]">
@@ -171,7 +168,7 @@ export function MarketingProjectDetail({ project, color, t, lang }: MarketingPro
               >
                 <Image
                   src={src}
-                  alt={`${t.screenshot_alt} ${i + 1} — ${project.title}`}
+                  alt={`${t.gallery_alt.replace('{n}', String(i + 1))} ${project.title}`}
                   fill
                   quality={85}
                   className="object-cover object-top"
