@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/layout/ThemeProvider'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Button } from '@/components/ui/Button'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import './globals.css'
 
 const inter = Inter({
@@ -49,6 +50,7 @@ export default async function GlobalNotFound() {
       className={`${inter.variable} ${geistMono.variable} dark`}
     >
       <body className="min-h-screen flex flex-col bg-[var(--color-background)] text-[var(--color-foreground)]">
+        <GoogleAnalytics />
         <ThemeProvider>
           <Header navT={t.nav} lang={lang} />
           <main className="flex-1 pt-16">

@@ -1,9 +1,6 @@
 import type { Locale } from '@/lib/locales'
 
-// TODO: replace with the real production domain before this branch ships.
-// No domain could be confirmed from package.json, README, vercel config, or
-// git remotes at the time this was written — flagged in the fix-wave report.
-export const SITE_URL = 'https://portfolio.example.com'
+export const SITE_URL = 'https://alexandre-robert.com'
 
 export const SITE_NAME = 'Alexandre Portfolio'
 
