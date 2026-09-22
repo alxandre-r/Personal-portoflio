@@ -2,14 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import type { Locale } from '@/lib/i18n'
+import { locales, type Locale } from '@/lib/locales'
 import { cn } from '@/lib/utils/cn'
-
-// `lib/i18n.ts` is a server-only module (it starts with `import 'server-only'`),
-// so it can't be imported for its runtime values from a Client Component like
-// this one — only type-only imports from it are safe to use here. This local
-// tuple must stay in sync with `locales` in `lib/i18n.ts`.
-const locales = ['fr', 'en'] as const satisfies readonly Locale[]
 
 interface LanguageSwitcherProps {
   lang: Locale
