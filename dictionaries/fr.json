@@ -53,7 +53,7 @@
     "title": "Ingénieur logiciel,",
     "title_highlight": "curieux de nature",
     "description_1": "Je suis Alexandre, fraîchement diplômé ingénieur informatique du CNAM. Au fil de mon parcours, en formation comme en entreprise, j'ai acquis des compétences techniques et humaines dans des domaines variés : développement web, infrastructure système, gestion de projet et même informatique embarquée.",
-    "description_2": "Je suis capable de m'adapter rapidement à de nouveaux environnements et de monter en compétence de manière autonome grâce à ma curiosité et à mon sens de l'organisation.",
+    "description_2": "Perfectionniste de nature, j'ai une appétence particulière pour le frontend : des interfaces claires, bien organisées et pensées pour le métier de ceux qui les utilisent. Front comme back, je soigne l'architecture et la qualité du code : principes SOLID, design patterns et conventions.",
     "description_3_prefix": "Je recherche aujourd'hui un ",
     "description_3_bold": "emploi à temps plein",
     "description_3_suffix": " dans une entreprise où je pourrai continuer à apprendre, relever des défis techniques et contribuer à des projets concrets.",
@@ -69,7 +69,8 @@
       "timeline": "Parcours",
       "technicalSkills": "Compétences techniques",
       "certifications": "Certifications : RGPD (bonnes pratiques de confidentialité) · ANSSI (sensibilisation sécurité informatique)",
-      "languages": "Langues"
+      "languages": "Langues",
+      "beyond": "En dehors du code"
     },
     "softSkills": [
       { "title": "Organisé", "desc": "Gestion efficace des tâches et des priorités, même en environnement multi-projets." },
@@ -82,7 +83,7 @@
         "year": "2022 - 2025",
         "title": "Diplôme d'ingénieur informatique en alternance",
         "institution": "CNAM Grand Est, Strasbourg",
-        "description": "Formation en alternance chez Weinmann Technologies, une PME industrielle. Évolution au sein du service informatique : support utilisateur (50 collaborateurs), amélioration de l'infrastructure réseau et de la sauvegarde, refonte des droits Active Directory, et développement d'outils internes comme Tempo (gestion du temps), Swing (gestion des stocks) et l'Espace Client Weinmann (portail de visualisation des données).",
+        "description": "Formation en alternance chez Weinmann Technologies, une PME industrielle. Évolution au sein du service informatique : support utilisateur en binôme avec le DSI (50 collaborateurs), sauvegardes repensées selon la règle 3-2-1 (NAS et outil de synchronisation différentielle en C#), refonte des droits Active Directory selon le principe du moindre privilège, et développement d'outils internes : Tempo (gestion du temps), Swing (préparation des commandes), Boléro (planning SAV) et l'Espace Client Weinmann (portail de visualisation des données).",
         "highlight": "Stage 2 mois · Žilina, Slovaquie - Recherche sur la production d'électricité par les arbres. Travaux sur systèmes embarqués ESP32 et rédaction d'articles au format IEEE avec LaTeX.",
         "tags": ["Algorithmique et Programmation objet", "Réseaux et Systèmes", "Gestion de projet", "ERP", "Méthodologie"]
       },
@@ -114,7 +115,33 @@
       { "lang": "Anglais", "level": "TOEIC 965/990", "detail": "Bon niveau professionnel - 2025", "flag": "🇬🇧" },
       { "lang": "Espagnol", "level": "A2", "detail": "Niveau conversationnel de base", "flag": "🇪🇸" },
       { "lang": "Coréen", "level": "A1", "detail": "École Coréenne de Strasbourg", "flag": "🇰🇷" }
-    ]
+    ],
+    "beyond": {
+      "intro": "Un bon ingénieur ne se résume pas à ses compétences techniques. Voici ce qui m'anime le reste du temps, et qui nourrit souvent mes projets.",
+      "photo_alt": "Alexandre en randonnée dans un champ d'herbes hautes, au bord d'une forêt",
+      "items": [
+        {
+          "title": "Automobile",
+          "desc": "Moins la mécanique que l'évolution des marques et des modèles, les tendances du marché et les technologies embarquées. Je suis de près la F1 et le WEC. C'est de là qu'est née Sandy.",
+          "link": { "label": "Voir Sandy", "href": "/projects/sandy" }
+        },
+        {
+          "title": "Jeux de stratégie",
+          "desc": "Age of Empires, StarCraft II, Cities: Skylines : planifier, gérer ses ressources, anticiper. Assez pour avoir eu envie d'en construire un.",
+          "link": { "label": "Voir FogWar", "href": "/projects/fogwar" }
+        },
+        {
+          "title": "Photographie",
+          "desc": "Scènes urbaines et paysages, au téléphone ou au Canon EOS 70D. Une affaire de détail et de composition, comme une interface.",
+          "link": { "label": "brioche.pics sur Instagram", "href": "https://www.instagram.com/brioche.pics/" }
+        },
+        {
+          "title": "Sport & voyages",
+          "desc": "VTT, padel, escalade et randonnée sur les sentiers du Club Vosgien. En 2025, un voyage en Corée du Sud et au Japon que j'ai organisé de A à Z, aboutissement d'un intérêt de longue date pour ces cultures.",
+          "link": null
+        }
+      ]
+    }
   },
   "projects": {
     "meta": {

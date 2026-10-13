@@ -18,11 +18,20 @@ Cahier des charges, organisation, conception, développement front-end et back-e
 
 ## Collecter
 
-Première brique technique : récupérer automatiquement les données des équipements et les stocker de façon exploitable, cabine par cabine, client par client.
+Première brique technique : faire remonter les données de chaque cabine jusqu'à une base exploitable, de façon fiable et sécurisée.
+
+- des **règles de validation dès l'automate**, et une gestion des erreurs de transmission, pour ne stocker que des données saines ;
+- une **liaison HTTPS** entre chaque automate et l'API, avec des certificats TLS renouvelés automatiquement ;
+- une **API REST en Django**, authentifiée par **JWT**, qui reçoit les données des automates et sert aussi le portail ;
+- une **base MySQL dédiée** aux cabines : schéma relationnel indexé, **vues et procédures stockées** pour agréger les consommations sans ralentir le site.
+
+Tout l'enjeu était de trouver le bon rythme : des données assez fraîches pour être utiles, sans saturer le serveur de requêtes.
 
 ## Montrer
 
 Les clients consultent en temps réel l'état de leurs cabines à travers des **tableaux de bord** : consommation, indicateurs de performance, historiques et alertes. L'objectif : qu'un responsable d'atelier comprenne la situation en quelques secondes, sans export ni appel.
+
+Les écrans ont d'abord été maquettés sur **Figma**, puis développés en Next.js : graphes, tableaux et filtres.
 
 <Placeholder label="Capture : dashboard d'une cabine (consommation et alertes)" />
 
@@ -30,10 +39,30 @@ Les clients consultent en temps réel l'état de leurs cabines à travers des **
 
 Un portail client, c'est plusieurs clients sur la même plateforme. L'architecture est pensée **multi-clients dès le départ** : chaque client a ses propres droits d'accès et ne voit que ses équipements.
 
+L'authentification distingue plusieurs niveaux (client, utilisateur, administrateur), et chaque client gère lui-même ses utilisateurs et ses administrateurs, **site par site**. Le système de rôles est pensé pour évoluer sans tout réécrire.
+
+## Le back-office SAV
+
+Côté Weinmann, le service client dispose de sa propre interface sécurisée :
+
+- création et modification des clients, de leurs sites et de leurs équipements ;
+- attribution et révocation des droits utilisateurs ;
+- indicateurs de maintenance : état des connexions, journaux d'erreurs, alertes.
+
+<Figure
+  src="/projects/espace-client-weinmann/equipements.png"
+  alt="Back-office de l'Espace Client Weinmann : les équipements des clients regroupés par site"
+  width={1836}
+  height={941}
+  caption="Le back-office SAV : les équipements de chaque client, regroupés par site (noms des clients masqués)."
+/>
+
+Une même plateforme, donc, pour des profils très différents : l'utilisateur final, le responsable de site et le technicien SAV n'attendent pas les mêmes écrans.
+
 <Callout title="Livré">
 Le portail a été livré et présenté comme projet de fin d'études. Il permet à Weinmann d'offrir une expérience client moderne autour de ses équipements connectés, et ouvre la voie à de nouveaux services numériques.
 </Callout>
 
 ## Stack
 
-Next.js et TypeScript, TailwindCSS, un back-end Node.js avec MySQL, hébergé sur un VPS Linux.
+Next.js et TypeScript avec TailwindCSS côté interface, une API Django (Python) et MySQL côté serveur, le tout hébergé sur un VPS Linux.

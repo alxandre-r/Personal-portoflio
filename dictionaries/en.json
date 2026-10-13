@@ -53,7 +53,7 @@
     "title": "Software engineer,",
     "title_highlight": "curious by nature",
     "description_1": "I'm Alexandre, a recently graduated software engineer from CNAM. Throughout my journey, both in education and at work, I've acquired technical and interpersonal skills across various domains: web development, system infrastructure, project management and even embedded systems.",
-    "description_2": "I'm able to adapt quickly to new environments and grow independently, thanks to my curiosity and organizational skills.",
+    "description_2": "A perfectionist by nature, I have a soft spot for front-end work: clear, well-organized interfaces built around the job of the people who use them. Front end or back end, I take care of architecture and code quality: SOLID principles, design patterns and conventions.",
     "description_3_prefix": "I'm currently looking for a ",
     "description_3_bold": "full-time position",
     "description_3_suffix": " at a company where I can keep learning, tackle technical challenges and contribute to concrete projects.",
@@ -69,7 +69,8 @@
       "timeline": "Background",
       "technicalSkills": "Technical skills",
       "certifications": "Certifications: GDPR (privacy best practices) · ANSSI (cybersecurity awareness)",
-      "languages": "Languages"
+      "languages": "Languages",
+      "beyond": "Beyond code"
     },
     "softSkills": [
       { "title": "Organized", "desc": "Effective task and priority management, even in multi-project environments." },
@@ -82,7 +83,7 @@
         "year": "2022 - 2025",
         "title": "Computer Engineering Degree (work-study)",
         "institution": "CNAM Grand Est, Strasbourg",
-        "description": "Work-study at Weinmann Technologies, an industrial SME. Roles in the IT department: user support (50 staff), network and backup improvements, Active Directory rights restructuring, and development of internal tools including Tempo (time management), Swing (inventory) and the Weinmann Client Portal (data visualization).",
+        "description": "Work-study at Weinmann Technologies, an industrial SME. Roles in the IT department: user support alongside the IT manager (50 staff), backups redesigned around the 3-2-1 rule (NAS and a differential sync tool in C#), Active Directory rights rebuilt on the principle of least privilege, and development of internal tools: Tempo (time management), Swing (order picking), Boléro (after-sales scheduling) and the Weinmann Client Portal (data visualization).",
         "highlight": "2-month internship · Žilina, Slovakia — Research on electricity generation from trees. ESP32 embedded systems work and IEEE-format articles written in LaTeX.",
         "tags": ["Algorithms & OOP", "Networks & Systems", "Project Management", "ERP", "Methodology"]
       },
@@ -114,7 +115,33 @@
       { "lang": "English", "level": "TOEIC 965/990", "detail": "Professional level - 2025", "flag": "🇬🇧" },
       { "lang": "Spanish", "level": "A2", "detail": "Basic conversational level", "flag": "🇪🇸" },
       { "lang": "Korean", "level": "A1", "detail": "Strasbourg Korean School", "flag": "🇰🇷" }
-    ]
+    ],
+    "beyond": {
+      "intro": "A good engineer is more than their technical skills. Here's what drives me the rest of the time, and often feeds into my projects.",
+      "photo_alt": "Alexandre hiking through a field of tall grass at the edge of a forest",
+      "items": [
+        {
+          "title": "Cars",
+          "desc": "Less the mechanics than how brands and models evolve, market trends and in-car technology. I follow F1 and WEC closely. That's where Sandy came from.",
+          "link": { "label": "See Sandy", "href": "/projects/sandy" }
+        },
+        {
+          "title": "Strategy games",
+          "desc": "Age of Empires, StarCraft II, Cities: Skylines: planning, managing resources, thinking ahead. Enough to want to build one.",
+          "link": { "label": "See FogWar", "href": "/projects/fogwar" }
+        },
+        {
+          "title": "Photography",
+          "desc": "Street scenes and landscapes, on my phone or a Canon EOS 70D. A matter of detail and composition, just like an interface.",
+          "link": { "label": "brioche.pics on Instagram", "href": "https://www.instagram.com/brioche.pics/" }
+        },
+        {
+          "title": "Sport & travel",
+          "desc": "Mountain biking, padel, climbing and hiking the Club Vosgien trails. In 2025, a trip to South Korea and Japan that I planned end to end, the culmination of a long-standing interest in both cultures.",
+          "link": null
+        }
+      ]
+    }
   },
   "projects": {
     "meta": {

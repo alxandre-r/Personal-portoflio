@@ -10,11 +10,19 @@ A regular calendar shows events. The service team needed to see **people**. So I
 - jobs are moved around with **drag & drop**;
 - gaps, overlaps and routes are visible at a glance.
 
-<Placeholder label="Screenshot: resource view (technicians as columns)" />
+<Figure
+  src="/projects/bolero/planning.png"
+  alt="A week of Boléro scheduling: one column per technician, jobs as colored blocks on the hourly scale"
+  width={1847}
+  height={876}
+  caption="A week of scheduling: each column is a technician, each block a job (customer names hidden)."
+/>
+
+On tablets, drag & drop isn't native to touch input: the interactions had to be adapted so the schedule stays easy to handle with a finger.
 
 ## An API shaped for scheduling
 
-Showing several days of schedule for a whole team is a lot of requests if the API is naive. The Express back end exposes a **REST API designed for multi-day ranges**, so the view stays fast while scrolling through the week.
+Showing several days of schedule for a whole team is a lot of requests if the API is naive. The Express back end exposes a **REST API designed for multi-day ranges**, so the view stays fast while scrolling through the week, even with some twenty technicians over several weeks.
 
 ## Leaving Excel without losing history
 

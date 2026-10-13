@@ -38,7 +38,7 @@ export const projects: Project[] = [
     colorKey: 'green',
     shortDescription:
       'Planning interactif des interventions SAV pour Weinmann Technologies — visualisation en temps réel des techniciens, clients et tournées.',
-    techStack: ['React Native', 'DayPilot Scheduler', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
+    techStack: ['React', 'DayPilot Scheduler', 'TailwindCSS', 'Node.js', 'Express', 'MySQL', 'PM2', 'Nginx'],
     category: 'fullstack',
     featured: false,
     personal: false,
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     colorKey: 'amber',
     shortDescription:
       'Portail web client pour visualiser en temps réel les consommations et l\'état des cabines de peinture connectées — projet de fin d\'études.',
-    techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Node.js', 'MySQL', 'VPS Linux'],
+    techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Django', 'MySQL', 'VPS Linux'],
     category: 'fullstack',
     featured: true,
     personal: false,

@@ -27,7 +27,13 @@ Accès dédié pour valider ou corriger les déclarations de son équipe, avec u
 
 Un rôle **administrateur** complète le tout. Chaque route est protégée selon le rôle : un collaborateur ne peut pas atteindre l'écran de validation, même en tapant l'URL.
 
-<Placeholder label="Capture : écran de validation manager (données floutées)" />
+<Figure
+  src="/projects/tempo/manager-validation.png"
+  alt="Écran Manager de Tempo : liste des activités déclarées d'un collaborateur, avec la fenêtre de validation ouverte"
+  width={1562}
+  height={917}
+  caption="La vue Manager : on choisit un collaborateur et une date, et toutes ses activités jusqu'à cette date sont validées d'un coup."
+/>
 
 ## Les absences arrivent toutes seules
 
@@ -38,6 +44,8 @@ Silae (RH)  ──►  script Python  ──►  MySQL  ──►  Tempo
 ```
 
 Résultat : le collaborateur voit ses congés déjà en place quand il remplit sa semaine, et le manager valide sur des données justes.
+
+Le plus délicat a été de comprendre la logique propre à Silae et d'éviter les **doublons** à chaque synchronisation. La validation, elle, doit encaisser les exceptions du calendrier réel : jours fériés, congés, absences longues.
 
 ## Les cadres au forfait jours
 

@@ -27,7 +27,13 @@ A dedicated view to approve or correct their team's entries, with an overall pic
 
 An **admin** role completes the set. Every route is protected by role: an employee can't reach the approval screen, even by typing the URL.
 
-<Placeholder label="Screenshot: manager approval screen (blurred data)" />
+<Figure
+  src="/projects/tempo/manager-validation.png"
+  alt="Tempo's Manager screen: an employee's logged activities, with the approval dialog open"
+  width={1562}
+  height={917}
+  caption="The Manager view: pick an employee and a date, and all their activities up to that date are approved at once."
+/>
 
 ## Absences show up on their own
 
@@ -38,6 +44,8 @@ Silae (HR)  ──►  Python script  ──►  MySQL  ──►  Tempo
 ```
 
 The result: employees see their leave already filled in when they log their week, and managers approve against accurate data.
+
+The tricky part was understanding Silae's own logic and avoiding **duplicates** on every sync. Approval, for its part, has to absorb the exceptions of a real calendar: public holidays, paid leave, long absences.
 
 ## Fixed-days contracts
 

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
 import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
@@ -126,7 +128,7 @@ export default async function AboutPage({ params }: Props) {
         </AnimatedSection>
 
         {/* Languages */}
-        <AnimatedSection>
+        <AnimatedSection className="mb-16">
           <h2 className="text-2xl font-bold mb-6 text-[var(--color-foreground)]">{about.sections.languages}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {about.languages.map((l) => (
@@ -139,6 +141,41 @@ export default async function AboutPage({ params }: Props) {
                 </div>
               </div>
             ))}
+          </div>
+        </AnimatedSection>
+
+        {/* Beyond code */}
+        <AnimatedSection>
+          <h2 className="text-2xl font-bold mb-3 text-[var(--color-foreground)]">{about.sections.beyond}</h2>
+          <p className="text-[var(--color-muted-foreground)] leading-relaxed mb-6">{about.beyond.intro}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-full rounded-xl overflow-hidden border border-[var(--color-border)]">
+              <Image
+                src="/about/alexandre.jpg"
+                alt={about.beyond.photo_alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 384px"
+                className="object-cover object-[50%_60%]"
+              />
+            </div>
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {about.beyond.items.map((item) => (
+                <div key={item.title} className="flex flex-col bg-[var(--color-card)] rounded-xl border border-[var(--color-border)] p-5">
+                  <h3 className="font-semibold text-[var(--color-foreground)] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{item.desc}</p>
+                  {item.link &&
+                    (item.link.href.startsWith('/') ? (
+                      <Link href={`/${lang}${item.link.href}`} className="mt-auto pt-3 text-sm font-medium text-[var(--color-accent)] hover:underline">
+                        {item.link.label} →
+                      </Link>
+                    ) : (
+                      <a href={item.link.href} target="_blank" rel="noopener noreferrer" className="mt-auto pt-3 text-sm font-medium text-[var(--color-accent)] hover:underline">
+                        {item.link.label} ↗
+                      </a>
+                    ))}
+                </div>
+              ))}
+            </div>
           </div>
         </AnimatedSection>
       </div>

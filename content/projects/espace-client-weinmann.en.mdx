@@ -18,11 +18,20 @@ Specification, organisation, design, front-end and back-end development, deploym
 
 ## Collect
 
-The first technical building block: automatically gather the equipment data and store it in a usable way, booth by booth, customer by customer.
+The first technical building block: get each booth's data into a usable database, reliably and securely.
+
+- **validation rules right at the PLC**, plus handling of transmission errors, so only clean data gets stored;
+- an **HTTPS link** between each PLC and the API, with automatically renewed TLS certificates;
+- a **Django REST API**, authenticated with **JWT**, that receives the PLC data and also serves the portal;
+- a **dedicated MySQL database** for the booths: an indexed relational schema, with **views and stored procedures** to aggregate consumption without slowing the site down.
+
+The real challenge was finding the right pace: data fresh enough to be useful, without flooding the server with requests.
 
 ## Show
 
 Customers check their booths' status in real time through **dashboards**: consumption, performance indicators, history and alerts. The goal: a workshop manager understands the situation in a few seconds, without an export or a phone call.
+
+The screens were first mocked up in **Figma**, then built in Next.js: charts, tables and filters.
 
 <Placeholder label="Screenshot: a booth's dashboard (consumption and alerts)" />
 
@@ -30,10 +39,30 @@ Customers check their booths' status in real time through **dashboards**: consum
 
 A customer portal means many customers on the same platform. The architecture is **multi-tenant from the start**: each customer has their own access rights and only sees their own equipment.
 
+Authentication has several levels (customer, user, administrator), and each customer manages their own users and administrators, **site by site**. The role system is designed to grow without a rewrite.
+
+## The after-sales back office
+
+On Weinmann's side, the customer service team has its own secure interface:
+
+- creating and editing customers, their sites and their equipment;
+- granting and revoking user rights;
+- maintenance indicators: connection status, error logs, alerts.
+
+<Figure
+  src="/projects/espace-client-weinmann/equipements.png"
+  alt="Weinmann Client Portal back office: customers' equipment grouped by site"
+  width={1836}
+  height={941}
+  caption="The after-sales back office: each customer's equipment, grouped by site (customer names hidden)."
+/>
+
+One platform, then, for very different people: an end user, a site manager and an after-sales technician don't need the same screens.
+
 <Callout title="Delivered">
 The portal was delivered and presented as my final-year engineering project. It lets Weinmann offer a modern customer experience around its connected equipment, and opens the door to new digital services.
 </Callout>
 
 ## Stack
 
-Next.js and TypeScript, TailwindCSS, a Node.js back end with MySQL, hosted on a Linux VPS.
+Next.js and TypeScript with TailwindCSS on the front end, a Django (Python) API and MySQL on the server, hosted on a Linux VPS.

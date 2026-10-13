@@ -10,11 +10,19 @@ Un calendrier classique montre des événements. Le SAV avait besoin de voir des
 - les interventions se déplacent par **glisser-déposer** ;
 - on voit d'un coup d'œil les trous, les chevauchements et les tournées.
 
-<Placeholder label="Capture : planning en vue ressources (techniciens en colonnes)" />
+<Figure
+  src="/projects/bolero/planning.png"
+  alt="Planning Boléro sur une semaine : une colonne par technicien, les interventions en blocs de couleur sur l'échelle horaire"
+  width={1847}
+  height={876}
+  caption="Une semaine de planning : chaque colonne est un technicien, chaque bloc une intervention (noms des clients masqués)."
+/>
+
+Sur tablette, le glisser-déposer n'est pas natif au tactile : il a fallu adapter les interactions pour que le planning reste manipulable au doigt.
 
 ## Une API taillée pour le planning
 
-Afficher plusieurs jours de planning pour toute une équipe, c'est beaucoup de requêtes si l'API est naïve. Le back-end Express expose une **API REST pensée pour les plages de plusieurs jours**, pour que l'affichage reste rapide quand on fait défiler la semaine.
+Afficher plusieurs jours de planning pour toute une équipe, c'est beaucoup de requêtes si l'API est naïve. Le back-end Express expose une **API REST pensée pour les plages de plusieurs jours**, pour que l'affichage reste rapide quand on fait défiler la semaine, même avec une vingtaine de techniciens sur plusieurs semaines.
 
 ## Sortir d'Excel sans perdre l'historique
 
