@@ -1,101 +1,107 @@
 import { VisionRadii } from '@/components/projects/fogwar/VisionRadii'
 import { EconomyLoop } from '@/components/projects/fogwar/EconomyLoop'
+import { SpriteShelf } from '@/components/projects/fogwar/SpriteShelf'
 
 ## The pitch
 
-FogWar is a real-time strategy and survival game. You grow a colony in a hostile world, and waves of enemies come at you… out of the fog.
+FogWar is a **2D isometric survival RTS** in pixel art, set in a realistic medieval world with no magic. By day you grow a small village: gathering, building, villagers to feed. By night, raiders come out of the fog for your town hall.
 
-Two rules change everything: **what you can't see can attack you**, and **you can only build where you can see**. Every game becomes a constant trade-off between expanding to find resources and staying in the light to survive.
+The goal in the current version: **hold out until day 11**. Raiders strike every night at 10 pm, a few more each time. Scouts warn you at 6 pm, and the raiders flee at dawn.
 
-<Callout title="In development">
-A personal project, built in my spare time. [Follow the game on itch.io](https://alexandrenotdev.itch.io/fogwar)
-</Callout>
+Inspirations: *They Are Billions* for the survival, *Age of Empires* for villagers, resources and ages.
 
-<Placeholder label="GIF: overview of a game, the colony surrounded by fog" />
-
-## Vision is a resource
-
-The fog of war isn't scenery, it's the game's core system:
-
-- outside your vision, the map is unknown and **enemies are invisible**;
-- **you can't build** outside your vision;
-- explored areas you no longer watch stay visible, greyed out.
-
-Every building, villager and torch lights up a radius around it:
-
-<VisionRadii
-  labels={{
-    watchtower: 'Watchtower',
-    townHall: 'Town hall',
-    torch: 'Torch',
-    villager: 'Villager',
-    tiles: 'tiles',
-  }}
+<Figure
+  src="/projects/fogwar/gameplay.png"
+  alt="A game of FogWar on day 1: the town hall and four villagers in a clearing, surrounded by black fog"
+  width={1600}
+  height={900}
+  caption="Day 1, 8:22 am: four villagers, a town hall, and the rest of the map in the dark."
+  pixelated
 />
 
-Torches are your expansion tool: 10 wood buys 60 seconds of light, then the radius shrinks over 10 seconds. A burnt-out torch stays on the map, and a villager can walk over to relight it. **Light needs upkeep**, and every villager doing it is one not gathering.
-
-<Callout title="Under the hood">
-The fog is a 100 × 100 pixel texture: **one pixel per tile**. Every 0.3 seconds the system walks the vision sources and recomputes each tile's clearness. The edge is softened with a *smoothstep* over 1.5 tiles, and the texture's bilinear filtering does the rest.
+<Callout title="In development">
+A personal project. Several Windows playtest builds have already been put together for testers, from v0.1 to v0.32. [The game on itch.io](https://alexandrenotdev.itch.io/fogwar)
 </Callout>
 
-All light sources share the same interface. Adding a new kind of source means implementing three properties:
+## By day: feed the village
 
-```csharp
-public interface IVisionSource
-{
-    Vector3 Position     { get; }
-    float   VisionRadius { get; }
-    bool    IsActive     { get; }
-}
-```
+Every villager has a name and follows right-click orders: gather from a tree, bush, farm or dock, build a construction site, move. An idle villager goes and helps on a nearby site on their own.
 
-## Night and weather blind you
-
-Time flows: 15 real seconds make one in-game hour, and night falls at 8 pm. Between clear spells, the weather joins in. Each condition applies a **multiplier** to the radius of every vision source, and they stack:
-
-| Condition | Multiplier | Torch radius |
-|---|---|---|
-| Day, clear | ×1.0 | 6 tiles |
-| Rain | ×0.9 | 5.4 tiles |
-| Storm | ×0.8 | 4.8 tiles |
-| Night | ×0.6 | 3.6 tiles |
-| Fog | ×0.4 | 2.4 tiles |
-| **Night + fog** | **×0.24** | **1.4 tiles** |
-
-Fog doesn't roll in at random: its likelihood follows a bell curve centred on **5 am**, the darkest hour, right before dawn. The fog's colour and opacity also shift with the weather, with smooth transitions so the player *feels* visibility drop before measuring it.
-
-<Placeholder label="Video: fog closing in as night falls" />
-
-## A different map every game
-
-The 100 × 100 tile map is generated procedurally from **several layers of Perlin noise**. Each layer (small, medium, large trees…) has its own noise scale and thresholds: above one threshold something spawns, above a second one it grows bigger. A random offset per layer makes every map different.
-
-An **exclusion zone** around the starting point guarantees room to build, and forests hold a limited amount of wood: sooner or later you'll have to fetch it further out, in the dark.
-
-<Placeholder label="Screenshot: two generated maps side by side" />
-
-## An economy under pressure
+The real pressure is **food**. Every villager eats at **noon and 6 pm**. If the stock drops below zero, the whole village works and walks **at half speed**, training new villagers included.
 
 <EconomyLoop
   labels={{
-    wood: 'Wood',
-    buildings: 'Houses & farms',
-    food: 'Food',
     villagers: 'Villagers',
-    market: 'Market',
-    gold: 'Gold',
-    research: 'Research',
+    wood: 'Wood',
+    buildings: 'Windmill, farms, dock',
+    food: 'Food',
+    meals: 'Meals (noon, 6 pm)',
   }}
 />
 
-You start with 60 wood and 80 food. Each villager eats one unit every 30 seconds, and the market turns food into gold to fund the laboratory's **research**: villager and building vision, speed, tower damage, torch duration.
+- berry bushes run out, **farms** don't, but they have to sit within 4 cells of a **windmill**;
+- a **dock**, one end on the shore and the other over water, gives endless fish, slower than a farm;
+- a new villager is trained at the town hall for food, and needs a free home.
 
-Meanwhile the waves keep coming: the first after 4 minutes, then every 100 to 140 seconds, with **3 + (N − 1) × 3** enemies in wave N. They always spawn **outside your vision**, from a random map edge, and go for the nearest building. To win, survive 20 waves.
+Stone and gold can already be gathered, but they're saved for the ages to come.
 
-## How I build it
+## By night: fog as a weapon
 
-- **Unity 6 and URP**, in C#.
-- **Data in ScriptableObjects**: buildings, enemies and upgrades are tuned in the editor; balancing never touches code.
-- **NavMesh** for enemy pathfinding; enemies attack anything blocking their way.
-- **An engineer's process, even for a game**: a game design document, then for each feature (world generator, weather effects, upgrade redesign…) a design spec, an implementation plan, and small commits.
+Vision is the scarcest resource in the game. Out of sight, the map is unknown and **raiders are invisible**. You can only build where you've already explored.
+
+Every vision source has two radii, day and night, and the actual radius slides between them as the sunlight changes:
+
+<VisionRadii
+  sources={[
+    { label: 'Villager', day: 6, night: 2 },
+    { label: 'Town hall', day: 8, night: 4, note: 'when manned' },
+    { label: 'Watchtower', day: 7, night: 4, note: 'when manned' },
+    { label: 'Torch', day: 8, night: 8 },
+  ]}
+  labels={{ day: 'Day', night: 'Night', tiles: 'cells' }}
+/>
+
+A villager sees far by day but barely anything at night, and a building sees nothing unless someone is inside. **Torches** are the only light that doesn't fade. Rain takes away another quarter of your vision.
+
+To defend, you shelter villagers in the town hall (5 places) or a watchtower (1 place), where they shoot arrows. The alarm bell sends everyone to shelter at once, and the screen edges glow red while raiders are in the village.
+
+<Callout title="Under the hood">
+Every grid cell is in one state: **unexplored** (black), **explored** (veiled) or **visible**. Those states are written into a texture with **one pixel per cell**, mapped onto a mesh laid over the isometric map and recomputed every 0.2 seconds. The fog isn't lit by the sun, so it's darkened with the night to stay consistent with the rest of the scene.
+</Callout>
+
+## A living world, in pixel art
+
+Every sprite is hand-drawn in LibreSprite, on a 32 px per cell base.
+
+<SpriteShelf
+  sprites={[
+    { src: '/projects/fogwar/house.png', width: 64, height: 64, label: 'House' },
+    { src: '/projects/fogwar/town-hall.png', width: 96, height: 96, label: 'Town hall' },
+    { src: '/projects/fogwar/windmill.png', width: 64, height: 96, label: 'Windmill' },
+    { src: '/projects/fogwar/watchtower.png', width: 32, height: 64, label: 'Watchtower' },
+    { src: '/projects/fogwar/farm.png', width: 64, height: 40, label: 'Farm' },
+  ]}
+  caption="In-game sprites, scaled ×3 without smoothing."
+/>
+
+Most buildings have a **normal map**, so 2D lighting (the moving sun, torches, the moon) shades them in relief instead of flat:
+
+<SpriteShelf
+  sprites={[
+    { src: '/projects/fogwar/town-hall.png', width: 96, height: 96, label: 'Sprite' },
+    { src: '/projects/fogwar/town-hall-normal.png', width: 96, height: 96, label: 'Normal map' },
+  ]}
+/>
+
+Around it, the world moves: a day/night cycle driven by a global light following the sun's arc, trees swaying with a **wind shader**, cloud shadows, rain made of droplet sprites rather than a particle system, and layered ambient audio (in the rain, the nature ambience drops instead of carrying on at full volume). A campfire's volume even depends on the camera zoom.
+
+## A different map every game
+
+The world is **200 × 200 cells**, generated from a seed with Perlin noise: water, forests, bushes and stone come in **natural clusters** rather than scattered at random. A protected zone around the town hall leaves room to build, and if no water is within reach of the start, a pond is dug so a dock is always possible.
+
+## The engineering behind it
+
+- **Unity 6 and 2D URP**, in C#, with independent systems rather than one big central script: grid, cell occupancy, pathfinding, economy, population, weather, fog…
+- **A\* pathfinding** on the grid, with a binary-heap priority queue. Buildings span several cells and their footprint follows rotation.
+- **Over 400 automated tests** (EditMode and PlayMode), including an autoplay test: a scripted player plays a full game at high speed to check it can be won with a reasonable strategy, and its daily log is used to tune the balance.
+- **An engineer's process, even for a game**: for each feature (building placement, gathering, population, windmill and farms, villager training and fishing…), a design spec, an implementation plan, then small commits written test-first.

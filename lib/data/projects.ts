@@ -29,6 +29,7 @@ export const projects: Project[] = [
     category: 'fullstack',
     featured: true,
     personal: false,
+    company: 'Weinmann Tech.',
     status: 'production',
   },
   {
@@ -41,6 +42,7 @@ export const projects: Project[] = [
     category: 'fullstack',
     featured: false,
     personal: false,
+    company: 'Weinmann Tech.',
     status: 'production',
   },
   {
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     category: 'fullstack',
     featured: false,
     personal: false,
+    company: 'Weinmann Tech.',
     status: 'production',
   },
   {
@@ -65,6 +68,7 @@ export const projects: Project[] = [
     category: 'fullstack',
     featured: true,
     personal: false,
+    company: 'Weinmann Tech.',
     status: 'delivered',
   },
   {
@@ -72,9 +76,9 @@ export const projects: Project[] = [
     title: 'FogWar',
     colorKey: 'cyan',
     shortDescription:
-      'Jeu de stratégie en temps réel et de survie en 2D pixel art : bâtissez une colonie, repoussez les vagues ennemies, et gardez le brouillard à distance avec vos sources de lumière.',
-    tagline: 'Ce que vous ne voyez pas vient vous chercher.',
-    techStack: ['Unity 6', 'C#', 'URP', 'NavMesh', 'ScriptableObjects'],
+      'RTS de survie en 2D isométrique et pixel art, dans un monde médiéval généré procéduralement : bâtissez un village le jour, défendez-le la nuit face aux pillards qui sortent du brouillard.',
+    tagline: 'Le jour, on bâtit. La nuit, on tient.',
+    techStack: ['Unity 6', 'C#', '2D URP', 'LibreSprite', 'Unity Test Framework'],
     category: 'game',
     featured: false,
     personal: true,

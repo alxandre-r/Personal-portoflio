@@ -40,8 +40,7 @@ export default async function ProjectsPage({ params }: Props) {
         </div>
         <ProjectsGrid
           projects={localizedProjects}
-          filterLabels={p.filters}
-          empty={p.empty}
+          categoryLabels={p.filters}
           lang={lang as Locale}
           cardT={p.card}
         />

@@ -126,14 +126,12 @@
     "title_highlight": "projects",
     "subtitle": "Personal and professional projects, each telling a story: a problem to solve, a solution imagined, a concrete impact.",
     "filters": {
-      "all": "All",
       "fullstack": "Fullstack",
       "web": "Web",
       "tool": "Tools",
       "mobile": "Mobile",
       "game": "Games"
     },
-    "empty": "No projects in this category.",
     "card": {
       "personal_badge": "Personal project",
       "cta_personal": "Open the app",
@@ -173,8 +171,8 @@
         "shortDescription": "A client web portal to view connected paint booths' consumption and status in real time — final-year engineering project."
       },
       "fogwar": {
-        "tagline": "What you can't see is coming for you.",
-        "shortDescription": "A 2D pixel-art real-time strategy and survival game: build a colony, hold off enemy waves, and keep the fog at bay with your light sources."
+        "tagline": "By day you build. By night you hold.",
+        "shortDescription": "A 2D isometric pixel-art survival RTS in a procedurally generated medieval world: build a village by day, defend it at night against raiders coming out of the fog."
       }
     }
   },

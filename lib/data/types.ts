@@ -22,6 +22,8 @@ export interface Project {
   colorKey: ProjectColor
   featured: boolean
   personal: boolean
+  /** Employer the project was built for, shown as a badge (e.g. 'Weinmann Tech.'). */
+  company?: string
   status: ProjectStatus
   cover?: string
   links?: ProjectLinks

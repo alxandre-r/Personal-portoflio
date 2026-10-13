@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/Badge'
+import { CompanyBadge } from '@/components/projects/CompanyBadge'
 import { fadeInUp } from '@/lib/animations'
 import { projectColors } from '@/lib/projectColors'
 import type { Project } from '@/lib/data/types'
@@ -58,6 +59,7 @@ export function ProjectCard({ project, lang, categoryLabels, t }: ProjectCardPro
                   {t.personal_badge}
                 </span>
               )}
+              {project.company && <CompanyBadge name={project.company} />}
               <span
                 className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
                 style={{ background: color.bgSoft, color: color.text, border: `1px solid ${color.border}` }}

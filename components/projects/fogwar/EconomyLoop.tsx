@@ -1,40 +1,33 @@
 interface EconomyLoopProps {
   labels: {
+    villagers: string
     wood: string
     buildings: string
     food: string
-    villagers: string
-    market: string
-    gold: string
-    research: string
+    meals: string
   }
 }
 
-const W = 140
+const W = 170
 const H = 40
 
 type NodeKey = keyof EconomyLoopProps['labels']
 
-// Node centres. The core loop is the square on the left; the gold/research
-// branch hangs off Food.
+// Node centres. The core loop is the square; meals hang off Food.
 const nodes: Record<NodeKey, { x: number; y: number; core: boolean }> = {
-  wood: { x: 85, y: 40, core: true },
-  buildings: { x: 290, y: 40, core: true },
-  food: { x: 290, y: 140, core: true },
-  villagers: { x: 85, y: 140, core: true },
-  market: { x: 290, y: 240, core: false },
-  gold: { x: 470, y: 240, core: false },
-  research: { x: 470, y: 140, core: false },
+  villagers: { x: 90, y: 40, core: true },
+  wood: { x: 330, y: 40, core: true },
+  buildings: { x: 330, y: 150, core: true },
+  food: { x: 90, y: 150, core: true },
+  meals: { x: 90, y: 250, core: false },
 }
 
 const edges: [NodeKey, NodeKey][] = [
+  ['villagers', 'wood'],
   ['wood', 'buildings'],
   ['buildings', 'food'],
   ['food', 'villagers'],
-  ['villagers', 'wood'],
-  ['food', 'market'],
-  ['market', 'gold'],
-  ['gold', 'research'],
+  ['food', 'meals'],
 ]
 
 /** Endpoint on the edge of a node's box, heading towards (tx, ty). */
@@ -45,12 +38,12 @@ function edgePoint(from: { x: number; y: number }, to: { x: number; y: number },
   return { x: from.x, y: from.y + Math.sign(dy) * (H / 2 + gap) }
 }
 
-/** FogWar's resource loop: wood builds farms, food feeds villagers, villagers gather wood. */
+/** FogWar's resource loop: villagers gather wood, wood builds the food chain, food trains more villagers. */
 export function EconomyLoop({ labels }: EconomyLoopProps) {
   return (
     <figure className="my-8">
       <svg
-        viewBox="0 0 560 280"
+        viewBox="0 0 420 280"
         className="mx-auto w-full max-w-xl h-auto text-[var(--color-foreground)]"
         role="img"
         aria-label={edges.map(([a, b]) => `${labels[a]} → ${labels[b]}`).join(', ')}

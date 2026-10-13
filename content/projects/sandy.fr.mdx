@@ -8,15 +8,6 @@ Aucune application existante ne couvrait l'ensemble de façon fluide : soit trop
 Sandy tourne sur Vercel et sert au quotidien. [Ouvrir l'application](https://ma-voiture-sandy.vercel.app/)
 </Callout>
 
-## Partager la voiture, pas tout le reste
-
-C'est la partie qui m'a demandé le plus de réflexion. Une voiture est souvent partagée au sein d'un foyer, mais tout le monde n'a pas besoin de voir le coût de l'assurance, ni de pouvoir supprimer un plein.
-
-- on **invite** les membres du foyer sur ses véhicules ;
-- chaque membre a ses **préférences de visibilité** : ce qu'il voit, ce qu'il peut modifier.
-
-<Placeholder label="Capture : gestion des membres du foyer et de leurs droits" />
-
 ## Un dashboard qui répond à de vraies questions
 
 *Combien me coûte vraiment ma voiture au kilomètre ? Est-ce que ma consommation dérive ?* Le dashboard est construit autour de ces questions-là plutôt qu'autour des données brutes.
@@ -25,15 +16,38 @@ C'est la partie qui m'a demandé le plus de réflexion. Une voiture est souvent 
 - tendances de consommation, coût au kilomètre, comparaisons entre périodes ;
 - plusieurs véhicules, et on bascule de l'un à l'autre en un clic.
 
-<Placeholder label="Capture : dashboard analytics avec les graphiques de tendances" />
+<Figure
+  src="/projects/sandy/statistics.png"
+  alt="Page Statistiques de Sandy : dépenses totales, coût au kilomètre, dépenses mensuelles par catégorie, comparaison des véhicules et répartition des dépenses"
+  width={1844}
+  height={982}
+  caption="La page Statistiques : dépenses mensuelles par catégorie, comparaison des véhicules, coût au kilomètre."
+/>
+
+## Le partage familial
+
+Une voiture se partage rarement avec une seule personne : conjoint, enfants qui l'empruntent, parents. C'est le besoin qu'aucune application existante ne couvrait, et c'est ce qui fait de Sandy un outil **de foyer** plutôt qu'un simple carnet de bord.
+
+<Callout title="Partager la voiture, pas tout le reste">
+Tout le monde n'a pas besoin de pouvoir modifier un plein ou supprimer une dépense. Pour **chaque véhicule**, le propriétaire choisit les droits de **chaque membre** : aucun accès, lecture, ou modification.
+</Callout>
+
+- on crée un **espace familial** et on invite ses proches avec un code d'invitation ;
+- les membres retrouvent les véhicules et les dépenses partagés dans leur propre application ;
+- le dashboard peut alors analyser **les données de toute la famille** ensemble, ou un seul véhicule ;
+- chaque membre garde ses préférences de visibilité, et le propriétaire gère les membres et les réglages de la famille.
+
+<Figure
+  src="/projects/sandy/family.png"
+  alt="Page Famille et partage de Sandy : trois membres et quatre véhicules partagés, chacun avec son niveau de droits"
+  width={1861}
+  height={974}
+  caption="L'espace famille (mode démo) : les véhicules du foyer et les droits de chacun, en lecture ou en modification."
+/>
 
 ## Le coffre-fort de documents
 
 Carte grise, attestation d'assurance, contrôle technique : stockés une fois, retrouvés depuis le téléphone le jour où on en a besoin, au bord de la route plutôt que dans un tiroir.
-
-## Le détail qui se voit : aucun flash au chargement
-
-Le thème clair/sombre est résolu **côté serveur** : la page arrive déjà dans le bon thème, sans le flash blanc habituel des sites en mode sombre. Framer Motion s'occupe des transitions et des skeletons de chargement, pour que l'application paraisse rapide même quand les données arrivent.
 
 ## Sous le capot
 

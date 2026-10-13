@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
+import { CompanyBadge } from '@/components/projects/CompanyBadge'
 import type { Project, ProjectStatus } from '@/lib/data/types'
 import type { ColorPalette } from '@/lib/projectColors'
 import type { Dictionary } from '@/lib/locales'
@@ -48,6 +49,7 @@ export function ProjectHeader({ project, color, t, categoryLabels }: ProjectHead
               {t.personal_badge}
             </span>
           )}
+          {project.company && <CompanyBadge name={project.company} />}
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style={pill}>
             {t.status[statusKey[project.status]]}
           </span>

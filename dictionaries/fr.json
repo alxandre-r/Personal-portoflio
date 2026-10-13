@@ -126,14 +126,12 @@
     "title_highlight": "projets",
     "subtitle": "Des projets personnels et professionnels, chacun racontant une histoire : un problème à résoudre, une solution imaginée, un impact concret.",
     "filters": {
-      "all": "Tous",
       "fullstack": "Fullstack",
       "web": "Web",
       "tool": "Outils",
       "mobile": "Mobile",
       "game": "Jeux"
     },
-    "empty": "Aucun projet dans cette catégorie.",
     "card": {
       "personal_badge": "Projet personnel",
       "cta_personal": "Ouvrir l'application",
@@ -173,8 +171,8 @@
         "shortDescription": "Portail web client pour visualiser en temps réel les consommations et l'état des cabines de peinture connectées — projet de fin d'études."
       },
       "fogwar": {
-        "tagline": "Ce que vous ne voyez pas vient vous chercher.",
-        "shortDescription": "Jeu de stratégie en temps réel et de survie en 2D pixel art : bâtissez une colonie, repoussez les vagues ennemies, et gardez le brouillard à distance avec vos sources de lumière."
+        "tagline": "Le jour, on bâtit. La nuit, on tient.",
+        "shortDescription": "RTS de survie en 2D isométrique et pixel art, dans un monde médiéval généré procéduralement : bâtissez un village le jour, défendez-le la nuit face aux pillards qui sortent du brouillard."
       }
     }
   },

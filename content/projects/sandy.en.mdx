@@ -8,15 +8,6 @@ No existing app covered all of that smoothly: they were either too simplistic or
 Sandy runs on Vercel and is used every day. [Open the app](https://ma-voiture-sandy.vercel.app/)
 </Callout>
 
-## Share the car, not everything else
-
-This is the part that took the most thought. A car is often shared within a household, but not everyone needs to see what the insurance costs, or be able to delete a fill-up.
-
-- you **invite** household members to your vehicles;
-- each member has their own **visibility preferences**: what they can see, what they can edit.
-
-<Placeholder label="Screenshot: managing household members and their permissions" />
-
 ## A dashboard that answers real questions
 
 *How much does my car really cost per kilometre? Is my fuel consumption drifting?* The dashboard is built around those questions rather than around raw data.
@@ -25,15 +16,38 @@ This is the part that took the most thought. A car is often shared within a hous
 - consumption trends, cost per kilometre, period-over-period comparisons;
 - multiple vehicles, switch between them in one click.
 
-<Placeholder label="Screenshot: analytics dashboard with trend charts" />
+<Figure
+  src="/projects/sandy/statistics.png"
+  alt="Sandy's Statistics page: total spending, cost per kilometre, monthly spending by category, vehicle comparison and spending breakdown"
+  width={1844}
+  height={982}
+  caption="The Statistics page: monthly spending by category, vehicle comparison, cost per kilometre."
+/>
+
+## Family sharing
+
+A car is rarely used by just one person: a partner, kids borrowing it, parents. That's the need no existing app covered, and it's what makes Sandy a **household** tool rather than a simple logbook.
+
+<Callout title="Share the car, not everything else">
+Not everyone needs to be able to edit a fill-up or delete an expense. For **each vehicle**, the owner sets **each member's** rights: no access, read, or edit.
+</Callout>
+
+- you create a **family space** and invite your household with an invitation code;
+- members find the shared vehicles and expenses in their own app;
+- the dashboard can then analyse **the whole family's data** together, or a single vehicle;
+- each member keeps their own visibility preferences, and the owner manages members and family settings.
+
+<Figure
+  src="/projects/sandy/family.png"
+  alt="Sandy's Family and sharing page: three members and four shared vehicles, each with its access level"
+  width={1861}
+  height={974}
+  caption="The family space (demo mode): the household's vehicles and each one's rights, read or edit."
+/>
 
 ## The document vault
 
 Registration, insurance certificate, inspection report: stored once, and found on your phone the day you need them, at the roadside rather than in a drawer.
-
-## The detail you notice: no flash on load
-
-Light/dark theme is resolved **on the server**: the page arrives already in the right theme, without the usual white flash of dark-mode sites. Framer Motion handles transitions and loading skeletons, so the app feels fast even while data is arriving.
 
 ## Under the hood
 

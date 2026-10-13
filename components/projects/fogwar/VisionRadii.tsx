@@ -1,93 +1,86 @@
+interface VisionSourceRow {
+  label: string
+  day: number
+  night: number
+  /** Short note under the label, e.g. "manned only". */
+  note?: string
+}
+
 interface VisionRadiiProps {
+  sources: VisionSourceRow[]
   labels: {
-    townHall: string
-    villager: string
-    torch: string
-    watchtower: string
+    day: string
+    night: string
     tiles: string
   }
 }
 
-const TILE = 11 // px per tile in the drawing
-const CX = 130
-const CY = 130
-const FADE = 1.5 * TILE // matches FogSystem's 1.5-tile smoothstep edge
+const MAX = 8 // widest radius, in cells
+const LABEL_W = 150
+const BAR_W = 280
+const ROW_H = 52
 
-/**
- * Vision radii of FogWar's light sources drawn to scale on the tile grid,
- * with the fog fading in past the widest one.
- */
-export function VisionRadii({ labels }: VisionRadiiProps) {
-  const sources = [
-    { label: labels.watchtower, radius: 10, dash: undefined },
-    { label: labels.townHall, radius: 8, dash: '6 4' },
-    { label: labels.torch, radius: 6, dash: '2 3' },
-    { label: labels.villager, radius: 5, dash: undefined },
-  ]
-  const outer = 10 * TILE
-  const fogR = outer + FADE
+/** Day vs night vision radius of each FogWar light source, as paired bars. */
+export function VisionRadii({ sources, labels }: VisionRadiiProps) {
+  const unit = BAR_W / MAX
+  const height = sources.length * ROW_H + 40
 
   return (
     <figure className="my-8">
       <svg
-        viewBox="0 0 460 260"
+        viewBox={`0 0 ${LABEL_W + BAR_W + 50} ${height}`}
         className="mx-auto w-full max-w-xl h-auto text-[var(--color-foreground)]"
         role="img"
-        aria-label={sources.map((s) => `${s.label}: ${s.radius} ${labels.tiles}`).join(', ')}
+        aria-label={sources
+          .map((s) => `${s.label}: ${labels.day} ${s.day}, ${labels.night} ${s.night} ${labels.tiles}`)
+          .join('; ')}
       >
-        <defs>
-          <radialGradient id="fogwar-vision-fog" cx={CX} cy={CY} r={fogR} gradientUnits="userSpaceOnUse">
-            <stop offset={(outer - FADE) / fogR} stopColor="#0b1120" stopOpacity="0" />
-            <stop offset="1" stopColor="#0b1120" stopOpacity="0.8" />
-          </radialGradient>
-          <clipPath id="fogwar-vision-clip">
-            <rect x="0" y="0" width="260" height="260" rx="10" />
-          </clipPath>
-        </defs>
-
-        <g clipPath="url(#fogwar-vision-clip)">
-          {/* tile grid */}
-          <rect x="0" y="0" width="260" height="260" style={{ fill: 'var(--project-accent-soft)' }} />
-          {Array.from({ length: 25 }, (_, i) => (
-            <g key={i} style={{ stroke: 'currentColor', strokeOpacity: 0.08 }}>
-              <line x1={CX - TILE / 2 - 12 * TILE + i * TILE} y1="0" x2={CX - TILE / 2 - 12 * TILE + i * TILE} y2="260" />
-              <line x1="0" y1={CY - TILE / 2 - 12 * TILE + i * TILE} x2="260" y2={CY - TILE / 2 - 12 * TILE + i * TILE} />
-            </g>
-          ))}
-          {/* fog beyond the widest radius */}
-          <rect x="0" y="0" width="260" height="260" fill="url(#fogwar-vision-fog)" />
-          {sources.map((s) => (
-            <circle
-              key={s.label}
-              cx={CX}
-              cy={CY}
-              r={s.radius * TILE}
-              strokeDasharray={s.dash}
-              style={{ fill: 'none', stroke: 'var(--project-accent)', strokeWidth: 2 }}
-            />
-          ))}
-          <rect x={CX - TILE / 2} y={CY - TILE / 2} width={TILE} height={TILE} style={{ fill: 'var(--project-accent)' }} />
+        {/* legend */}
+        <g transform={`translate(${LABEL_W} 10)`}>
+          <rect width="12" height="12" rx="2" style={{ fill: 'var(--project-accent)' }} />
+          <text x="18" y="10" fontSize="12" style={{ fill: 'currentColor' }}>
+            {labels.day}
+          </text>
+          <rect x="90" width="12" height="12" rx="2" style={{ fill: '#334155' }} />
+          <text x="108" y="10" fontSize="12" style={{ fill: 'currentColor' }}>
+            {labels.night}
+          </text>
         </g>
 
-        {/* legend */}
-        {sources.map((s, i) => (
-          <g key={s.label} transform={`translate(285 ${70 + i * 36})`}>
-            <line
-              x1="0"
-              y1="0"
-              x2="28"
-              y2="0"
-              strokeDasharray={s.dash}
-              style={{ stroke: 'var(--project-accent)', strokeWidth: 2 }}
-            />
-            <text x="38" y="-3" fontSize="13" style={{ fill: 'currentColor' }}>
-              {s.label}
-            </text>
-            <text x="38" y="13" fontSize="12" style={{ fill: 'currentColor', fillOpacity: 0.6 }}>
-              {s.radius} {labels.tiles}
-            </text>
-          </g>
-        ))}
+        {sources.map((s, i) => {
+          const y = 40 + i * ROW_H
+          return (
+            <g key={s.label} transform={`translate(0 ${y})`}>
+              <text x="0" y="14" fontSize="13" fontWeight={600} style={{ fill: 'currentColor' }}>
+                {s.label}
+              </text>
+              {s.note && (
+                <text x="0" y="30" fontSize="11" style={{ fill: 'currentColor', fillOpacity: 0.6 }}>
+                  {s.note}
+                </text>
+              )}
+              {/* cell ticks */}
+              {Array.from({ length: MAX + 1 }, (_, c) => (
+                <line
+                  key={c}
+                  x1={LABEL_W + c * unit}
+                  x2={LABEL_W + c * unit}
+                  y1="0"
+                  y2="34"
+                  style={{ stroke: 'currentColor', strokeOpacity: 0.08 }}
+                />
+              ))}
+              <rect x={LABEL_W} y="2" width={s.day * unit} height="14" rx="2" style={{ fill: 'var(--project-accent)' }} />
+              <rect x={LABEL_W} y="19" width={s.night * unit} height="14" rx="2" style={{ fill: '#334155' }} />
+              <text x={LABEL_W + s.day * unit + 6} y="14" fontSize="11" style={{ fill: 'currentColor' }}>
+                {s.day}
+              </text>
+              <text x={LABEL_W + s.night * unit + 6} y="31" fontSize="11" style={{ fill: 'currentColor', fillOpacity: 0.7 }}>
+                {s.night}
+              </text>
+            </g>
+          )
+        })}
       </svg>
     </figure>
   )
