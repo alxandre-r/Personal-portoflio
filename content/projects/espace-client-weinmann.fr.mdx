@@ -22,7 +22,7 @@ Première brique technique : faire remonter les données de chaque cabine jusqu'
 
 - des **règles de validation dès l'automate**, et une gestion des erreurs de transmission, pour ne stocker que des données saines ;
 - une **liaison HTTPS** entre chaque automate et l'API, avec des certificats TLS renouvelés automatiquement ;
-- une **API REST en Django**, authentifiée par **JWT**, qui reçoit les données des automates et sert aussi le portail ;
+- une **API REST en Django**, authentifiée par **JWT**, dédiée à l'ingestion : elle reçoit les données des automates et les écrit en base ;
 - une **base MySQL dédiée** aux cabines : schéma relationnel indexé, **vues et procédures stockées** pour agréger les consommations sans ralentir le site.
 
 Tout l'enjeu était de trouver le bon rythme : des données assez fraîches pour être utiles, sans saturer le serveur de requêtes.
@@ -31,7 +31,7 @@ Tout l'enjeu était de trouver le bon rythme : des données assez fraîches pour
 
 Les clients consultent en temps réel l'état de leurs cabines à travers des **tableaux de bord** : consommation, indicateurs de performance, historiques et alertes. L'objectif : qu'un responsable d'atelier comprenne la situation en quelques secondes, sans export ni appel.
 
-Les écrans ont d'abord été maquettés sur **Figma**, puis développés en Next.js : graphes, tableaux et filtres.
+Les écrans ont d'abord été maquettés sur **Figma**, puis développés en Next.js : graphes, tableaux et filtres. Le portail lit ses données via les **routes API intégrées à Next.js**, séparées de l'API d'ingestion.
 
 <Placeholder label="Capture : dashboard d'une cabine (consommation et alertes)" />
 
@@ -65,4 +65,4 @@ Le portail a été livré et présenté comme projet de fin d'études. Il permet
 
 ## Stack
 
-Next.js et TypeScript avec TailwindCSS côté interface, une API Django (Python) et MySQL côté serveur, le tout hébergé sur un VPS Linux.
+Le portail est en Next.js et TypeScript avec TailwindCSS, et ses routes API intégrées lisent les données dans MySQL. Une API Django (Python) se charge d'y écrire les données des cabines. Le tout est hébergé sur un VPS Linux.

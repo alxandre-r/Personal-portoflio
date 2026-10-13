@@ -22,7 +22,7 @@ The first technical building block: get each booth's data into a usable database
 
 - **validation rules right at the PLC**, plus handling of transmission errors, so only clean data gets stored;
 - an **HTTPS link** between each PLC and the API, with automatically renewed TLS certificates;
-- a **Django REST API**, authenticated with **JWT**, that receives the PLC data and also serves the portal;
+- a **Django REST API**, authenticated with **JWT**, dedicated to ingestion: it receives the PLC data and writes it to the database;
 - a **dedicated MySQL database** for the booths: an indexed relational schema, with **views and stored procedures** to aggregate consumption without slowing the site down.
 
 The real challenge was finding the right pace: data fresh enough to be useful, without flooding the server with requests.
@@ -31,7 +31,7 @@ The real challenge was finding the right pace: data fresh enough to be useful, w
 
 Customers check their booths' status in real time through **dashboards**: consumption, performance indicators, history and alerts. The goal: a workshop manager understands the situation in a few seconds, without an export or a phone call.
 
-The screens were first mocked up in **Figma**, then built in Next.js: charts, tables and filters.
+The screens were first mocked up in **Figma**, then built in Next.js: charts, tables and filters. The portal reads its data through **Next.js's built-in API routes**, kept separate from the ingestion API.
 
 <Placeholder label="Screenshot: a booth's dashboard (consumption and alerts)" />
 
@@ -65,4 +65,4 @@ The portal was delivered and presented as my final-year engineering project. It 
 
 ## Stack
 
-Next.js and TypeScript with TailwindCSS on the front end, a Django (Python) API and MySQL on the server, hosted on a Linux VPS.
+The portal is built with Next.js and TypeScript with TailwindCSS, and its built-in API routes read the data from MySQL. A Django (Python) API takes care of writing the booth data into it. Everything is hosted on a Linux VPS.
