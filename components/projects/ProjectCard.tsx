@@ -17,7 +17,8 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, lang, categoryLabels, t }: ProjectCardProps) {
   const color = projectColors[project.colorKey]
-  const isPersonal = project.slug === 'sandy'
+  const isPersonal = project.personal
+  const hasLiveApp = isPersonal && !!project.links?.demo
 
   return (
     <motion.div
@@ -92,7 +93,7 @@ export function ProjectCard({ project, lang, categoryLabels, t }: ProjectCardPro
               className="flex items-center gap-1.5 text-sm font-medium group-hover:gap-2.5 transition-all"
               style={{ color: color.text }}
             >
-              {isPersonal ? t.cta_personal : t.cta_default}
+              {hasLiveApp ? t.cta_personal : t.cta_default}
               <svg
                 width="14"
                 height="14"

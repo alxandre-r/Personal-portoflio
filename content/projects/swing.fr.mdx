@@ -1,0 +1,37 @@
+## Le terrain d'abord
+
+Les magasiniers de Weinmann Technologies préparaient les commandes avec des feuilles papier et des tableurs : erreurs de lecture, informations perdues, et des statuts qui remontaient à l'ERP avec du retard.
+
+Je suis parti de l'**observation sur le terrain**, et elle a dicté tout le reste : ils sont debout, en mouvement, un carton dans une main et le téléphone dans l'autre.
+
+Swing fait partie de l'[Espace Client Weinmann](/fr/projects/espace-client-weinmann), la suite d'outils internes de l'entreprise.
+
+## Pensé pour le pouce
+
+L'application est **mobile-first** dans le sens strict : conçue pour l'écran tactile d'un smartphone, puis étendue au poste de bureau.
+
+- une interface ergonomique pensée pour le tactile, utilisable debout et en mouvement ;
+- un accès bureau séparé pour le contrôle qualité et le suivi des expéditions.
+
+<Placeholder label="Capture mobile : préparation d'une commande" ratio="9 / 16" />
+
+## Parler à l'ERP
+
+Chaque mise à jour de stock doit arriver dans l'ERP, au bon format, en temps réel. Ce travail est confié à des **micro-services Python** qui formatent et transmettent les changements : l'application reste simple, l'intégration reste isolée.
+
+## Quand le Wi-Fi décroche au fond de l'entrepôt
+
+Dans un entrepôt, la connexion n'est jamais garantie. Swing ne doit pas perdre une saisie parce qu'une requête a échoué :
+
+- les envois sont **rejoués automatiquement** en cas d'échec ;
+- un **cache local léger** garde l'état en attendant le retour du réseau.
+
+Côté serveur, le schéma MySQL est indexé pour les requêtes que font réellement les magasiniers.
+
+<Callout title="Résultat">
+Les feuilles papier et les tableurs sont définitivement remplacés, et les erreurs de lecture et de transcription ont quasiment disparu.
+</Callout>
+
+## Et après
+
+Les prochaines évolutions prévues : la lecture de codes-barres et l'export PDF.

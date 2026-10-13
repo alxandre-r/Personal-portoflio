@@ -1,0 +1,56 @@
+## Before Tempo: spreadsheets
+
+At Weinmann Technologies, working time was logged in Excel files. No formal approval, no traceability, no overview for managers, and absences copied by hand from the HR tool.
+
+Tempo is part of the [Weinmann Client Portal](/en/projects/espace-client-weinmann), the suite of internal tools I built during my work-study program. I built it solo, front end and back end.
+
+## Three roles, one approval flow
+
+The heart of Tempo isn't data entry, it's the **flow**: who logs, who approves, who corrects, and the record of all of it.
+
+<Columns>
+<div>
+
+### Employee
+
+Logs daily activities, checks their history and absences.
+
+</div>
+<div>
+
+### Manager
+
+A dedicated view to approve or correct their team's entries, with an overall picture.
+
+</div>
+</Columns>
+
+An **admin** role completes the set. Every route is protected by role: an employee can't reach the approval screen, even by typing the URL.
+
+<Placeholder label="Screenshot: manager approval screen (blurred data)" />
+
+## Absences show up on their own
+
+Absences lived in **Silae**, the HR tool. Instead of re-entering them, a Python script syncs them into Tempo's database automatically:
+
+```
+Silae (HR)  ──►  Python script  ──►  MySQL  ──►  Tempo
+```
+
+The result: employees see their leave already filled in when they log their week, and managers approve against accurate data.
+
+## Fixed-days contracts
+
+Some managers in France work on a *forfait jours*: they count days per month, not hours. They had no suitable tool; Tempo gives them dedicated tracking of their monthly allowance, alongside the regular time entry.
+
+## What changed
+
+<Callout title="In production">
+Tempo is used every day across the whole company. The spreadsheets are gone for good, and approval saves managers a significant amount of time.
+</Callout>
+
+The tool keeps evolving with user feedback, which is probably the best sign it found its place.
+
+## Stack and deployment
+
+HTML and TailwindCSS for the interface, Node.js / Express and MySQL on the server, served by PM2 behind an Nginx reverse proxy.

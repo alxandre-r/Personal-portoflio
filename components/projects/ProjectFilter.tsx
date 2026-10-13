@@ -19,6 +19,7 @@ export function ProjectFilter({ labels }: ProjectFilterProps) {
     { value: 'web', label: labels.web },
     { value: 'tool', label: labels.tool },
     { value: 'mobile', label: labels.mobile },
+    { value: 'game', label: labels.game },
   ]
 
   return (

@@ -1,0 +1,56 @@
+## Avant Tempo : des tableurs
+
+Chez Weinmann Technologies, les temps se déclaraient sur des fichiers Excel. Pas de validation formelle, pas de traçabilité, pas de vue d'ensemble pour les managers, et des absences recopiées à la main depuis l'outil RH.
+
+Tempo fait partie de l'[Espace Client Weinmann](/fr/projects/espace-client-weinmann), la suite d'outils internes que j'ai développée pendant mon alternance. Je l'ai construit seul, front-end et back-end.
+
+## Trois rôles, un circuit de validation
+
+Le cœur de Tempo n'est pas la saisie, c'est le **circuit** : qui déclare, qui valide, qui corrige, et la trace de tout ça.
+
+<Columns>
+<div>
+
+### Collaborateur
+
+Déclare ses activités au quotidien, consulte son historique et ses absences.
+
+</div>
+<div>
+
+### Manager
+
+Accès dédié pour valider ou corriger les déclarations de son équipe, avec une vue d'ensemble.
+
+</div>
+</Columns>
+
+Un rôle **administrateur** complète le tout. Chaque route est protégée selon le rôle : un collaborateur ne peut pas atteindre l'écran de validation, même en tapant l'URL.
+
+<Placeholder label="Capture : écran de validation manager (données floutées)" />
+
+## Les absences arrivent toutes seules
+
+Les absences vivaient dans **Silae**, l'outil RH. Plutôt que de les ressaisir, un script Python les synchronise automatiquement dans la base de Tempo :
+
+```
+Silae (RH)  ──►  script Python  ──►  MySQL  ──►  Tempo
+```
+
+Résultat : le collaborateur voit ses congés déjà en place quand il remplit sa semaine, et le manager valide sur des données justes.
+
+## Les cadres au forfait jours
+
+Les cadres au forfait ne comptent pas en heures mais en jours sur le mois. Ils n'avaient aucun outil adapté : Tempo leur offre un suivi dédié de leur forfait mensuel, à côté de la saisie classique.
+
+## Ce que ça a changé
+
+<Callout title="En production">
+Tempo est utilisé chaque jour par l'ensemble de l'entreprise. Les tableurs ont complètement disparu, et la validation fait gagner un temps significatif aux managers.
+</Callout>
+
+L'outil continue d'évoluer au fil des retours des utilisateurs, ce qui est sans doute le meilleur signe qu'il a trouvé sa place.
+
+## Stack et déploiement
+
+HTML et TailwindCSS côté interface, Node.js / Express et MySQL côté serveur, le tout servi par PM2 derrière un reverse-proxy Nginx.

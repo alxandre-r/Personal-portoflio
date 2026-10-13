@@ -12,11 +12,9 @@ function hasLocalizedContent(
 }
 
 /**
- * Overlays translated prose (tagline, shortDescription, context, problem,
- * solution, result, features) from the active locale's dictionary onto a
- * base `Project`. Fields not present in the dictionary (slug, title,
- * colorKey, image, techStack, category, featured, demoUrl, githubUrl,
- * screenshots) are left untouched.
+ * Overlays the translated card text (shortDescription, tagline) from the
+ * active locale's dictionary onto a base `Project`. Page bodies are
+ * localized separately, as one MDX file per locale.
  */
 export function localizeProject(project: Project, content: ProjectContentMap): Project {
   if (!hasLocalizedContent(project.slug, content)) return project

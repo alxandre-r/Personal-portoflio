@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type ProjectFilter = 'all' | 'web' | 'fullstack' | 'tool' | 'mobile'
+export type ProjectFilter = 'all' | 'web' | 'fullstack' | 'tool' | 'mobile' | 'game'
 
 interface ProjectStore {
   activeFilter: ProjectFilter

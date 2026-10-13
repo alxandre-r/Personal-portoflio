@@ -19,7 +19,7 @@ interface FeaturedProjectsProps {
   cardT: Dictionary['projects']['card']
 }
 
-function SandyHeroCard({
+function HeroProjectCard({
   project,
   t,
   lang,
@@ -88,9 +88,9 @@ function SandyHeroCard({
                   backgroundImage: `repeating-linear-gradient(0deg, ${color.topBar} 0, ${color.topBar} 1px, transparent 0, transparent 40px), repeating-linear-gradient(90deg, ${color.topBar} 0, ${color.topBar} 1px, transparent 0, transparent 40px)`,
                 }}
               />
-              {project.image && (
+              {project.cover && (
                 <Image
-                  src={project.image}
+                  src={project.cover}
                   alt={project.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 384px"
@@ -107,8 +107,9 @@ function SandyHeroCard({
 }
 
 export function FeaturedProjects({ projects, t, lang, categoryLabels, cardT }: FeaturedProjectsProps) {
-  const sandy = projects.find((p) => p.slug === 'sandy')
-  const others = projects.filter((p) => p.slug !== 'sandy')
+  // The personal featured project gets the hero card; the rest are enterprise work.
+  const hero = projects.find((p) => p.personal)
+  const others = projects.filter((p) => p !== hero)
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -138,8 +139,8 @@ export function FeaturedProjects({ projects, t, lang, categoryLabels, cardT }: F
           viewport={{ once: true, margin: '-80px' }}
           className="flex flex-col gap-6"
         >
-          {sandy && (
-            <SandyHeroCard project={sandy} t={t} lang={lang} categoryLabels={categoryLabels} />
+          {hero && (
+            <HeroProjectCard project={hero} t={t} lang={lang} categoryLabels={categoryLabels} />
           )}
           {others.length > 0 && (
             <>

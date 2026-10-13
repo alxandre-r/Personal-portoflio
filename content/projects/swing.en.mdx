@@ -1,0 +1,37 @@
+## The floor first
+
+Weinmann Technologies' warehouse staff prepared orders with paper sheets and spreadsheets: misreadings, lost information, and stock statuses reaching the ERP late.
+
+I started from **observing them on the floor**, and that shaped everything else: they're standing, moving, a box in one hand and a phone in the other.
+
+Swing is part of the [Weinmann Client Portal](/en/projects/espace-client-weinmann), the company's suite of internal tools.
+
+## Built for the thumb
+
+The app is **mobile-first** in the strict sense: designed for a smartphone touch screen, then extended to the desktop.
+
+- an ergonomic, touch-first interface, usable standing up and on the move;
+- a separate desktop view for quality control and shipment tracking.
+
+<Placeholder label="Mobile screenshot: preparing an order" ratio="9 / 16" />
+
+## Talking to the ERP
+
+Every stock update has to reach the ERP, in the right format, in real time. That job belongs to **Python micro-services** that format and forward the changes: the app stays simple, the integration stays isolated.
+
+## When the Wi-Fi drops at the back of the warehouse
+
+In a warehouse, connectivity is never guaranteed. Swing must not lose an entry because a request failed:
+
+- submissions are **retried automatically** on failure;
+- a **light local cache** holds state until the network comes back.
+
+On the server, the MySQL schema is indexed for the queries warehouse staff actually run.
+
+<Callout title="Outcome">
+Paper sheets and spreadsheets are gone for good, and reading and transcription errors have all but disappeared.
+</Callout>
+
+## What's next
+
+Planned next: barcode scanning and PDF export.

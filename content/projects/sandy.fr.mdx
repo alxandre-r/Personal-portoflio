@@ -1,0 +1,40 @@
+## Pourquoi Sandy
+
+Tout ce qui concerne une voiture finit éparpillé : les tickets de carburant dans la boîte à gants, l'assurance dans les mails, l'entretien dans un tableur que plus personne ne met à jour. Je voulais **un seul endroit** pour tout ça, et pouvoir le partager avec le reste du foyer.
+
+Aucune application existante ne couvrait l'ensemble de façon fluide : soit trop simplistes, soit pensées pour des flottes professionnelles. Alors je l'ai construite, seul, de la conception au déploiement.
+
+<Callout title="En production">
+Sandy tourne sur Vercel et sert au quotidien. [Ouvrir l'application](https://ma-voiture-sandy.vercel.app/)
+</Callout>
+
+## Partager la voiture, pas tout le reste
+
+C'est la partie qui m'a demandé le plus de réflexion. Une voiture est souvent partagée au sein d'un foyer, mais tout le monde n'a pas besoin de voir le coût de l'assurance, ni de pouvoir supprimer un plein.
+
+- on **invite** les membres du foyer sur ses véhicules ;
+- chaque membre a ses **préférences de visibilité** : ce qu'il voit, ce qu'il peut modifier.
+
+<Placeholder label="Capture : gestion des membres du foyer et de leurs droits" />
+
+## Un dashboard qui répond à de vraies questions
+
+*Combien me coûte vraiment ma voiture au kilomètre ? Est-ce que ma consommation dérive ?* Le dashboard est construit autour de ces questions-là plutôt qu'autour des données brutes.
+
+- dépenses classées par catégorie : carburant, entretien, assurance ;
+- tendances de consommation, coût au kilomètre, comparaisons entre périodes ;
+- plusieurs véhicules, et on bascule de l'un à l'autre en un clic.
+
+<Placeholder label="Capture : dashboard analytics avec les graphiques de tendances" />
+
+## Le coffre-fort de documents
+
+Carte grise, attestation d'assurance, contrôle technique : stockés une fois, retrouvés depuis le téléphone le jour où on en a besoin, au bord de la route plutôt que dans un tiroir.
+
+## Le détail qui se voit : aucun flash au chargement
+
+Le thème clair/sombre est résolu **côté serveur** : la page arrive déjà dans le bon thème, sans le flash blanc habituel des sites en mode sombre. Framer Motion s'occupe des transitions et des skeletons de chargement, pour que l'application paraisse rapide même quand les données arrivent.
+
+## Sous le capot
+
+Next.js et TypeScript côté interface, un back-end Node.js, PostgreSQL pour les données, et un déploiement sur Vercel.

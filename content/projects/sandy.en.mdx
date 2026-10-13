@@ -1,0 +1,40 @@
+## Why Sandy
+
+Everything about a car ends up scattered: fuel receipts in the glovebox, insurance in your inbox, maintenance in a spreadsheet nobody updates anymore. I wanted **one place** for all of it, and a way to share it with the rest of the household.
+
+No existing app covered all of that smoothly: they were either too simplistic or built for professional fleets. So I built it myself, solo, from design to deployment.
+
+<Callout title="In production">
+Sandy runs on Vercel and is used every day. [Open the app](https://ma-voiture-sandy.vercel.app/)
+</Callout>
+
+## Share the car, not everything else
+
+This is the part that took the most thought. A car is often shared within a household, but not everyone needs to see what the insurance costs, or be able to delete a fill-up.
+
+- you **invite** household members to your vehicles;
+- each member has their own **visibility preferences**: what they can see, what they can edit.
+
+<Placeholder label="Screenshot: managing household members and their permissions" />
+
+## A dashboard that answers real questions
+
+*How much does my car really cost per kilometre? Is my fuel consumption drifting?* The dashboard is built around those questions rather than around raw data.
+
+- expenses grouped by category: fuel, maintenance, insurance;
+- consumption trends, cost per kilometre, period-over-period comparisons;
+- multiple vehicles, switch between them in one click.
+
+<Placeholder label="Screenshot: analytics dashboard with trend charts" />
+
+## The document vault
+
+Registration, insurance certificate, inspection report: stored once, and found on your phone the day you need them, at the roadside rather than in a drawer.
+
+## The detail you notice: no flash on load
+
+Light/dark theme is resolved **on the server**: the page arrives already in the right theme, without the usual white flash of dark-mode sites. Framer Motion handles transitions and loading skeletons, so the app feels fast even while data is arriving.
+
+## Under the hood
+
+Next.js and TypeScript for the interface, a Node.js back end, PostgreSQL for the data, deployed on Vercel.

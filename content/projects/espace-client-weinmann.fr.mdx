@@ -1,0 +1,37 @@
+## Des cabines connectées, des données invisibles
+
+Weinmann Technologies fabrique des cabines de peinture industrielles **connectées**. Elles remontent des données (consommation, statuts, alertes), mais les clients n'y avaient pas accès directement : pour savoir comment tournait leur équipement, il fallait passer par le SAV.
+
+C'est le sujet de mon **projet de fin d'études d'ingénieur**, réalisé en alternance chez Weinmann.
+
+## Collecter
+
+Première brique : récupérer automatiquement les données des équipements et les stocker de façon exploitable, cabine par cabine, client par client.
+
+## Montrer
+
+Les clients consultent en temps réel l'état de leurs cabines à travers des **tableaux de bord** : consommation, indicateurs de performance, historiques et alertes. L'objectif : qu'un responsable d'atelier comprenne la situation en quelques secondes, sans export ni appel.
+
+<Placeholder label="Capture : dashboard d'une cabine (consommation et alertes)" />
+
+## Cloisonner
+
+Un portail client, c'est plusieurs clients sur la même plateforme. L'architecture est pensée **multi-clients dès le départ** : chaque client a ses propres droits d'accès et ne voit que ses équipements.
+
+## Une suite, pas une application
+
+L'Espace Client est le projet principal d'une suite d'outils internes que j'ai construite chez Weinmann. Chacun répond à un métier précis :
+
+| Outil | Pour qui | Ce qu'il remplace |
+|---|---|---|
+| [Tempo](/fr/projects/tempo) | tous les salariés | les tableurs de temps |
+| [Boléro](/fr/projects/bolero) | le SAV | le planning Excel des interventions |
+| [Swing](/fr/projects/swing) | les magasiniers | les feuilles de préparation papier |
+
+<Callout title="Livré">
+Le portail a été livré et présenté comme projet de fin d'études. Il permet à Weinmann d'offrir une expérience client moderne autour de ses équipements connectés, et ouvre la voie à de nouveaux services numériques.
+</Callout>
+
+## Stack
+
+Next.js et TypeScript, TailwindCSS, un back-end Node.js avec MySQL, hébergé sur un VPS Linux.

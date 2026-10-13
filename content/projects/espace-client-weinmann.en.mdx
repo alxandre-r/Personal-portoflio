@@ -1,0 +1,37 @@
+## Connected booths, invisible data
+
+Weinmann Technologies builds **connected** industrial paint booths. They report data (consumption, statuses, alerts), but customers had no direct access to it: to find out how their equipment was doing, they had to go through after-sales support.
+
+This is the subject of my **final-year engineering project**, completed as a work-study student at Weinmann.
+
+## Collect
+
+The first building block: automatically gather the equipment data and store it in a usable way, booth by booth, customer by customer.
+
+## Show
+
+Customers check their booths' status in real time through **dashboards**: consumption, performance indicators, history and alerts. The goal: a workshop manager understands the situation in a few seconds, without an export or a phone call.
+
+<Placeholder label="Screenshot: a booth's dashboard (consumption and alerts)" />
+
+## Separate
+
+A customer portal means many customers on the same platform. The architecture is **multi-tenant from the start**: each customer has their own access rights and only sees their own equipment.
+
+## A suite, not a single app
+
+The Client Portal is the main project of a suite of internal tools I built at Weinmann. Each one serves a specific team:
+
+| Tool | For | What it replaces |
+|---|---|---|
+| [Tempo](/en/projects/tempo) | every employee | time-tracking spreadsheets |
+| [Boléro](/en/projects/bolero) | after-sales service | the Excel job schedule |
+| [Swing](/en/projects/swing) | warehouse staff | paper picking sheets |
+
+<Callout title="Delivered">
+The portal was delivered and presented as my final-year engineering project. It lets Weinmann offer a modern customer experience around its connected equipment, and opens the door to new digital services.
+</Callout>
+
+## Stack
+
+Next.js and TypeScript, TailwindCSS, a Node.js back end with MySQL, hosted on a Linux VPS.

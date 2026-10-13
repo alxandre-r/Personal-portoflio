@@ -1,0 +1,35 @@
+## Le problème : qui est où, et quand ?
+
+Le service après-vente de Weinmann Technologies organisait les interventions des techniciens dans des fichiers Excel. Des versions obsolètes qui circulent, des formules qui cassent, et surtout aucune vue lisible pour répondre à une question simple : **où est chaque technicien cette semaine ?**
+
+Boléro fait partie de l'[Espace Client Weinmann](/fr/projects/espace-client-weinmann), la suite d'outils internes de l'entreprise.
+
+## Une vue « ressources », pas un calendrier
+
+Un calendrier classique montre des événements. Le SAV avait besoin de voir des **personnes**. J'ai donc construit l'interface autour du Scheduler de DayPilot en vue ressources :
+
+- **une colonne par technicien**, l'échelle horaire en lignes ;
+- les interventions se déplacent par **glisser-déposer** ;
+- on voit d'un coup d'œil les trous, les chevauchements et les tournées.
+
+<Placeholder label="Capture : planning en vue ressources (techniciens en colonnes)" />
+
+## Une API taillée pour le planning
+
+Afficher plusieurs jours de planning pour toute une équipe, c'est beaucoup de requêtes si l'API est naïve. Le back-end Express expose une **API REST pensée pour les plages de plusieurs jours**, pour que l'affichage reste rapide quand on fait défiler la semaine.
+
+## Sortir d'Excel sans perdre l'historique
+
+Le schéma MySQL a été conçu proprement dès le départ, et des **scripts de migration** ont repris les données existantes depuis les exports Excel.
+
+## Mise en production
+
+Déploiement sur serveur avec **PM2** pour garder les processus en vie, et **Nginx** en reverse-proxy pour le SSL et la gestion des sous-domaines.
+
+<Callout title="Résultat">
+La V1 a été adoptée par toute l'équipe SAV, sur ordinateur comme sur tablette. Les erreurs liées aux formules Excel ont disparu.
+</Callout>
+
+## Et après
+
+La base de code est documentée pour la phase 2 : édition des interventions directement dans l'interface, et nouvelles vues hebdomadaire et mensuelle.

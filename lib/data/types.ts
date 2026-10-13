@@ -1,29 +1,30 @@
-export type ProjectCategory = 'web' | 'fullstack' | 'tool' | 'mobile'
+export type ProjectCategory = 'web' | 'fullstack' | 'tool' | 'mobile' | 'game'
 export type ProjectColor = 'indigo' | 'blue' | 'green' | 'emerald' | 'cyan' | 'amber'
+export type ProjectStatus = 'production' | 'in-development' | 'delivered'
 
-export interface ProjectFeature {
-  title: string
-  description: string
+export interface ProjectLinks {
+  demo?: string
+  itch?: string
+  github?: string
 }
 
+/**
+ * Metadata used by cards, filters and the shared page header. The page body
+ * itself is free-form MDX in content/projects/<slug>.<lang>.mdx.
+ */
 export interface Project {
   slug: string
   title: string
   shortDescription: string
-  context: string
-  problem: string
-  solution: string
-  result: string
+  tagline?: string
   techStack: string[]
   category: ProjectCategory
   colorKey: ProjectColor
   featured: boolean
-  image?: string
-  demoUrl?: string
-  githubUrl?: string
-  tagline?: string
-  features?: ProjectFeature[]
-  screenshots?: string[]
+  personal: boolean
+  status: ProjectStatus
+  cover?: string
+  links?: ProjectLinks
 }
 
 export interface Skill {
