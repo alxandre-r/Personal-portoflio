@@ -4,8 +4,10 @@ Tout ce qui concerne une voiture finit éparpillé : les tickets de carburant da
 
 Aucune application existante ne couvrait l'ensemble de façon fluide : soit trop simplistes, soit pensées pour des flottes professionnelles. Alors je l'ai construite, seul, de la conception au déploiement.
 
-<Callout title="En production">
-Sandy tourne sur Vercel et sert au quotidien. [Ouvrir l'application](https://ma-voiture-sandy.vercel.app/)
+<Callout title="Essayer sans s'inscrire">
+Sandy est en production sur Vercel et **100 % gratuite**. Le **mode démo** ouvre un compte déjà rempli (4 véhicules, 2 ans d'historique, une famille) pour voir toutes les fonctionnalités sans créer de compte : visite guidée de 3 minutes ou exploration libre, et tout se réinitialise d'un clic.
+
+[Lancer la démo](https://ma-voiture-sandy.vercel.app/demo) · [Ouvrir l'application](https://ma-voiture-sandy.vercel.app/)
 </Callout>
 
 ## Un dashboard qui répond à de vraies questions
@@ -52,3 +54,5 @@ Carte grise, attestation d'assurance, contrôle technique : stockés une fois, r
 ## Sous le capot
 
 Next.js et TypeScript côté interface, un back-end Node.js, PostgreSQL pour les données, et un déploiement sur Vercel.
+
+Le mode démo ne touche jamais la base : chaque visiteur a son propre bac à sable, reconstruit côté serveur à partir de données de démonstration, sans rien voir de ce que font les autres.

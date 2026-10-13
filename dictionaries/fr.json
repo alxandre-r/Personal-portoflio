@@ -175,6 +175,7 @@
       },
       "use_app": "Utiliser l'application",
       "see_demo": "Voir la démo",
+      "try_demo": "Essayer la démo, sans inscription",
       "play_itch": "Jouer sur itch.io",
       "tech_stack": "Stack technique",
       "screenshot_alt": "Capture d'écran de",
@@ -183,7 +184,7 @@
     "content": {
       "sandy": {
         "tagline": "Toute la vie de votre voiture, en un seul endroit.",
-        "shortDescription": "Application web de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l'entretien, en un seul endroit."
+        "shortDescription": "Application web gratuite de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l'entretien, en un seul endroit."
       },
       "tempo": {
         "shortDescription": "Outil interne de gestion du temps de travail pour Weinmann Technologies — déclarations d'activités, validation managériale et synchronisation RH."

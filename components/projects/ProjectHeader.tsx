@@ -66,7 +66,7 @@ export function ProjectHeader({ project, color, t, categoryLabels }: ProjectHead
 
         <p className="text-lg text-[var(--color-muted-foreground)] leading-relaxed">{project.shortDescription}</p>
 
-        {(primary || project.links?.github) && (
+        {(primary || project.links?.tryDemo || project.links?.github) && (
           <div className="flex flex-wrap gap-3 mt-6">
             {primary && (
               <a
@@ -78,6 +78,18 @@ export function ProjectHeader({ project, color, t, categoryLabels }: ProjectHead
               >
                 {externalIcon}
                 {primary.label}
+              </a>
+            )}
+            {project.links?.tryDemo && (
+              <a
+                href={project.links.tryDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold border transition-all hover:shadow-lg"
+                style={{ background: color.bgSoft, color: color.text, borderColor: color.border }}
+              >
+                {externalIcon}
+                {t.try_demo}
               </a>
             )}
             {project.links?.github && (

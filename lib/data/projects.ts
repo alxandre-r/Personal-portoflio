@@ -10,14 +10,14 @@ export const projects: Project[] = [
     colorKey: 'indigo',
     cover: '/sandy.png',
     shortDescription:
-      'Application web de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l\'entretien, en un seul endroit.',
+      'Application web gratuite de gestion automobile personnelle et familiale — suivi des dépenses, de la consommation, des documents et de l\'entretien, en un seul endroit.',
     tagline: 'Toute la vie de votre voiture, en un seul endroit.',
     techStack: ['Next.js', 'TypeScript', 'TailwindCSS', 'Framer Motion', 'Node.js', 'PostgreSQL', 'Vercel'],
     category: 'fullstack',
     featured: true,
     personal: true,
     status: 'production',
-    links: { demo: 'https://ma-voiture-sandy.vercel.app/' },
+    links: { demo: 'https://ma-voiture-sandy.vercel.app/', tryDemo: 'https://ma-voiture-sandy.vercel.app/demo' },
   },
   {
     slug: 'tempo',

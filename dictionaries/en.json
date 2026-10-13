@@ -175,6 +175,7 @@
       },
       "use_app": "Use the application",
       "see_demo": "View demo",
+      "try_demo": "Try the demo, no sign-up",
       "play_itch": "Play on itch.io",
       "tech_stack": "Tech stack",
       "screenshot_alt": "Screenshot of",
@@ -183,7 +184,7 @@
     "content": {
       "sandy": {
         "tagline": "Your whole car's life, in one place.",
-        "shortDescription": "A personal and family car-management web app — track expenses, fuel consumption, documents and maintenance, all in one place."
+        "shortDescription": "A free personal and family car-management web app — track expenses, fuel consumption, documents and maintenance, all in one place."
       },
       "tempo": {
         "shortDescription": "An internal time-management tool for Weinmann Technologies — activity logging, manager approval, and HR synchronization."

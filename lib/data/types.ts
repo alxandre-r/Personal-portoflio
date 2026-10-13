@@ -4,6 +4,8 @@ export type ProjectStatus = 'production' | 'in-development' | 'delivered'
 
 export interface ProjectLinks {
   demo?: string
+  /** Sign-up-free demo entry point, shown as a secondary button. */
+  tryDemo?: string
   itch?: string
   github?: string
 }

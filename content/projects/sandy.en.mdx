@@ -4,8 +4,10 @@ Everything about a car ends up scattered: fuel receipts in the glovebox, insuran
 
 No existing app covered all of that smoothly: they were either too simplistic or built for professional fleets. So I built it myself, solo, from design to deployment.
 
-<Callout title="In production">
-Sandy runs on Vercel and is used every day. [Open the app](https://ma-voiture-sandy.vercel.app/)
+<Callout title="Try it without signing up">
+Sandy runs in production on Vercel and is **100% free**. **Demo mode** opens a ready-filled account (4 vehicles, 2 years of history, a family) so you can see every feature without creating an account: a 3-minute guided tour or free exploration, and everything resets in one click.
+
+[Launch the demo](https://ma-voiture-sandy.vercel.app/demo) · [Open the app](https://ma-voiture-sandy.vercel.app/)
 </Callout>
 
 ## A dashboard that answers real questions
@@ -52,3 +54,5 @@ Registration, insurance certificate, inspection report: stored once, and found o
 ## Under the hood
 
 Next.js and TypeScript for the interface, a Node.js back end, PostgreSQL for the data, deployed on Vercel.
+
+Demo mode never touches the database: each visitor gets their own sandbox, rebuilt on the server from demo data, without seeing anything other visitors do.
