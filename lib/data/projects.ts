@@ -75,6 +75,7 @@ export const projects: Project[] = [
     slug: 'fogwar',
     title: 'FogWar',
     colorKey: 'cyan',
+    cover: '/projects/fogwar/main-menu.png',
     shortDescription:
       'RTS de survie en 2D isométrique et pixel art, dans un monde médiéval généré procéduralement : bâtissez un village le jour, défendez-le la nuit face aux pillards qui sortent du brouillard.',
     tagline: 'Le jour, on bâtit. La nuit, on tient.',
