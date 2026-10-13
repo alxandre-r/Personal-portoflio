@@ -31,7 +31,7 @@ export function VisionRadii({ labels }: VisionRadiiProps) {
     <figure className="my-8">
       <svg
         viewBox="0 0 460 260"
-        className="w-full h-auto text-[var(--color-foreground)]"
+        className="mx-auto w-full max-w-xl h-auto text-[var(--color-foreground)]"
         role="img"
         aria-label={sources.map((s) => `${s.label}: ${s.radius} ${labels.tiles}`).join(', ')}
       >

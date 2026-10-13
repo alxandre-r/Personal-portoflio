@@ -51,7 +51,7 @@ export function EconomyLoop({ labels }: EconomyLoopProps) {
     <figure className="my-8">
       <svg
         viewBox="0 0 560 280"
-        className="w-full h-auto text-[var(--color-foreground)]"
+        className="mx-auto w-full max-w-xl h-auto text-[var(--color-foreground)]"
         role="img"
         aria-label={edges.map(([a, b]) => `${labels[a]} → ${labels[b]}`).join(', ')}
       >
