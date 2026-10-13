@@ -1,0 +1,101 @@
+import { VisionRadii } from '@/components/projects/fogwar/VisionRadii'
+import { EconomyLoop } from '@/components/projects/fogwar/EconomyLoop'
+
+## Le pitch
+
+FogWar est un jeu de stratégie en temps réel et de survie. Vous développez une colonie dans un monde hostile, et les vagues d'ennemis arrivent… depuis le brouillard.
+
+Deux règles changent tout : **ce que vous ne voyez pas peut vous attaquer**, et **vous ne pouvez construire que là où vous voyez**. Chaque partie devient un arbitrage permanent entre s'étendre pour trouver des ressources et rester dans la lumière pour survivre.
+
+<Callout title="En développement">
+Projet personnel, développé sur mon temps libre. [Suivre le jeu sur itch.io](https://alexandrenotdev.itch.io/fogwar)
+</Callout>
+
+<Placeholder label="GIF : vue d'ensemble d'une partie, la colonie entourée de brouillard" />
+
+## La vision est une ressource
+
+Le brouillard de guerre n'est pas un décor, c'est le système central du jeu :
+
+- hors de vision, la carte est inconnue et **les ennemis sont invisibles** ;
+- **impossible de construire** hors de vision ;
+- une zone explorée mais plus surveillée reste visible, en grisé.
+
+Chaque bâtiment, chaque villageois et chaque torche éclaire un rayon autour de lui :
+
+<VisionRadii
+  labels={{
+    watchtower: "Tour d'observation",
+    townHall: 'Hôtel de ville',
+    torch: 'Torche',
+    villager: 'Villageois',
+    tiles: 'tuiles',
+  }}
+/>
+
+Les torches sont l'outil d'expansion : 10 de bois pour 60 secondes de lumière, puis le rayon se réduit progressivement pendant 10 secondes. Une torche éteinte ne disparaît pas, un villageois peut aller la rallumer. **La lumière s'entretient**, et c'est autant de villageois qui ne récoltent pas.
+
+<Callout title="Sous le capot">
+Le brouillard est une texture de 100 × 100 pixels : **un pixel par tuile**. Toutes les 0,3 seconde, le système parcourt les sources de vision et recalcule la clarté de chaque tuile. La bordure est adoucie par un *smoothstep* sur 1,5 tuile, et le filtrage bilinéaire de la texture fait le reste.
+</Callout>
+
+Toutes les sources de lumière partagent la même interface. Ajouter un nouveau type de source, c'est implémenter trois propriétés :
+
+```csharp
+public interface IVisionSource
+{
+    Vector3 Position     { get; }
+    float   VisionRadius { get; }
+    bool    IsActive     { get; }
+}
+```
+
+## La nuit et la météo vous rendent aveugle
+
+Le temps passe : 15 secondes réelles font une heure de jeu, et la nuit tombe à 20 h. Entre deux périodes de beau temps, la météo s'en mêle. Chaque condition applique un **multiplicateur** au rayon de toutes les sources de vision, et ils se cumulent :
+
+| Condition | Multiplicateur | Rayon d'une torche |
+|---|---|---|
+| Jour, temps clair | ×1,0 | 6 tuiles |
+| Pluie | ×0,9 | 5,4 tuiles |
+| Tempête | ×0,8 | 4,8 tuiles |
+| Nuit | ×0,6 | 3,6 tuiles |
+| Brouillard | ×0,4 | 2,4 tuiles |
+| **Nuit + brouillard** | **×0,24** | **1,4 tuile** |
+
+Le brouillard n'arrive pas au hasard : sa probabilité suit une courbe en cloche centrée sur **5 h du matin**, l'heure la plus sombre, juste avant l'aube. La couleur et l'opacité du brouillard changent aussi avec la météo, avec des transitions douces pour que le joueur *sente* la visibilité baisser avant de la mesurer.
+
+<Placeholder label="Vidéo : le brouillard se referme à la tombée de la nuit" />
+
+## Une carte différente à chaque partie
+
+La carte de 100 × 100 tuiles est générée procéduralement par **plusieurs couches de bruit de Perlin**. Chaque couche (petits, moyens, grands arbres…) a sa propre échelle de bruit et ses seuils : au-dessus d'un seuil on fait apparaître un élément, au-dessus d'un second il devient plus grand. Un décalage aléatoire par couche change la carte à chaque partie.
+
+Une **zone d'exclusion** autour du point de départ garantit un espace pour construire, et les forêts contiennent une quantité de bois limitée : il faudra aller la chercher plus loin, donc dans le noir.
+
+<Placeholder label="Capture : deux cartes générées côte à côte" />
+
+## Une économie sous pression
+
+<EconomyLoop
+  labels={{
+    wood: 'Bois',
+    buildings: 'Maisons & fermes',
+    food: 'Nourriture',
+    villagers: 'Villageois',
+    market: 'Marché',
+    gold: 'Or',
+    research: 'Recherches',
+  }}
+/>
+
+On démarre avec 60 de bois et 80 de nourriture. Chaque villageois mange une unité toutes les 30 secondes, et le marché convertit la nourriture en or pour financer les **recherches** du laboratoire : vision des villageois et des bâtiments, vitesse, dégâts des tours, durée des torches.
+
+Pendant ce temps, les vagues arrivent : la première au bout de 4 minutes, puis toutes les 100 à 140 secondes, avec **3 + (N − 1) × 3** ennemis à la vague N. Elles apparaissent toujours **hors de votre vision**, depuis un bord de carte aléatoire, et visent le bâtiment le plus proche. Pour gagner, il faut survivre à 20 vagues.
+
+## Comment je le construis
+
+- **Unity 6 et URP**, en C#.
+- **Les données dans des ScriptableObjects** : bâtiments, ennemis et améliorations se règlent dans l'éditeur, l'équilibrage ne touche pas au code.
+- **NavMesh** pour le déplacement des ennemis, qui attaquent tout ce qui bloque leur chemin.
+- **Un process d'ingénieur, même pour un jeu** : un game design document, puis pour chaque fonctionnalité (générateur de monde, effets météo, refonte des améliorations…) une spec de design, un plan d'implémentation, et des petits commits.

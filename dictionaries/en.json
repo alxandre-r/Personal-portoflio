@@ -171,6 +171,10 @@
       },
       "espace-client-weinmann": {
         "shortDescription": "A client web portal to view connected paint booths' consumption and status in real time — final-year engineering project."
+      },
+      "fogwar": {
+        "tagline": "What you can't see is coming for you.",
+        "shortDescription": "A 2D pixel-art real-time strategy and survival game: build a colony, hold off enemy waves, and keep the fog at bay with your light sources."
       }
     }
   },

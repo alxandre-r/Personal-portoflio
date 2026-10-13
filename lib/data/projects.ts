@@ -67,6 +67,20 @@ export const projects: Project[] = [
     personal: false,
     status: 'delivered',
   },
+  {
+    slug: 'fogwar',
+    title: 'FogWar',
+    colorKey: 'cyan',
+    shortDescription:
+      'Jeu de stratégie en temps réel et de survie en 2D pixel art : bâtissez une colonie, repoussez les vagues ennemies, et gardez le brouillard à distance avec vos sources de lumière.',
+    tagline: 'Ce que vous ne voyez pas vient vous chercher.',
+    techStack: ['Unity 6', 'C#', 'URP', 'NavMesh', 'ScriptableObjects'],
+    category: 'game',
+    featured: false,
+    personal: true,
+    status: 'in-development',
+    links: { itch: 'https://alexandrenotdev.itch.io/fogwar' },
+  },
 ]
 
 export const featuredProjects = projects.filter((p) => p.featured)

@@ -1,0 +1,101 @@
+import { VisionRadii } from '@/components/projects/fogwar/VisionRadii'
+import { EconomyLoop } from '@/components/projects/fogwar/EconomyLoop'
+
+## The pitch
+
+FogWar is a real-time strategy and survival game. You grow a colony in a hostile world, and waves of enemies come at you… out of the fog.
+
+Two rules change everything: **what you can't see can attack you**, and **you can only build where you can see**. Every game becomes a constant trade-off between expanding to find resources and staying in the light to survive.
+
+<Callout title="In development">
+A personal project, built in my spare time. [Follow the game on itch.io](https://alexandrenotdev.itch.io/fogwar)
+</Callout>
+
+<Placeholder label="GIF: overview of a game, the colony surrounded by fog" />
+
+## Vision is a resource
+
+The fog of war isn't scenery, it's the game's core system:
+
+- outside your vision, the map is unknown and **enemies are invisible**;
+- **you can't build** outside your vision;
+- explored areas you no longer watch stay visible, greyed out.
+
+Every building, villager and torch lights up a radius around it:
+
+<VisionRadii
+  labels={{
+    watchtower: 'Watchtower',
+    townHall: 'Town hall',
+    torch: 'Torch',
+    villager: 'Villager',
+    tiles: 'tiles',
+  }}
+/>
+
+Torches are your expansion tool: 10 wood buys 60 seconds of light, then the radius shrinks over 10 seconds. A burnt-out torch stays on the map, and a villager can walk over to relight it. **Light needs upkeep**, and every villager doing it is one not gathering.
+
+<Callout title="Under the hood">
+The fog is a 100 × 100 pixel texture: **one pixel per tile**. Every 0.3 seconds the system walks the vision sources and recomputes each tile's clearness. The edge is softened with a *smoothstep* over 1.5 tiles, and the texture's bilinear filtering does the rest.
+</Callout>
+
+All light sources share the same interface. Adding a new kind of source means implementing three properties:
+
+```csharp
+public interface IVisionSource
+{
+    Vector3 Position     { get; }
+    float   VisionRadius { get; }
+    bool    IsActive     { get; }
+}
+```
+
+## Night and weather blind you
+
+Time flows: 15 real seconds make one in-game hour, and night falls at 8 pm. Between clear spells, the weather joins in. Each condition applies a **multiplier** to the radius of every vision source, and they stack:
+
+| Condition | Multiplier | Torch radius |
+|---|---|---|
+| Day, clear | ×1.0 | 6 tiles |
+| Rain | ×0.9 | 5.4 tiles |
+| Storm | ×0.8 | 4.8 tiles |
+| Night | ×0.6 | 3.6 tiles |
+| Fog | ×0.4 | 2.4 tiles |
+| **Night + fog** | **×0.24** | **1.4 tiles** |
+
+Fog doesn't roll in at random: its likelihood follows a bell curve centred on **5 am**, the darkest hour, right before dawn. The fog's colour and opacity also shift with the weather, with smooth transitions so the player *feels* visibility drop before measuring it.
+
+<Placeholder label="Video: fog closing in as night falls" />
+
+## A different map every game
+
+The 100 × 100 tile map is generated procedurally from **several layers of Perlin noise**. Each layer (small, medium, large trees…) has its own noise scale and thresholds: above one threshold something spawns, above a second one it grows bigger. A random offset per layer makes every map different.
+
+An **exclusion zone** around the starting point guarantees room to build, and forests hold a limited amount of wood: sooner or later you'll have to fetch it further out, in the dark.
+
+<Placeholder label="Screenshot: two generated maps side by side" />
+
+## An economy under pressure
+
+<EconomyLoop
+  labels={{
+    wood: 'Wood',
+    buildings: 'Houses & farms',
+    food: 'Food',
+    villagers: 'Villagers',
+    market: 'Market',
+    gold: 'Gold',
+    research: 'Research',
+  }}
+/>
+
+You start with 60 wood and 80 food. Each villager eats one unit every 30 seconds, and the market turns food into gold to fund the laboratory's **research**: villager and building vision, speed, tower damage, torch duration.
+
+Meanwhile the waves keep coming: the first after 4 minutes, then every 100 to 140 seconds, with **3 + (N − 1) × 3** enemies in wave N. They always spawn **outside your vision**, from a random map edge, and go for the nearest building. To win, survive 20 waves.
+
+## How I build it
+
+- **Unity 6 and URP**, in C#.
+- **Data in ScriptableObjects**: buildings, enemies and upgrades are tuned in the editor; balancing never touches code.
+- **NavMesh** for enemy pathfinding; enemies attack anything blocking their way.
+- **An engineer's process, even for a game**: a game design document, then for each feature (world generator, weather effects, upgrade redesign…) a design spec, an implementation plan, and small commits.
