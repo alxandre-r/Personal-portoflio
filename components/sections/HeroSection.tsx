@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
+import { forStatus, isSeeking } from '@/lib/careerStatus'
 import type { Dictionary } from '@/lib/locales'
 
 interface HeroSectionProps {
@@ -31,10 +32,17 @@ export function HeroSection({ t, lang }: HeroSectionProps) {
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
         <motion.div variants={fadeInUp} className="mb-6">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            {t.status}
-          </span>
+          {isSeeking ? (
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {forStatus(t.status)}
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)] ring-1 ring-[var(--color-accent)]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+              {forStatus(t.status)}
+            </span>
+          )}
         </motion.div>
         <motion.h1
           variants={fadeInUp}

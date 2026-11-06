@@ -11,7 +11,10 @@
       "description": "Portfolio d'Alexandre, ingénieur logiciel et développeur fullstack. Spécialisé en Next.js, TypeScript, React et Node.js."
     },
     "hero": {
-      "status": "Ouvert aux opportunités - emploi à temps plein",
+      "status": {
+        "employed": "Analyste Programmeur chez Tir Technologies",
+        "seeking": "Ouvert aux opportunités - emploi à temps plein"
+      },
       "title": "Ingénieur Logiciel",
       "subtitle": "& Développeur Fullstack",
       "tagline": "Je conçois et développe des applications web performantes, en mettant l'accent sur l'expérience utilisateur, la qualité du code et la valeur produit.",
@@ -47,16 +50,28 @@
   "about": {
     "meta": {
       "title": "À propos",
-      "description": "Ingénieur informatique diplômé du CNAM, développeur fullstack curieux et organisé, à la recherche d'un emploi à temps plein."
+      "description": {
+        "employed": "Ingénieur informatique diplômé du CNAM, développeur fullstack curieux et organisé, aujourd'hui Analyste Programmeur chez Tir Technologies.",
+        "seeking": "Ingénieur informatique diplômé du CNAM, développeur fullstack curieux et organisé, à la recherche d'un emploi à temps plein."
+      }
     },
     "eyebrow": "À propos",
     "title": "Ingénieur logiciel,",
     "title_highlight": "curieux de nature",
     "description_1": "Je suis Alexandre, fraîchement diplômé ingénieur informatique du CNAM. Au fil de mon parcours, en formation comme en entreprise, j'ai acquis des compétences techniques et humaines dans des domaines variés : développement web, infrastructure système, gestion de projet et même informatique embarquée.",
     "description_2": "Perfectionniste de nature, j'ai une appétence particulière pour le frontend : des interfaces claires, bien organisées et pensées pour le métier de ceux qui les utilisent. Front comme back, je soigne l'architecture et la qualité du code : principes SOLID, design patterns et conventions.",
-    "description_3_prefix": "Je recherche aujourd'hui un ",
-    "description_3_bold": "emploi à temps plein",
-    "description_3_suffix": " dans une entreprise où je pourrai continuer à apprendre, relever des défis techniques et contribuer à des projets concrets.",
+    "description_3": {
+      "employed": {
+        "prefix": "Depuis novembre 2026, je suis ",
+        "bold": "Analyste Programmeur chez Tir Technologies",
+        "suffix": ", où je découvre l'ERP Infor CSI SyteLine et les outils développés en interne."
+      },
+      "seeking": {
+        "prefix": "Je recherche aujourd'hui un ",
+        "bold": "emploi à temps plein",
+        "suffix": " dans une entreprise où je pourrai continuer à apprendre, relever des défis techniques et contribuer à des projets concrets."
+      }
+    },
     "cta_contact": "Me contacter",
     "cta_cv": "Télécharger mon CV",
     "cv_modal": {
@@ -79,6 +94,14 @@
       { "title": "Curieux", "desc": "Envie constante d'apprendre, de comprendre comment les choses fonctionnent et de découvrir de nouvelles technologies." }
     ],
     "timeline": [
+      {
+        "year": "Depuis nov. 2026",
+        "title": "Analyste Programmeur",
+        "institution": "Tir Technologies",
+        "description": "Prise de poste récente, en phase de formation. Le périmètre : les demandes d'évolution des écrans de l'ERP Infor CSI SyteLine (tables, IDO, formulaires) et les briques logicielles développées en interne : CRM, Espace Pro, MES et Intranet.",
+        "highlight": "",
+        "tags": ["Infor CSI SyteLine", "ERP", "CRM", "MES", "Intranet"]
+      },
       {
         "year": "2022 - 2025",
         "title": "Diplôme d'ingénieur informatique en alternance",
@@ -207,16 +230,32 @@
   "contact": {
     "meta": {
       "title": "Contact",
-      "description": "Envoyez-moi un message pour discuter de vos projets ou opportunités d'emploi. Je réponds sous 24h."
+      "description": {
+        "employed": "Envoyez-moi un message pour échanger autour d'un projet, d'une question technique ou d'une collaboration. Je réponds sous 24h.",
+        "seeking": "Envoyez-moi un message pour discuter de vos projets ou opportunités d'emploi. Je réponds sous 24h."
+      }
     },
     "eyebrow": "Contact",
-    "title": "Travaillons",
-    "title_highlight": "ensemble",
-    "subtitle": "Vous recrutez ? Vous avez un projet ou une collaboration en tête ? N'hésitez pas à m'écrire - je réponds généralement sous 24h.",
+    "heading": {
+      "employed": { "title": "Restons", "title_highlight": "en contact" },
+      "seeking": { "title": "Travaillons", "title_highlight": "ensemble" }
+    },
+    "subtitle": {
+      "employed": "Un projet, une question technique ou simplement envie d'échanger ? N'hésitez pas à m'écrire - je réponds généralement sous 24h.",
+      "seeking": "Vous recrutez ? Vous avez un projet ou une collaboration en tête ? N'hésitez pas à m'écrire - je réponds généralement sous 24h."
+    },
     "find_me": "Me retrouver",
     "phone_label": "Téléphone",
-    "availability": "Disponible",
-    "availability_desc": "Fraîchement diplômé ingénieur, je suis à la recherche d'un emploi à temps plein dans une entreprise ambitieuse.",
+    "availability": {
+      "employed": {
+        "label": "En poste",
+        "desc": "Analyste Programmeur chez Tir Technologies depuis novembre 2026. Je ne suis pas en recherche active, mais je reste ouvert aux échanges et aux rencontres professionnelles."
+      },
+      "seeking": {
+        "label": "Disponible",
+        "desc": "Fraîchement diplômé ingénieur, je suis à la recherche d'un emploi à temps plein dans une entreprise ambitieuse."
+      }
+    },
     "send_message": "Envoyer un message",
     "fields": {
       "name": "Nom",

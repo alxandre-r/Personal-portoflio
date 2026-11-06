@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
 import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
+import { forStatus } from '@/lib/careerStatus'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Badge } from '@/components/ui/Badge'
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getDictionary(lang as Locale)
   return {
     title: t.about.meta.title,
-    description: t.about.meta.description,
+    description: forStatus(t.about.meta.description),
     openGraph: buildOpenGraph(lang as Locale),
     alternates: buildAlternates(lang as Locale, '/about'),
   }
@@ -33,6 +34,7 @@ export default async function AboutPage({ params }: Props) {
   if (!isLocale(lang)) notFound()
   const t = await getDictionary(lang as Locale)
   const { about } = t
+  const description3 = forStatus(about.description_3)
 
   return (
     <PageTransition>
@@ -49,9 +51,9 @@ export default async function AboutPage({ params }: Props) {
             <p className="text-[var(--color-muted-foreground)] text-lg leading-relaxed">{about.description_1}</p>
             <p className="text-[var(--color-muted-foreground)] leading-relaxed">{about.description_2}</p>
             <p className="text-[var(--color-muted-foreground)] leading-relaxed">
-              {about.description_3_prefix}
-              <strong className="text-[var(--color-foreground)]">{about.description_3_bold}</strong>
-              {about.description_3_suffix}
+              {description3.prefix}
+              <strong className="text-[var(--color-foreground)]">{description3.bold}</strong>
+              {description3.suffix}
             </p>
           </div>
           <div className="flex flex-wrap gap-3 mt-8">

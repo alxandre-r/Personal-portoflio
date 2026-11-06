@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n'
 import { buildAlternates, buildOpenGraph } from '@/lib/metadata'
+import { forStatus, isSeeking } from '@/lib/careerStatus'
+import { cn } from '@/lib/utils/cn'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { ContactForm } from '@/components/contact/ContactForm'
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getDictionary(lang as Locale)
   return {
     title: t.contact.meta.title,
-    description: t.contact.meta.description,
+    description: forStatus(t.contact.meta.description),
     openGraph: buildOpenGraph(lang as Locale),
     alternates: buildAlternates(lang as Locale, '/contact'),
   }
@@ -70,6 +72,8 @@ export default async function ContactPage({ params }: Props) {
   const t = await getDictionary(lang as Locale)
   const { contact } = t
   const contactInfo = getContactInfo(contact.phone_label)
+  const heading = forStatus(contact.heading)
+  const availability = forStatus(contact.availability)
 
   return (
     <PageTransition>
@@ -77,9 +81,9 @@ export default async function ContactPage({ params }: Props) {
         <AnimatedSection className="mb-12 text-center">
           <p className="text-sm font-medium text-[var(--color-accent)] mb-2">{contact.eyebrow}</p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            {contact.title} <span className="gradient-text">{contact.title_highlight}</span>
+            {heading.title} <span className="gradient-text">{heading.title_highlight}</span>
           </h1>
-          <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto text-lg">{contact.subtitle}</p>
+          <p className="text-[var(--color-muted-foreground)] max-w-xl mx-auto text-lg">{forStatus(contact.subtitle)}</p>
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -100,10 +104,10 @@ export default async function ContactPage({ params }: Props) {
             </div>
             <div className="bg-[var(--color-accent)]/5 rounded-xl border border-[var(--color-accent)]/20 p-6">
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-sm font-medium text-[var(--color-foreground)]">{contact.availability}</span>
+                <span className={cn('w-2 h-2 rounded-full', isSeeking ? 'bg-emerald-400 animate-pulse' : 'bg-[var(--color-accent)]')} />
+                <span className="text-sm font-medium text-[var(--color-foreground)]">{availability.label}</span>
               </div>
-              <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{contact.availability_desc}</p>
+              <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{availability.desc}</p>
             </div>
           </AnimatedSection>
 

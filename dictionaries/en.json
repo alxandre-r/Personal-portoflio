@@ -11,7 +11,10 @@
       "description": "Alexandre's portfolio, software engineer and fullstack developer. Specialized in Next.js, TypeScript, React and Node.js."
     },
     "hero": {
-      "status": "Open to opportunities - full-time position",
+      "status": {
+        "employed": "Programmer Analyst at Tir Technologies",
+        "seeking": "Open to opportunities - full-time position"
+      },
       "title": "Software Engineer",
       "subtitle": "& Fullstack Developer",
       "tagline": "I design and develop high-performance web applications, focusing on user experience, code quality and product value.",
@@ -47,16 +50,28 @@
   "about": {
     "meta": {
       "title": "About",
-      "description": "CNAM-graduated software engineer, curious and organized fullstack developer, looking for a full-time position."
+      "description": {
+        "employed": "CNAM-graduated software engineer, curious and organized fullstack developer, now a Programmer Analyst at Tir Technologies.",
+        "seeking": "CNAM-graduated software engineer, curious and organized fullstack developer, looking for a full-time position."
+      }
     },
     "eyebrow": "About",
     "title": "Software engineer,",
     "title_highlight": "curious by nature",
     "description_1": "I'm Alexandre, a recently graduated software engineer from CNAM. Throughout my journey, both in education and at work, I've acquired technical and interpersonal skills across various domains: web development, system infrastructure, project management and even embedded systems.",
     "description_2": "A perfectionist by nature, I have a soft spot for front-end work: clear, well-organized interfaces built around the job of the people who use them. Front end or back end, I take care of architecture and code quality: SOLID principles, design patterns and conventions.",
-    "description_3_prefix": "I'm currently looking for a ",
-    "description_3_bold": "full-time position",
-    "description_3_suffix": " at a company where I can keep learning, tackle technical challenges and contribute to concrete projects.",
+    "description_3": {
+      "employed": {
+        "prefix": "Since November 2026, I've been a ",
+        "bold": "Programmer Analyst at Tir Technologies",
+        "suffix": ", where I'm getting to know the Infor CSI SyteLine ERP and the tools built in-house."
+      },
+      "seeking": {
+        "prefix": "I'm currently looking for a ",
+        "bold": "full-time position",
+        "suffix": " at a company where I can keep learning, tackle technical challenges and contribute to concrete projects."
+      }
+    },
     "cta_contact": "Contact me",
     "cta_cv": "Download my CV",
     "cv_modal": {
@@ -79,6 +94,14 @@
       { "title": "Curious", "desc": "Constant drive to learn, understand how things work and discover new technologies." }
     ],
     "timeline": [
+      {
+        "year": "Since Nov. 2026",
+        "title": "Programmer Analyst",
+        "institution": "Tir Technologies",
+        "description": "Recently started, currently in training. The scope: change requests on Infor CSI SyteLine ERP screens (tables, IDOs, forms) and the software built in-house: CRM, Pro Portal, MES and Intranet.",
+        "highlight": "",
+        "tags": ["Infor CSI SyteLine", "ERP", "CRM", "MES", "Intranet"]
+      },
       {
         "year": "2022 - 2025",
         "title": "Computer Engineering Degree (work-study)",
@@ -207,16 +230,32 @@
   "contact": {
     "meta": {
       "title": "Contact",
-      "description": "Send me a message to discuss your projects or job opportunities. I reply within 24h."
+      "description": {
+        "employed": "Send me a message to talk about a project, a technical question or a collaboration. I reply within 24h.",
+        "seeking": "Send me a message to discuss your projects or job opportunities. I reply within 24h."
+      }
     },
     "eyebrow": "Contact",
-    "title": "Let's work",
-    "title_highlight": "together",
-    "subtitle": "Are you hiring? Do you have a project or collaboration in mind? Feel free to write — I usually reply within 24h.",
+    "heading": {
+      "employed": { "title": "Let's stay", "title_highlight": "in touch" },
+      "seeking": { "title": "Let's work", "title_highlight": "together" }
+    },
+    "subtitle": {
+      "employed": "A project, a technical question or just want to chat? Feel free to write — I usually reply within 24h.",
+      "seeking": "Are you hiring? Do you have a project or collaboration in mind? Feel free to write — I usually reply within 24h."
+    },
     "find_me": "Find me",
     "phone_label": "Phone",
-    "availability": "Available",
-    "availability_desc": "Recently graduated engineer, I'm looking for a full-time position at an ambitious company.",
+    "availability": {
+      "employed": {
+        "label": "Currently employed",
+        "desc": "Programmer Analyst at Tir Technologies since November 2026. I'm not actively looking, but I'm always happy to talk and meet people in the field."
+      },
+      "seeking": {
+        "label": "Available",
+        "desc": "Recently graduated engineer, I'm looking for a full-time position at an ambitious company."
+      }
+    },
     "send_message": "Send a message",
     "fields": {
       "name": "Name",
